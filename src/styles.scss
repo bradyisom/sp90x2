@@ -1,1 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
+// @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.scss';
+// @import '~@angular/material/core/theming/prebuilt/purple-green.scss';
+
+@import '~@angular/material/core/theming/all-theme';
+
+@include md-core();
+
+// LIGHT
+// $primary: md-palette($md-blue-grey);
+// $accent:  md-palette($md-deep-orange, A200, A100, A400);
+
+// $warn:    md-palette($md-red);
+
+// $theme: md-light-theme($primary, $accent, $warn);
+
+// @include angular-material-theme($theme);
+
+// DARK
+$dark-primary: md-palette($md-grey);
+$dark-accent:  md-palette($md-deep-orange, A200, A100, A400);
+$dark-warn:    md-palette($md-red);
+
+$dark-theme: md-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+@include angular-material-theme($dark-theme);
+
+// OTHER
+body, html {
+    margin: 0;
+    background-color: black;
+    color: white;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
