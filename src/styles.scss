@@ -28,7 +28,20 @@ $dark-theme: md-dark-theme($dark-primary, $dark-accent, $dark-warn);
 // OTHER
 body, html {
     margin: 0;
-    background-color: black;
+    background-color: map-get($md-dark-theme-background, background);
     color: white;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.app-loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
 }

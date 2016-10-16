@@ -1,8 +1,51 @@
+.app-logo {
+    cursor: pointer;
+
+    img {
+        width: 300px;
+        vertical-align: top;
+    }
+}
+
 .spacer {
     flex: 1 1 auto;
 }
 
+.user-name {
+    display: none;
+}
+@media (min-width:640px) {
+    .user-name {
+        display: inline;
+    }
+}
+
+.user-avatar,
 [gravatar] {
+    height: 40px;
+    width: 40px;
     border-radius: 50%;
     vertical-align: middle;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+md-toolbar {
+    flex: 0 0 auto;
+}
+
+md-sidenav-layout {
+    flex: 1 1 auto;
+}
+
+.top-content {
+    padding: 20px;
 }
