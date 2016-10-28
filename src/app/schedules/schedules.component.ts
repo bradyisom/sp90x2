@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -11,7 +10,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class SchedulesComponent implements OnInit {
   list: FirebaseListObservable<any> = null;
 
-  constructor(private auth: AuthService, private af: AngularFire, private router: Router) { }
+  constructor(private auth: AuthService, private af: AngularFire) { }
 
   ngOnInit() {
     this.auth.user.subscribe(user => {
@@ -24,8 +23,8 @@ export class SchedulesComponent implements OnInit {
     });
   }
 
-  addSchedule() {
-    this.router.navigate(['/editschedule']);
+  removeSchedule(schedule: any) {
+    this.list.remove(schedule);
   }
 
 }

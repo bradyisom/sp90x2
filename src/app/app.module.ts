@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SchedulesComponent } from './schedules/schedules.component';
+import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo",
@@ -34,11 +35,13 @@ export const firebaseAuthConfig = {
     Gravatar,
     LoginComponent,
     HomeComponent,
-    SchedulesComponent
+    SchedulesComponent,
+    EditScheduleComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     MaterialModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
@@ -53,6 +56,12 @@ export const firebaseAuthConfig = {
         children: [{
             path: 'schedules',
             component: SchedulesComponent
+        }, {
+            path: 'newschedule',
+            component: EditScheduleComponent
+        }, {
+            path: 'editschedule/:id',
+            component: EditScheduleComponent
         }]
       },
       { path: 'login', component: LoginComponent }

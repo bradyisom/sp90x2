@@ -6,3 +6,9 @@
     position: fixed;
     right: 24px;
 }
+
+md-list-item {
+    button {
+        flex: 0 0 auto;
+    }
+}
