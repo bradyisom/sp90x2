@@ -1,18 +1,35 @@
 <form [formGroup]="editForm">
-  <div>
+  <div class="form-group">
     <label>Title:</label>
     <md-input type="text" formControlName="programTitle"></md-input>
   </div>
-  <div>
+  <div class="form-group">
+    <label>Program:</label>
+    <select formControlName="program" required>
+      <option *ngFor="let program of (programs | async)" [ngValue]="program.$key">
+        {{ program.title }}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
     <label>Start date:</label>
     <md-input type="date" formControlName="startDate"></md-input>
   </div>
-  <div>
+  <div class="form-group">
     <label>End date:</label>
     <md-input type="date" formControlName="endDate"></md-input>
   </div>
-  <button md-raised-button color="primary" type="submit"
-    [disabled]="editForm.status !== 'VALID'" (click)="save()">Save</button>
-  <button md-raised-button color="primary" 
+  <button md-raised-button color="primary" type="button"
+    [disabled]="editForm.invalid" (click)="save()">Save</button>
+  <button md-raised-button color="primary" type="button"
     routerLink="/schedules">Cancel</button>
 </form>
+<fieldset>
+  <legend>Program Details</legend>
+  <md-list>
+    <md-list-item *ngFor="let task of (filteredTasks | async)">
+      <h3 md-line>{{task.title}} ({{task.defaultInterval}})</h3>
+      <p md-line class="task-description">{{task.description}}</p>
+    </md-list-item>
+  </md-list>
+</fieldset>

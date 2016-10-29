@@ -1,7 +1,25 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    > * {
+        flex: 1 1 auto;
+        margin-bottom: 40px;
+    }
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
 label {
     display: block;
     clear: both;
 }
-datepicker {
-    display: block;
+select {
+    margin: 16px 0;
+}
+
+.task-description {
+    white-space: normal;
+    opacity: 0.3;
 }

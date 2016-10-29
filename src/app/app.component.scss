@@ -28,7 +28,8 @@
     vertical-align: middle;
 }
 
-:host {
+:host,
+.app-ct {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -47,5 +48,7 @@ md-sidenav-layout {
 }
 
 .top-content {
+    flex: 1 1 auto;
+    overflow: auto;
     padding: 20px;
 }
