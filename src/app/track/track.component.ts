@@ -16,6 +16,7 @@ export class TrackComponent implements OnInit {
   public date: any = moment().startOf('day').toISOString();
   public programDay: number;
   public dailyTasks: Observable<any>;
+  public monthlyTasks: Observable<any>;
   scheduleId: string;
   startDate: any;
   endDate: any;
@@ -74,6 +75,18 @@ export class TrackComponent implements OnInit {
             }
           });
         }
+        return doToday;
+      });
+    });
+
+    this.monthlyTasks = this.tasks.map((tasks) => {
+      // console.log('program.tasks', this.program.tasks);
+      return _.filter(tasks, (t: any) => {
+        let frequency: string = this.program.tasks[t.$key];
+        if (!frequency) {
+          return false;
+        }
+        let doToday: boolean = frequency == 'monthly';
         return doToday;
       });
     });

@@ -25,4 +25,20 @@
       {{task.description}}
     </p>    
   </md-list-item>
+  <h3 md-subheader>
+    Monthly Tasks
+  </h3>
+  <md-list-item *ngFor="let task of (monthlyTasks | async)">
+    <md-checkbox>
+    </md-checkbox>
+    <h2 md-line>
+      {{task.title}}
+    </h2>
+    <p md-line class="sub-task" *ngIf="task.subTaskText">
+      {{task.subTaskText}}
+    </p>
+    <p md-line class="task-description">
+      {{task.description}}
+    </p>    
+  </md-list-item>
 </md-list>
