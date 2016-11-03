@@ -9,12 +9,15 @@ import { Gravatar } from 'ng2-gravatar-directive';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { AuthResolver } from './auth-resolver.service';
+
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { SchedulesComponent } from './schedules/schedules.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
+import { TrackComponent } from './track/track.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo",
@@ -36,7 +39,8 @@ export const firebaseAuthConfig = {
     LoginComponent,
     HomeComponent,
     SchedulesComponent,
-    EditScheduleComponent
+    EditScheduleComponent,
+    TrackComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,11 @@ export const firebaseAuthConfig = {
     RouterModule.forRoot([
       {
         path: '',
+        redirectTo: '/home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
         component: HomeComponent
       },
       { 
@@ -55,21 +64,36 @@ export const firebaseAuthConfig = {
         canActivateChild: [AuthGuard],
         children: [{
             path: 'schedules',
-            component: SchedulesComponent
+            component: SchedulesComponent,
         }, {
             path: 'newschedule',
             component: EditScheduleComponent
         }, {
             path: 'editschedule/:id',
             component: EditScheduleComponent
+        }, {
+            path: 'track/:scheduleId',
+            component: TrackComponent,
+            resolve: {
+              user: AuthResolver
+            },
+        }, {
+            path: 'track/:scheduleId/:date',
+            component: TrackComponent
         }]
       },
-      { path: 'login', component: LoginComponent }
-    ])
+      { 
+        path: 'login',
+        component: LoginComponent
+      }
+    ], {
+      initialNavigation: true
+    })
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    AuthResolver
   ],
   bootstrap: [AppComponent]
 })

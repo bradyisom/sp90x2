@@ -1,0 +1,28 @@
+<h2>{{(schedule | async)?.programTitle}}</h2>
+<h4>
+  <button md-icon-button (click)="moveDay(-1)">
+    <md-icon>arrow_back</md-icon>
+  </button>
+  {{date | date:'fullDate'}} - Day {{programDay}}
+  <button md-icon-button (click)="moveDay(1)">
+    <md-icon>arrow_forward</md-icon>
+  </button>
+</h4>
+<md-list>
+  <h3 md-subheader>
+    Daily Tasks
+  </h3>
+  <md-list-item *ngFor="let task of (dailyTasks | async)">
+    <md-checkbox>
+    </md-checkbox>
+    <h2 md-line>
+      {{task.title}}
+    </h2>
+    <p md-line class="sub-task" *ngIf="task.subTaskText">
+      {{task.subTaskText}}
+    </p>
+    <p md-line class="task-description">
+      {{task.description}}
+    </p>    
+  </md-list-item>
+</md-list>

@@ -1,3 +1,13 @@
-<p>
+<div>
   Welcome to SP90X!
-</p>
+</div>
+<div *ngIf="user">
+  <h3>Active Schedules</h3>
+  <md-list>
+    <a md-list-item *ngFor="let item of activeSchedules | async"
+      href="" routerLink="/track/{{item.$key}}">
+      <h3 md-line>{{ item.programTitle }}</h3>
+      <p md-line class="schedule-dates">{{item.startDate | date}} - {{item.endDate | date}}</p>
+    </a>
+  </md-list>
+</div>
