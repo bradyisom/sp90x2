@@ -2,6 +2,17 @@
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
 
+## TODO
+
+- [x] Edit schedule
+- [x] Show and track tasks by day
+- [ ] Show and calculate points
+- [ ] Implement fit test and add to tracking days
+- [ ] Add groups, or following
+- [ ] Group reports
+- [ ] Customize schedules
+- [ ] Additional stock schedules
+
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
