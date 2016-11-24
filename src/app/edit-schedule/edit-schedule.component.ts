@@ -6,6 +6,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
+import 'moment-range';
 import * as _ from 'lodash';
 
 @Component({
@@ -22,6 +23,7 @@ export class EditScheduleComponent implements OnInit {
   public filteredTasks: Observable<any>;
   programTasks: FirebaseListObservable<any>;
   tasks: FirebaseListObservable<any>;
+  subTasks: any;
 
   constructor(
     private route: ActivatedRoute, private router: Router,
@@ -39,7 +41,6 @@ export class EditScheduleComponent implements OnInit {
     this.editForm = new FormGroup({
       programTitle: new FormControl('SP90X Classic', Validators.required),
       startDate: new FormControl(moment().format('YYYY-MM-DD'), Validators.required),
-      endDate: new FormControl(moment().add(90, 'days').format('YYYY-MM-DD'), Validators.required),
       program: programControl
     });
 
@@ -48,6 +49,9 @@ export class EditScheduleComponent implements OnInit {
       query: {
         orderByChild: 'title'
       }
+    });
+    this.af.database.object(`/subTasks`).subscribe((subTasks) => {
+      this.subTasks = subTasks;
     });
 
     this.auth.user.subscribe(user => {
@@ -59,7 +63,6 @@ export class EditScheduleComponent implements OnInit {
             this.editForm.setValue({
               programTitle: schedule.programTitle,
               startDate: moment(schedule.startDate).format('YYYY-MM-DD'),
-              endDate: moment(schedule.endDate).format('YYYY-MM-DD'),
               program: schedule.program || ''
             });
             return true;
@@ -78,10 +81,11 @@ export class EditScheduleComponent implements OnInit {
     this.programTasks.subscribe(() => {
       this.filteredTasks = this.tasks.withLatestFrom(this.programTasks)
         .map(([tasks, programTasks]) => {
-          return _.filter(tasks, (t:any)=> {
+          let val = _.filter(tasks, (t: any)=> {
             return !!_.find(programTasks, {$key: t.$key});
           });
-        });
+          return val;
+        }).take(1).publishReplay(1).refCount();
     });
   }
 
@@ -90,20 +94,72 @@ export class EditScheduleComponent implements OnInit {
     if (this.editForm.invalid) {
       return;
     }
-    let newValue = _.extend({}, this.editForm.value, {
-      startDate: moment(this.editForm.value.startDate, 'YYYY-MM-DD').toISOString(),
-      endDate: moment(this.editForm.value.endDate, 'YYYY-MM-DD').toISOString(),
+
+    let startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD');
+    let endDate = moment(startDate).add(90, 'days');
+
+    // Calculate all of the tasks
+    let orders = {};
+    this.filteredTasks.reduce((tasks: any, taskList: any) => {
+      moment.range(startDate, endDate).by('days', (day)=> {
+        for (let task of taskList) {
+          if (task.defaultInterval == 'monthly') {
+            if(day.isSame(startDate, 'day') || day.date() == 1) {
+              let key = day.format('YYYY-MM'); 
+              tasks.monthly[key] = tasks.monthly[key] || {};
+              tasks.monthly[key][task.$key] = {
+                title: task.title,
+                description: task.description,
+                finished: false
+              };
+            }
+          }
+          else {
+            let weekday = day.format('dd');
+            if(task.defaultInterval == 'daily' ||
+                task.defaultInterval.split(',').some((value: string) => value == weekday)) {
+              let key = day.format('YYYY-MM-DD'); 
+              tasks.daily[key] = tasks.daily[key] || {};
+              tasks.daily[key][task.$key] = {
+                title: task.title,
+                description: task.description,
+                finished: false
+              };
+              if (task.subTasks) {
+                let order = orders[task.$key] = orders[task.$key] || 0;
+                let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+                if (subTasks[order]) {
+                  tasks.daily[key][task.$key].subTask = subTasks[order].title;
+                  orders[task.$key]++;
+                }
+              }
+            }
+          }
+        }
+      });
+      return tasks;
+    }, {
+      daily: {},
+      monthly: {}
+    }).subscribe((tasks) => {
+      let newValue = _.extend({}, this.editForm.value, {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        entries: tasks
+      });
+
+      if (this.schedule) {
+        this.schedule.set(newValue);
+      }
+      else {
+        let schedules = this.af.database.list(`/schedules/${this.userId}`);
+        schedules.push(newValue);
+      }
+
+      this.router.navigate(['/schedules']);
     });
 
-    if (this.schedule) {
-      this.schedule.set(newValue);
-    }
-    else {
-      let schedules = this.af.database.list(`/schedules/${this.userId}`);
-      schedules.push(newValue);
-    }
 
-    this.router.navigate(['/schedules']);
   }
 
 }

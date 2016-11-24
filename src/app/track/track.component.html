@@ -12,14 +12,15 @@
   <h3 md-subheader>
     Daily Tasks
   </h3>
-  <md-list-item *ngFor="let task of (dailyTasks | async)">
-    <md-checkbox>
+  <md-list-item *ngFor="let task of (dailyEntries | async); trackBy: task?.$key">
+    <md-checkbox [checked]="task.finished"
+                 (change)="checkEntry('daily', task.$key, $event.checked)">
     </md-checkbox>
     <h2 md-line>
       {{task.title}}
     </h2>
-    <p md-line class="sub-task" *ngIf="task.subTaskText">
-      {{task.subTaskText}}
+    <p md-line class="sub-task" *ngIf="task.subTask">
+      {{task.subTask}}
     </p>
     <p md-line class="task-description">
       {{task.description}}
@@ -28,14 +29,15 @@
   <h3 md-subheader>
     Monthly Tasks
   </h3>
-  <md-list-item *ngFor="let task of (monthlyTasks | async)">
-    <md-checkbox>
+  <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: task?.$key">
+    <md-checkbox [checked]="task.finished"
+                 (change)="checkEntry('monthly', task.$key, $event.checked)">
     </md-checkbox>
     <h2 md-line>
       {{task.title}}
     </h2>
-    <p md-line class="sub-task" *ngIf="task.subTaskText">
-      {{task.subTaskText}}
+    <p md-line class="sub-task" *ngIf="task.subTask">
+      {{task.subTask}}
     </p>
     <p md-line class="task-description">
       {{task.description}}
