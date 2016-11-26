@@ -9,7 +9,7 @@ import * as moment from 'moment';
 @Component({
   selector: 'app-track',
   templateUrl: './track.component.html',
-  styleUrls: ['./track.component.scss']
+  styleUrls: ['./track.component.scss'],
 })
 export class TrackComponent implements OnInit {
   public schedule: FirebaseObjectObservable<any>;
@@ -21,6 +21,7 @@ export class TrackComponent implements OnInit {
   scheduleId: string;
   startDate: any;
   endDate: any;
+  points: number;
   program: any;
 
   constructor(
@@ -42,6 +43,7 @@ export class TrackComponent implements OnInit {
     this.schedule.subscribe((schedule) => {
       this.startDate = moment(schedule.startDate);
       this.endDate = moment(schedule.endDate);
+      this.points = schedule.points;
       this.af.database.object(`/programs/${schedule.program}`).subscribe((program) => {
         this.program = program;
         this.loadDay();
@@ -76,12 +78,18 @@ export class TrackComponent implements OnInit {
     this.loadDay();
   }
 
-  checkEntry(type: string, taskId: string, value: boolean) {
+  checkEntry(type: string, task: any, value: boolean) {
     if (type == 'daily') {
-      this.dailyEntries.update(taskId, {finished: value});
+      this.dailyEntries.update(task.$key, {finished: value});
     } else if (type == 'monthly') {
-      this.monthlyEntries.update(taskId, {finished: value});
+      this.monthlyEntries.update(task.$key, {finished: value});
     }
+    if (value) {
+      this.points += task.points;
+    } else {
+      this.points -= task.points;
+    }
+    this.schedule.update({points: this.points});
   }
 
 }

@@ -100,6 +100,7 @@ export class EditScheduleComponent implements OnInit {
 
     // Calculate all of the tasks
     let orders = {};
+    let pointsPossible = 0;
     this.filteredTasks.reduce((tasks: any, taskList: any) => {
       moment.range(startDate, endDate).by('days', (day)=> {
         for (let task of taskList) {
@@ -110,8 +111,18 @@ export class EditScheduleComponent implements OnInit {
               tasks.monthly[key][task.$key] = {
                 title: task.title,
                 description: task.description,
+                points: task.points,
                 finished: false
               };
+              pointsPossible += task.points;
+              if (task.subTasks) {
+                let order = orders[task.$key] = orders[task.$key] || 0;
+                let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+                if (subTasks[order]) {
+                  tasks.daily[key][task.$key].subTask = subTasks[order].title;
+                  orders[task.$key]++;
+                }
+              }
             }
           }
           else {
@@ -123,8 +134,10 @@ export class EditScheduleComponent implements OnInit {
               tasks.daily[key][task.$key] = {
                 title: task.title,
                 description: task.description,
+                points: task.points,
                 finished: false
               };
+              pointsPossible += task.points;
               if (task.subTasks) {
                 let order = orders[task.$key] = orders[task.$key] || 0;
                 let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
@@ -145,6 +158,8 @@ export class EditScheduleComponent implements OnInit {
       let newValue = _.extend({}, this.editForm.value, {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
+        points: 0,
+        pointsPossible: pointsPossible,
         entries: tasks
       });
 

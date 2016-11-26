@@ -6,7 +6,7 @@
   <md-list>
     <a md-list-item *ngFor="let item of activeSchedules | async"
       href="" routerLink="/track/{{item.$key}}">
-      <h3 md-line>{{ item.programTitle }}</h3>
+      <h3 md-line>{{ item.programTitle }} ({{item.points}} / {{item.pointsPossible}})</h3>
       <p md-line class="schedule-dates">{{item.startDate | date}} - {{item.endDate | date}}</p>
     </a>
   </md-list>

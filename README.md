@@ -6,8 +6,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 - [x] Edit schedule
 - [x] Show and track tasks by day
-- [ ] Show and calculate points
+- [x] Show and calculate points
 - [ ] Implement fit test and add to tracking days
+- [ ] Simplify navigation and app flow
+- [ ] Unit tests
+- [ ] Supplemental materials
+- [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports
 - [ ] Customize schedules

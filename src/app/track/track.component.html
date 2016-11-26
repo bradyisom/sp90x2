@@ -1,9 +1,10 @@
-<h2>{{(schedule | async)?.programTitle}}</h2>
+<h2>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h2>
+<h3>Points: {{(schedule | async)?.points}} / {{(schedule | async)?.pointsPossible}}</h3>
 <h4>
   <button md-icon-button (click)="moveDay(-1)">
     <md-icon>arrow_back</md-icon>
   </button>
-  {{date | date:'fullDate'}} - Day {{programDay}}
+  {{date | date:'EEE, MMM d, y'}}
   <button md-icon-button (click)="moveDay(1)">
     <md-icon>arrow_forward</md-icon>
   </button>
@@ -14,7 +15,7 @@
   </h3>
   <md-list-item *ngFor="let task of (dailyEntries | async); trackBy: task?.$key">
     <md-checkbox [checked]="task.finished"
-                 (change)="checkEntry('daily', task.$key, $event.checked)">
+                 (change)="checkEntry('daily', task, $event.checked)">
     </md-checkbox>
     <h2 md-line>
       {{task.title}}
@@ -31,7 +32,7 @@
   </h3>
   <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: task?.$key">
     <md-checkbox [checked]="task.finished"
-                 (change)="checkEntry('monthly', task.$key, $event.checked)">
+                 (change)="checkEntry('monthly', task, $event.checked)">
     </md-checkbox>
     <h2 md-line>
       {{task.title}}
