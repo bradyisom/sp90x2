@@ -1,0 +1,93 @@
+{
+  "BOFM90": {
+    "defaultInterval": "daily",
+    "description": "Read the entire Book of Mormon in 90 days",
+    "points": 1,
+    "subTasks": true,
+    "title": "Book of Mormon 90"
+  },
+  "DTG": {
+    "abbr": "DTG",
+    "defaultInterval": "Su",
+    "description": "Work on your Duty to God for at least half an hour",
+    "points": 1,
+    "title": "Duty to God"
+  },
+  "FASTING": {
+    "defaultInterval": "monthly",
+    "description": "Fast for two meals at least each month on Fast Sunday with a purpose",
+    "points": 20,
+    "title": "Fasting"
+  },
+  "GC": {
+    "abbr": "GC",
+    "defaultInterval": "Mo,Th",
+    "description": "Study one talk from the most recent General Conference",
+    "points": 1,
+    "title": "General Conference Talks"
+  },
+  "JOURNAL": {
+    "abbr": "J",
+    "defaultInterval": "daily",
+    "description": "Record your progress and how the Lord has blessed your life each day",
+    "points": 1,
+    "title": "Journal Writing"
+  },
+  "MAG": {
+    "abbr": "MAG",
+    "defaultInterval": "Tu,Fr",
+    "description": "Read an article from a recent issue of the New Era or Ensign",
+    "points": 1,
+    "title": "Church Magazines"
+  },
+  "PMG": {
+    "abbr": "PMG",
+    "defaultInterval": "daily",
+    "description": "Study a chapter in Preach My Gospel. Study enough to finish the chapter by the end of the week.",
+    "points": 1,
+    "subTasks": true,
+    "title": "Topical Study: Preach My Gospel"
+  },
+  "PONDER": {
+    "abbr": "Po",
+    "defaultInterval": "daily",
+    "description": "Find some time each day to quietly ponder the gospel and your life",
+    "points": 1,
+    "title": "Pondering"
+  },
+  "PP": {
+    "abbr": "PP",
+    "defaultInterval": "Su",
+    "description": "Work on your Personal Progress for at least half an hour",
+    "points": 1,
+    "title": "Personal Progress"
+  },
+  "PRAY": {
+    "abbr": "Pr",
+    "defaultInterval": "daily",
+    "description": "Have a meaningful conversation with your Heavenly Father at least morning and night",
+    "points": 1,
+    "title": "Meaningful Prayer"
+  },
+  "SERVICE": {
+    "abbr": "S",
+    "defaultInterval": "daily",
+    "description": "Perform at least one act of service each day",
+    "points": 1,
+    "title": "Service"
+  },
+  "SM-BOFM": {
+    "abbr": "SM",
+    "defaultInterval": "We,Sa",
+    "description": "Memorize the Book of Mormon scripture mastery scriptures",
+    "points": 1,
+    "subTasks": true,
+    "title": "Scripture Mastery: Book of Mormon"
+  },
+  "TEMPLE": {
+    "defaultInterval": "monthly",
+    "description": "If you hold a temple recommend, attend the temple at least once a month",
+    "points": 20,
+    "title": "Temple Attendance"
+  }
+}

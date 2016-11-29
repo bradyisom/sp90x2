@@ -4,6 +4,9 @@
       <a md-list-item routerLink="/schedules">
         Manage Schedules
       </a>
+      <a md-list-item routerLink="/fittest">
+        Fit Test
+      </a>
       <a md-list-item (click)="auth.logout()"
          *ngIf="(auth.user | async)">
         Logout

@@ -1,0 +1,38 @@
+{
+  "CLASSIC-M": {
+    "description": "The original program for men and boys",
+    "tasks": {
+      "BOFM90": "daily",
+      "DTG": "Su",
+      "FASTING": "monthly",
+      "GC": "Mo,Th",
+      "JOURNAL": "daily",
+      "MAG": "Tu,Fr",
+      "PMG": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "SM-BOFM": "We,Sa",
+      "TEMPLE": "monthly"
+    },
+    "title": "SP90X Classic - Men"
+  },
+  "CLASSIC-W": {
+    "description": "The original program for women and girls",
+    "tasks": {
+      "BOFM90": "daily",
+      "FASTING": "monthly",
+      "GC": "Mo,Th",
+      "JOURNAL": "daily",
+      "MAG": "Tu,Fr",
+      "PMG": "daily",
+      "PONDER": "daily",
+      "PP": "Su",
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "SM-BOFM": "We,Sa",
+      "TEMPLE": "monthly"
+    },
+    "title": "SP90X Classic - Women"
+  }
+}

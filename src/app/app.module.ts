@@ -18,6 +18,9 @@ import { HomeComponent } from './home/home.component';
 import { SchedulesComponent } from './schedules/schedules.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 import { TrackComponent } from './track/track.component';
+import { FitTestComponent } from './fit-test/fit-test.component';
+
+import 'hammerjs';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo",
@@ -40,7 +43,8 @@ export const firebaseAuthConfig = {
     HomeComponent,
     SchedulesComponent,
     EditScheduleComponent,
-    TrackComponent
+    TrackComponent,
+    FitTestComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +84,9 @@ export const firebaseAuthConfig = {
         }, {
             path: 'track/:scheduleId/:date',
             component: TrackComponent
+        }, {
+            path: 'fittest',
+            component: FitTestComponent
         }]
       },
       { 

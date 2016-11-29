@@ -11,6 +11,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [ ] Simplify navigation and app flow
 - [ ] Unit tests
 - [ ] Supplemental materials
+- [ ] Deploy
 - [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports

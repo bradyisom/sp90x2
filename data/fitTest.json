@@ -1,0 +1,341 @@
+{
+  "CHARITY": {
+    "order": 3,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "Mosiah 28:3",
+        "title": "I feel a sincere desire for the eternal welfare and happiness of other people."
+      },
+      "Q10": {
+        "order": 10,
+        "scripture": "Alma 17:2–4",
+        "title": "I find joy in others’ achievements."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "Moroni 7:47–48",
+        "title": "When I pray, I ask for charity—the pure love of Christ."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Jude 1:22",
+        "title": "I try to understand others’ feelings and see their point of view."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "Ephesians 4:32",
+        "title": "I forgive others who have offended or wronged me."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "Mosiah 18:9",
+        "title": "I try to help others when they are struggling or discouraged."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "Luke 7:12–15",
+        "title": "When appropriate, I tell others that I love them and care about them."
+      },
+      "Q7": {
+        "order": 7,
+        "scripture": "Mosiah 2:17",
+        "title": "I look for opportunities to serve other people."
+      },
+      "Q8": {
+        "order": 8,
+        "scripture": "D&C 42:27",
+        "title": "I say positive things about others."
+      },
+      "Q9": {
+        "order": 9,
+        "scripture": "Moroni 7:45",
+        "title": "I am kind and patient with others, even when they are hard to get along with."
+      }
+    },
+    "title": "Charity and Love"
+  },
+  "DILIGENCE": {
+    "order": 8,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "D&C 58:26–27",
+        "title": "I work effectively, even when I’m not under pressure or close supervision."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "Matthew 23:23",
+        "title": "I focus my efforts on the most important things."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Alma 34:18–27",
+        "title": "I have a personal prayer at least twice a day."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "D&C 4:2, 5",
+        "title": "I focus my thoughts on my calling as a missionary."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "D&C 88:119",
+        "title": "I set goals and plan regularly."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "D&C 10:4",
+        "title": "I work hard until the job is completed successfully."
+      },
+      "Q7": {
+        "order": 7,
+        "scripture": "Alma 36:24–25",
+        "title": "I find joy and satisfaction in my work."
+      }
+    },
+    "title": "Diligence"
+  },
+  "FAITH": {
+    "order": 1,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "2 Nephi 25:29",
+        "title": "I believe in Christ and accept Him as my Savior."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "1 Nephi 11:17",
+        "title": "I feel confident that God loves me."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "1 Nephi 3:7",
+        "title": "I trust the Savior enough to accept His will and do whatever He asks."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "Enos 1:5–8",
+        "title": "I firmly believe that through the Atonement of Jesus Christ I can be forgiven of all my sins."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "Mosiah 27:14",
+        "title": "I have enough faith in Christ to obtain answers to my prayers."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "D&C 20:77, 79",
+        "title": "I think about the Savior during the day and remember what He has done for me."
+      },
+      "Q7": {
+        "order": 7,
+        "scripture": "Ether 12:12",
+        "title": "I have the faith necessary to help make good things happen in my life or the lives of others."
+      },
+      "Q8": {
+        "order": 8,
+        "scripture": "Moroni 10:3–5",
+        "title": "I know by the power of the Holy Ghost that the Book of Mormon is true."
+      },
+      "Q9": {
+        "order": 9,
+        "scripture": "Moroni 7:33",
+        "title": "I have enough faith in Christ to accomplish anything He wants me to do—even miracles if necessary."
+      }
+    },
+    "title": "Faith"
+  },
+  "HOPE": {
+    "order": 2,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "Moroni 7:41",
+        "title": "One of my greatest desires is to inherit eternal life in the celestial kingdom of God."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "D&C 31:3–5",
+        "title": "I am confident that I will have a happy and successful [life]."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "D&C 59:23",
+        "title": "I feel peaceful and optimistic about the future."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "Ether 12:4",
+        "title": "I firmly believe that someday I will dwell with God and become like Him."
+      }
+    },
+    "title": "Hope"
+  },
+  "HUMILITY": {
+    "order": 7,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "Matthew 11:29",
+        "title": "I am meek and lowly in heart."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "Alma 26:12",
+        "title": "I rely on the Lord for help."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Alma 7:23",
+        "title": "I am sincerely grateful for the blessings I have received from the Lord."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "Enos 1:4",
+        "title": "My prayers are earnest and sincere."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "2 Nephi 9:28",
+        "title": "I appreciate direction from my leaders or teachers."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "Mosiah 24:15",
+        "title": "I strive to be submissive to the Lord’s will, whatever it may be."
+      }
+    },
+    "title": "Humility"
+  },
+  "KNOWLEDGE": {
+    "order": 5,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "Ether 3:19–20",
+        "title": "I feel confident in my understanding of gospel doctrines and principles."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "John 5:39",
+        "title": "I study the scriptures daily."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "D&C 6:7",
+        "title": "I earnestly seek to understand the truth and find answers to my questions."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "1 Nephi 4:6",
+        "title": "I receive knowledge and guidance through the Spirit."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "2 Nephi 4:15",
+        "title": "I love and cherish the doctrines and principles of the gospel."
+      }
+    },
+    "title": "Knowledge"
+  },
+  "OBEDIENCE": {
+    "order": 9,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "3 Nephi 18:15",
+        "title": "When I pray, I ask for strength to resist temptation and to do what is right."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "D&C 97:8",
+        "title": "I keep the required commandments to be worthy of a temple recommend."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Hebrews 13:17",
+        "title": "I willingly obey the mission rules and follow the counsel of my leaders."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "D&C 41:5",
+        "title": "I strive to live in accordance with the laws and principles of the gospel."
+      }
+    },
+    "title": "Obedience"
+  },
+  "PATIENCE": {
+    "order": 6,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "2 Nephi 10:17",
+        "title": "I wait patiently for the blessings and promises of the Lord to be fulfilled."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "Romans 8:25",
+        "title": "I am able to wait for things without getting upset or frustrated."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Alma 17:11",
+        "title": "I am patient and long-suffering with the challenges of being a missionary."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "Romans 15:1",
+        "title": "I am patient with the faults and weaknesses of others."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "Ether 12:27",
+        "title": "I am patient with myself and rely on the Lord as I work to overcome my weaknesses."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "Alma 34:40–41",
+        "title": "I face adversity and afflictions calmly and hopefully."
+      }
+    },
+    "title": "Patience"
+  },
+  "VIRTUE": {
+    "order": 4,
+    "questions": {
+      "Q1": {
+        "order": 1,
+        "scripture": "Psalm 24:3–4",
+        "title": "I am clean and pure in heart."
+      },
+      "Q2": {
+        "order": 2,
+        "scripture": "Mosiah 5:2",
+        "title": "I have no desire to do evil but to do good."
+      },
+      "Q3": {
+        "order": 3,
+        "scripture": "Alma 53:20",
+        "title": "I am dependable—I do what I say I will do."
+      },
+      "Q4": {
+        "order": 4,
+        "scripture": "D&C 121:45",
+        "title": "I focus on righteous, uplifting thoughts and put unwholesome thoughts out of my mind."
+      },
+      "Q5": {
+        "order": 5,
+        "scripture": "D&C 49:26–28",
+        "title": "I repent of my sins and strive to overcome my weaknesses."
+      },
+      "Q6": {
+        "order": 6,
+        "scripture": "D&C 11:12–13",
+        "title": "I feel the influence of the Holy Ghost in my life."
+      }
+    },
+    "title": "Virtue"
+  }
+}
