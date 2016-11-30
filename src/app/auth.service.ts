@@ -34,7 +34,9 @@ export class AuthService {
             });
           }          
           this.user.next(u);
-          this.router.navigate(['/']);
+          if (this.router.url === '/login') {
+            this.router.navigate(['/']);
+          }
         });
       }
       else {

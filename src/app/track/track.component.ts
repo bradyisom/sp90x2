@@ -78,6 +78,14 @@ export class TrackComponent implements OnInit {
     this.loadDay();
   }
 
+  showFitTest() {
+    return [1, 30, 60, 90].indexOf(this.programDay) !== -1;
+  }
+
+  getDay() {
+    return moment(this.date).format('YYYY-MM-DD');
+  }
+
   checkEntry(type: string, task: any, value: boolean) {
     if (type == 'daily') {
       this.dailyEntries.update(task.$key, {finished: value});

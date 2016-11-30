@@ -1,21 +1,43 @@
-<h2>Spiritual Fit Test ({{answers?.points}}/{{answers?.pointsPossible}})</h2>
-<div *ngFor="let group of (fitTest | async); trackBy: group?.$key" md-subheader>
-  <h3 class="category">{{group?.title}} ({{answers[group.$key].points}}/{{answers[group.$key].pointsPossible}})</h3>
-  <div *ngFor="let question of (questionLists[group?.$key] | async); trackBy: question?.$key">
-    <p class="question" md-line>
-      {{question.title}} ({{question.scripture}})
-    </p>
-    <p md-line>
-      <!--<md-slider [(ngModel)]="answers[group.$key][question.$key]"
-        min="1" max="5" step="1" tick-interval="1"></md-slider>-->
-      <md-radio-group [(ngModel)]="answers[group.$key][question.$key]"
-          (change)="updatePoints()">
-        <md-radio-button value="1">never</md-radio-button>
-        <md-radio-button value="2">sometimes</md-radio-button>
-        <md-radio-button value="3">often</md-radio-button>
-        <md-radio-button value="4">almost always</md-radio-button>
-        <md-radio-button value="5">always</md-radio-button>
-      </md-radio-group>
-    </p>
-  </div>
-</div>
+<h1>Spiritual Fit Test ({{answers?.points}}/{{answers?.pointsPossible}})</h1>
+
+<md-tab-group [selectedIndex]="selectedTab" (selectChange)="selectedTab = $event.index">
+  <md-tab *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key">
+    <template md-tab-label>
+      {{group?.title}} ({{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}})
+    </template>
+    <template md-tab-content>
+      <h2>{{group?.title}}</h2>
+      <div *ngFor="let question of (questionLists[group?.$key] | async); trackBy: question?.$key">
+        <p class="question" md-line>
+          {{question.title}} ({{question.scripture}})
+        </p>
+        <p md-line>
+          <!--<select required [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
+              (change)="updatePoints()">
+            <option value="1">never</option>
+            <option value="2">sometimes</option>
+            <option value="3">often</option>
+            <option value="4">almost always</option>
+            <option value="5">always</option>
+          </select>-->
+          <!--<md-slider [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
+            min="1" max="5" step="1" tick-interval="1"></md-slider>-->
+          <!--<md-slider [value]="answers.groups[group.$key].questions[question.$key]"
+            (change)="updatePoints()"
+            min="1" max="5" step="1" tick-interval="1"></md-slider>-->
+          <md-radio-group #input [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
+              (change)="updatePoints(input)">
+            <md-radio-button value="1">never</md-radio-button>
+            <md-radio-button value="2">sometimes</md-radio-button>
+            <md-radio-button value="3">often</md-radio-button>
+            <md-radio-button value="4">almost always</md-radio-button>
+            <md-radio-button value="5">always</md-radio-button>
+          </md-radio-group>
+        </p>
+      </div>
+      <h2>Points: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}</h2>
+      <button *ngIf="!lastGroup" md-raised-button color="accent" (click)="selectedTab=selectedTab+1">Next</button>
+      <button *ngIf="lastGroup" md-raised-button color="accent" (click)="submit()">Submit</button>
+    </template>
+  </md-tab>
+</md-tab-group>

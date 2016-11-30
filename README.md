@@ -7,7 +7,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Edit schedule
 - [x] Show and track tasks by day
 - [x] Show and calculate points
-- [ ] Implement fit test and add to tracking days
+- [x] Implement fit test and add to tracking days
 - [ ] Simplify navigation and app flow
 - [ ] Unit tests
 - [ ] Supplemental materials
@@ -17,6 +17,10 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [ ] Group reports
 - [ ] Customize schedules
 - [ ] Additional stock schedules
+
+## BUGS
+- [ ] Tracking does not honor initial date in route
+- [ ] Reload answers for fit test
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

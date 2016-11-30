@@ -85,8 +85,11 @@ export const firebaseAuthConfig = {
             path: 'track/:scheduleId/:date',
             component: TrackComponent
         }, {
-            path: 'fittest',
-            component: FitTestComponent
+            path: 'fittest/:scheduleId/:date',
+            component: FitTestComponent,
+            resolve: {
+              user: AuthResolver
+            },
         }]
       },
       { 

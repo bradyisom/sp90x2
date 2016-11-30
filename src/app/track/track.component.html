@@ -1,4 +1,4 @@
-<h2>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h2>
+<h1>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h1>
 <h3>Points: {{(schedule | async)?.points}} / {{(schedule | async)?.pointsPossible}}</h3>
 <h4>
   <button md-icon-button (click)="moveDay(-1)">
@@ -10,6 +10,12 @@
   </button>
 </h4>
 <md-list>
+  <md-list-item *ngIf="showFitTest()">
+    <button md-raised-button color="accent" 
+        [routerLink]="['/fittest', scheduleId, getDay()]">
+      Take Fit Test
+    </button>
+  </md-list-item>
   <h3 md-subheader>
     Daily Tasks
   </h3>
