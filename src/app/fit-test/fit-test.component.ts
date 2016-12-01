@@ -86,11 +86,7 @@ export class FitTestComponent implements OnInit {
   submit() {
     let entry = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}/entries/fitTest/${this.date}`);
     entry.set(this.answers).then(() => {
-      this.router.navigate(['/track', this.scheduleId], {
-        queryParams: {
-          date: this.date
-        },
-      });
+      this.router.navigate(['/track', this.scheduleId, this.date]);
     });
   }
 

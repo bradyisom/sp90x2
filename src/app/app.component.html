@@ -1,32 +1,39 @@
 <md-sidenav-layout fullscreen>
   <md-sidenav #sidenav (click)="sidenav.close()">
     <md-nav-list>
-      <a md-list-item routerLink="/schedules">
-        Manage Schedules
-      </a>
-      <a md-list-item (click)="auth.logout()"
-         *ngIf="(auth.user | async)">
-        Logout
+      <a md-list-item routerLink="/home">
+        Home
       </a>
     </md-nav-list>
   </md-sidenav>
 
   <div class="app-ct">
     <md-toolbar color="primary">
-      <button md-icon-button (click)="sidenav.open()">
+      <!--<button md-icon-button (click)="sidenav.open()">
         <md-icon>menu</md-icon>
-      </button>
+      </button>-->
       <h1 class="app-logo" routerLink="/">
         <img src="/assets/logo-noback.png" alt="{{title}}">
       </h1>
       
       <div class="spacer"></div>
       
-      <div *ngIf="(auth.user | async)">
-        <span class="user-name">{{ (auth.user | async)?.displayName }}</span>
+      <span *ngIf="(auth.user | async)" class="user-name">
+        {{ (auth.user | async)?.displayName }}
+      </span>
+      <button md-icon-button *ngIf="(auth.user | async)" [md-menu-trigger-for]="userMenu">
         <img class="user-avatar" src="{{(auth.user | async)?.avatar}}" alt="">
         <!--<img gravatar [email]="(auth.user|async)?.email" size="40">-->
-      </div>
+      </button>
+
+      <md-menu #userMenu="mdMenu" x-position="before">
+        <button md-menu-item disabled> Profile </button>
+        <button md-menu-item disabled> Help </button>
+        <button md-menu-item (click)="auth.logout()">
+          Logout
+        </button>
+      </md-menu>
+
       <div *ngIf="!(auth.user | async)">
         <button md-button routerLink="/login">
           Login

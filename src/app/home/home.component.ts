@@ -10,7 +10,8 @@ import { AuthService } from '../auth.service';
 })
 export class HomeComponent implements OnInit {
   public user: Observable<any>;
-  public activeSchedules: FirebaseListObservable<any>;
+  private rawList: FirebaseListObservable<any>;
+  public list: Observable<any>;
 
   constructor(private auth: AuthService, private af: AngularFire) { 
   }
@@ -19,12 +20,24 @@ export class HomeComponent implements OnInit {
     this.user = this.auth.user;
     this.user.subscribe(user => {
       if (user) {
-        this.activeSchedules = this.af.database.list(`/schedules/${user.uid}`);
+        this.rawList = this.af.database.list(`/schedules/${user.uid}`, {
+          query: {
+            orderByChild: 'startDate'
+          }
+        })
+        this.list = this.rawList.map((list)=> {
+          return list.reverse();
+        });
       }
       else {
-        this.activeSchedules = null;
+        this.list = null;
       }
     });
+  }
+
+  removeSchedule(event: any, schedule: any) {
+    event.preventDefault();
+    this.rawList.remove(schedule);
   }
 
 }

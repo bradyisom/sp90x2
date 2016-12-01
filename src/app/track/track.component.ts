@@ -37,6 +37,12 @@ export class TrackComponent implements OnInit {
       if (params['date']) {
         this.date = moment(params['date'], 'YYYY-MM-DD').startOf('day').toISOString();
       }
+      else {
+        this.router.navigate(['.', moment(this.date).format('YYYY-MM-DD')], {
+          relativeTo: this.route,
+          replaceUrl: true
+        });
+      }
     });
 
     this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
@@ -68,10 +74,7 @@ export class TrackComponent implements OnInit {
 
   moveDay(num: number) {
     let next = moment(this.date).add(num, 'days');
-    this.router.navigate(['.'], {
-      queryParams: {
-        date: next.format('YYYY-MM-DD')
-      },
+    this.router.navigate(['..', next.format('YYYY-MM-DD')], {
       relativeTo: this.route
     });
     this.date = next.toISOString();

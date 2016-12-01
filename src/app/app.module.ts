@@ -15,7 +15,6 @@ import { AuthResolver } from './auth-resolver.service';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { SchedulesComponent } from './schedules/schedules.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 import { TrackComponent } from './track/track.component';
 import { FitTestComponent } from './fit-test/fit-test.component';
@@ -41,7 +40,6 @@ export const firebaseAuthConfig = {
     Gravatar,
     LoginComponent,
     HomeComponent,
-    SchedulesComponent,
     EditScheduleComponent,
     TrackComponent,
     FitTestComponent
@@ -67,9 +65,6 @@ export const firebaseAuthConfig = {
         path: '',
         canActivateChild: [AuthGuard],
         children: [{
-            path: 'schedules',
-            component: SchedulesComponent,
-        }, {
             path: 'newschedule',
             component: EditScheduleComponent
         }, {
@@ -83,7 +78,10 @@ export const firebaseAuthConfig = {
             },
         }, {
             path: 'track/:scheduleId/:date',
-            component: TrackComponent
+            component: TrackComponent,
+            resolve: {
+              user: AuthResolver
+            },
         }, {
             path: 'fittest/:scheduleId/:date',
             component: FitTestComponent,

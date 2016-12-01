@@ -2,8 +2,8 @@
     cursor: pointer;
 
     img {
-        width: 300px;
-        vertical-align: top;
+        width: 200px;
+        vertical-align: middle;
     }
 }
 
@@ -14,9 +14,17 @@
 .user-name {
     display: none;
 }
+
 @media (min-width:640px) {
+    .app-logo {
+        img {
+            width: 300px;
+            vertical-align: top;
+        }
+    }
     .user-name {
         display: inline;
+        margin-right: 16px;
     }
 }
 

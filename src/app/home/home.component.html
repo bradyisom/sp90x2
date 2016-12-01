@@ -1,13 +1,45 @@
-<div>
-  Welcome to SP90X!
-</div>
 <div *ngIf="user">
-  <h3>Active Schedules</h3>
+  
+  <button md-fab routerLink="/newschedule">
+      <md-icon class="md-24">add</md-icon>
+  </button>
+
+  <h1>Your Schedules</h1>
+
+  <div *ngIf="(list | async)?.length == 0">
+    Click the plus button to get started.
+  </div>
+
   <md-list>
-    <a md-list-item *ngFor="let item of activeSchedules | async"
+    <a md-list-item *ngFor="let item of list | async"
       href="" routerLink="/track/{{item.$key}}">
-      <h3 md-line>{{ item.programTitle }} ({{item.points}} / {{item.pointsPossible}})</h3>
-      <p md-line class="schedule-dates">{{item.startDate | date}} - {{item.endDate | date}}</p>
+      <h3 md-line>
+        {{ item.programTitle }}
+      </h3>
+      <p md-line class="schedule-dates">
+        {{item.startDate | date}} - {{item.endDate | date}}
+      </p>
+      <p md-line class="schedule-points">
+        Points: {{item.points}} / {{item.pointsPossible}}
+      </p>
+      <button md-icon-button routerLink="/track/{{item.$key}}">
+        <md-icon>check_circle</md-icon>
+      </button>
+      <button md-icon-button routerLink="/editschedule/{{item.$key}}">
+        <md-icon>edit</md-icon>
+      </button>
+      <button md-icon-button (click)="removeSchedule($event, item)">
+        <md-icon>delete</md-icon>
+      </button>
     </a>
   </md-list>
+
 </div>
+
+<div>
+  <h2>Welcome to SP90X!</h2>
+  <p>
+    Here is some information about the program.
+  </p>
+</div>
+

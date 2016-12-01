@@ -171,7 +171,7 @@ export class EditScheduleComponent implements OnInit {
         schedules.push(newValue);
       }
 
-      this.router.navigate(['/schedules']);
+      this.router.navigate(['/home']);
     });
 
 

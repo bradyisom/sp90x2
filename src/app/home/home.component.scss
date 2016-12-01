@@ -1,3 +1,23 @@
 a {
     text-decoration: none;
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.schedule-dates,
+.schedule-points {
+    opacity: 0.5;
+}
+
+[md-fab] {
+    position: fixed;
+    right: 42px;
+}
+
+[md-list-item] {
+    button {
+        flex: 0 0 auto;
+    }
 }
