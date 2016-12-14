@@ -156,61 +156,60 @@
           },
           "pointsPossible": {
             ".validate": "newData.isNumber()"
-          },
-          "tasks": {
+          }
+        }
+      }
+    },
+    "entries": {
+      "$schedule_id": {
+        ".read": "auth != null && root.child('schedules/' + auth.uid).hasChild($schedule_id)",
+        ".write": "auth != null && root.child('schedules/' + auth.uid).hasChild($schedule_id)",
+        "daily": {
+          "$date": {
             "$task_id": {
-              ".validate": "root.child('tasks').hasChild($task_id) && newData.val().matches(/^(daily|weekly|monthly|((Mo|Tu|We|Th|Fr|Sa|Su)(,(Mo|Tu|We|Th|Fr|Sa|Su))*))$/)"
+              "finished": {
+                ".validate": "newData.isBoolean()"
+              }
             }
-          },
-          "entries": {
-            "daily": {
-              "$date": {
-                "$task_id": {
-                  "finished": {
-                    ".validate": "newData.isBoolean()"
-                  }
-                }
+          }
+        },
+        "weekly": {
+          "$date": {
+            "$task_id": {
+              "finished": {
+                ".validate": "newData.isBoolean()"
               }
-            },
-            "weekly": {
-              "$date": {
-                "$task_id": {
-                  "finished": {
-                    ".validate": "newData.isBoolean()"
-                  }
-                }
+            }
+          }
+        },
+        "monthly": {
+          "$date": {
+            "$task_id": {
+              "finished": {
+                ".validate": "newData.isBoolean()"
               }
+            }
+          }
+        },
+        "fitTest": {
+          "$date": {
+            "points": {
+              ".validate": "newData.isNumber()"
             },
-            "monthly": {
-              "$date": {
-                "$task_id": {
-                  "finished": {
-                    ".validate": "newData.isBoolean()"
-                  }
-                }
-              }
+            "pointsPossible": {
+              ".validate": "newData.isNumber()"
             },
-            "fitTest": {
-              "$date": {
+            "groups": {
+              "$group_id": {
                 "points": {
                   ".validate": "newData.isNumber()"
                 },
                 "pointsPossible": {
                   ".validate": "newData.isNumber()"
                 },
-                "groups": {
-                  "$group_id": {
-                    "points": {
-                      ".validate": "newData.isNumber()"
-                    },
-                    "pointsPossible": {
-                      ".validate": "newData.isNumber()"
-                    },
-                    "questions": {
-                      "$question_id": {
-                        ".validate": "newData.isNumber()"
-                      }
-                    }
+                "questions": {
+                  "$question_id": {
+                    ".validate": "newData.isNumber()"
                   }
                 }
               }

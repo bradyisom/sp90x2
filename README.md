@@ -8,10 +8,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Show and track tasks by day
 - [x] Show and calculate points
 - [x] Implement fit test and add to tracking days
-- [ ] Fit test report
 - [x] Simplify navigation and app flow
+- [ ] Show fit test results in tracker
+- [ ] Fit test report
 - [ ] Unit tests
 - [ ] Supplemental materials
+- [ ] Register email users
 - [x] Deploy
 - [ ] AOT Deploy
 - [ ] Optimize for phone viewing

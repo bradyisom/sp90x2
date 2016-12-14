@@ -160,18 +160,25 @@ export class EditScheduleComponent implements OnInit {
         endDate: endDate.toISOString(),
         points: 0,
         pointsPossible: pointsPossible,
-        entries: tasks
       });
 
+      let promise;
       if (this.schedule) {
-        this.schedule.set(newValue);
+        promise = this.schedule.set(newValue);
       }
       else {
         let schedules = this.af.database.list(`/schedules/${this.userId}`);
-        schedules.push(newValue);
+        promise = schedules.push(newValue);
       }
 
-      this.router.navigate(['/home']);
+      promise.then((result: any) => {
+        this.scheduleId = this.scheduleId || result.key; 
+
+        let entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
+        return entriesObj.set(tasks);
+      }).then(() => {
+        this.router.navigate(['/home']);
+      });
     });
 
 

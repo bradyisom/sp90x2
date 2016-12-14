@@ -63,11 +63,11 @@ export class TrackComponent implements OnInit {
     this.programDay = moment(this.date).diff(this.startDate, 'days')+1;
 
     this.dailyEntries = this.af.database.list(
-      `/schedules/${this.userId}/${this.scheduleId}/entries/daily/${moment(this.date).format('YYYY-MM-DD')}`
+      `/entries/${this.scheduleId}/daily/${moment(this.date).format('YYYY-MM-DD')}`
     );
 
     this.monthlyEntries = this.af.database.list(
-      `/schedules/${this.userId}/${this.scheduleId}/entries/monthly/${moment(this.date).format('YYYY-MM')}`
+      `/entries/${this.scheduleId}/monthly/${moment(this.date).format('YYYY-MM')}`
     );
 
   }

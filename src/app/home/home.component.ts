@@ -37,7 +37,10 @@ export class HomeComponent implements OnInit {
 
   removeSchedule(event: any, schedule: any) {
     event.preventDefault();
-    this.rawList.remove(schedule);
+    event.stopImmediatePropagation();
+    this.af.database.object(`/entries/${schedule.$key}`).remove().then(() => {
+      this.rawList.remove(schedule);
+    });
   }
 
 }
