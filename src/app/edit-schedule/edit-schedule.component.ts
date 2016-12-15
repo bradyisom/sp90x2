@@ -50,16 +50,16 @@ export class EditScheduleComponent implements OnInit {
         orderByChild: 'title'
       }
     });
-    this.af.database.object(`/subTasks`).subscribe((subTasks) => {
+    this.af.database.object(`/subTasks`).first().subscribe((subTasks) => {
       this.subTasks = subTasks;
     });
 
-    this.auth.user.subscribe(user => {
+    this.auth.user.first().subscribe(user => {
       if (user) {
         this.userId = user.uid;
         if (this.scheduleId) {
           this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`)
-          this.schedule.subscribe((schedule) => {
+          this.schedule.first().subscribe((schedule) => {
             this.editForm.setValue({
               programTitle: schedule.programTitle,
               startDate: moment(schedule.startDate).format('YYYY-MM-DD'),
@@ -78,7 +78,7 @@ export class EditScheduleComponent implements OnInit {
 
   programChange(programId: string) {
     this.programTasks = this.af.database.list(`/programs/${programId}/tasks`);
-    this.programTasks.subscribe(() => {
+    this.programTasks.first().subscribe(() => {
       this.filteredTasks = this.tasks.withLatestFrom(this.programTasks)
         .map(([tasks, programTasks]) => {
           let val = _.filter(tasks, (t: any)=> {
@@ -154,7 +154,7 @@ export class EditScheduleComponent implements OnInit {
     }, {
       daily: {},
       monthly: {}
-    }).subscribe((tasks) => {
+    }).first().subscribe((tasks) => {
       let newValue = _.extend({}, this.editForm.value, {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),

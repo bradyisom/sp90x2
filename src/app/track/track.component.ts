@@ -22,7 +22,6 @@ export class TrackComponent implements OnInit {
   startDate: any;
   endDate: any;
   points: number;
-  program: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,14 +45,12 @@ export class TrackComponent implements OnInit {
     });
 
     this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
-    this.schedule.subscribe((schedule) => {
+    let scheduleSubscription = this.schedule.take(1).subscribe((schedule) => {
+      scheduleSubscription.unsubscribe();
       this.startDate = moment(schedule.startDate);
       this.endDate = moment(schedule.endDate);
       this.points = schedule.points;
-      this.af.database.object(`/programs/${schedule.program}`).subscribe((program) => {
-        this.program = program;
-        this.loadDay();
-      });
+      this.loadDay();
     });
   }
 

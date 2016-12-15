@@ -14,18 +14,20 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [ ] Unit tests
 - [ ] Supplemental materials
 - [ ] Register email users
+- [ ] Customize schedules
 - [x] Deploy
 - [ ] AOT Deploy
 - [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports
-- [ ] Customize schedules
 - [ ] Additional stock schedules
 
 ## BUGS
 - [x] Tracking does not honor initial date in route
+- [ ] Prevent tracking from going beyond date boundaries
 - [ ] Reload answers for fit test
 - [ ] Preserve tracked tasks after schedule edit
+- [ ] Create services for data access
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
