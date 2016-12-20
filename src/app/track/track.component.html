@@ -1,11 +1,13 @@
 <h1>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h1>
 <h3>Points: {{(schedule | async)?.points}} / {{(schedule | async)?.pointsPossible}}</h3>
 <h4>
-  <button md-icon-button (click)="moveDay(-1)">
+  <button md-icon-button (click)="moveDay(-1)"
+    [disabled]="programDay === 1">
     <md-icon>arrow_back</md-icon>
   </button>
-  {{date | date:'EEE, MMM d, y'}}
-  <button md-icon-button (click)="moveDay(1)">
+  {{date?.toISOString() | date:'EEE, MMM d, y'}}
+  <button md-icon-button (click)="moveDay(1)"
+    [disabled]="programDay === 90">
     <md-icon>arrow_forward</md-icon>
   </button>
 </h4>

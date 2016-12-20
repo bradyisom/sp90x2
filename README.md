@@ -24,7 +24,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 
 ## BUGS
 - [x] Tracking does not honor initial date in route
-- [ ] Prevent tracking from going beyond date boundaries
+- [x] Prevent tracking from going beyond date boundaries
 - [ ] Reload answers for fit test
 - [ ] Preserve tracked tasks after schedule edit
 - [ ] Create services for data access

@@ -95,8 +95,8 @@ export class EditScheduleComponent implements OnInit {
       return;
     }
 
-    let startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD');
-    let endDate = moment(startDate).add(90, 'days');
+    let startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day');
+    let endDate = moment(startDate).add(89, 'days').endOf('day');
 
     // Calculate all of the tasks
     let orders = {};

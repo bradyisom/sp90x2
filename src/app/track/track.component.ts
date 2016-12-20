@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class TrackComponent implements OnInit {
   public schedule: FirebaseObjectObservable<any>;
-  public date: any = moment().startOf('day').toISOString();
+  public date: any;
   public programDay: number;
   public dailyEntries: FirebaseListObservable<any[]>;
   public monthlyEntries: FirebaseListObservable<any[]>;
@@ -34,37 +34,47 @@ export class TrackComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       this.scheduleId = params['scheduleId'];
       if (params['date']) {
-        this.date = moment(params['date'], 'YYYY-MM-DD').startOf('day').toISOString();
-      }
-      else {
-        this.router.navigate(['.', moment(this.date).format('YYYY-MM-DD')], {
-          relativeTo: this.route,
-          replaceUrl: true
+        this.date = moment(params['date'], 'YYYY-MM-DD').startOf('day');
+        this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
+        this.schedule.first().subscribe((schedule) => {
+          this.startDate = moment(schedule.startDate).startOf('day');
+          this.endDate = moment(schedule.endDate).endOf('day');
+          this.points = schedule.points;
+          this.loadDay();
         });
       }
+      else {
+        this.navigateDate(moment().startOf('day'));
+      }
     });
+  }
 
-    this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
-    let scheduleSubscription = this.schedule.take(1).subscribe((schedule) => {
-      scheduleSubscription.unsubscribe();
-      this.startDate = moment(schedule.startDate);
-      this.endDate = moment(schedule.endDate);
-      this.points = schedule.points;
-      this.loadDay();
+  navigateDate(date) {
+    this.router.navigate(['/track', this.scheduleId, date.format('YYYY-MM-DD')], {
+      replaceUrl: true
     });
   }
 
   loadDay() {
-    let day: string = moment(this.date).format('dd');
+    if (this.date.isBefore(this.startDate)) {
+      this.navigateDate(this.startDate);
+      return;
+    }
+    if (this.date.isAfter(this.endDate)) {
+      this.navigateDate(this.endDate);
+      return;
+    }
 
-    this.programDay = moment(this.date).diff(this.startDate, 'days')+1;
+    let day: string = this.date.format('dd');
+
+    this.programDay = this.date.diff(this.startDate, 'days')+1;
 
     this.dailyEntries = this.af.database.list(
-      `/entries/${this.scheduleId}/daily/${moment(this.date).format('YYYY-MM-DD')}`
+      `/entries/${this.scheduleId}/daily/${this.date.format('YYYY-MM-DD')}`
     );
 
     this.monthlyEntries = this.af.database.list(
-      `/entries/${this.scheduleId}/monthly/${moment(this.date).format('YYYY-MM')}`
+      `/entries/${this.scheduleId}/monthly/${this.date.format('YYYY-MM')}`
     );
 
   }
@@ -74,7 +84,7 @@ export class TrackComponent implements OnInit {
     this.router.navigate(['..', next.format('YYYY-MM-DD')], {
       relativeTo: this.route
     });
-    this.date = next.toISOString();
+    this.date = next;
     this.loadDay();
   }
 
@@ -83,7 +93,7 @@ export class TrackComponent implements OnInit {
   }
 
   getDay() {
-    return moment(this.date).format('YYYY-MM-DD');
+    return this.date.format('YYYY-MM-DD');
   }
 
   checkEntry(type: string, task: any, value: boolean) {
