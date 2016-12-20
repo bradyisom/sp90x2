@@ -1,43 +1,49 @@
-<h1>Spiritual Fit Test ({{answers?.points}}/{{answers?.pointsPossible}})</h1>
+<md-toolbar class="md-elevation-z4">
+  <button md-icon-button (click)="submit()">
+    <md-icon>chevron_left</md-icon>
+  </button>
+  <span>Spiritual Fit Test - {{date | date}}</span>
+  <span class="spacer"></span>
+</md-toolbar>
 
-<md-tab-group [selectedIndex]="selectedTab" (selectChange)="selectedTab = $event.index">
-  <md-tab *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key">
-    <template md-tab-label>
-      {{group?.title}} ({{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}})
-    </template>
-    <template md-tab-content>
-      <h2>{{group?.title}}</h2>
-      <div *ngFor="let question of (questionLists[group?.$key] | async); trackBy: question?.$key">
+<md-tab-group *ngIf="questionLists" [selectedIndex]="selectedTab" (selectChange)="selectedTab = $event.index">
+  <md-tab *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key"
+    [label]="group?.title">
+    <div class="section">
+      <h2 #header>{{group?.title}}</h2>
+      <div class="question-group"
+        *ngFor="let question of questionLists[group?.$key]; trackBy: question?.$key">
         <p class="question" md-line>
-          {{question.title}} ({{question.scripture}})
+          {{question.title}}<br>
+          <span class="question-scripture">({{question.scripture}})</span>
         </p>
-        <p md-line>
-          <!--<select required [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
+        <p>
+          <md-radio-group [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
               (change)="updatePoints()">
-            <option value="1">never</option>
-            <option value="2">sometimes</option>
-            <option value="3">often</option>
-            <option value="4">almost always</option>
-            <option value="5">always</option>
-          </select>-->
-          <!--<md-slider [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
-            min="1" max="5" step="1" tick-interval="1"></md-slider>-->
-          <!--<md-slider [value]="answers.groups[group.$key].questions[question.$key]"
-            (change)="updatePoints()"
-            min="1" max="5" step="1" tick-interval="1"></md-slider>-->
-          <md-radio-group #input [(ngModel)]="answers.groups[group.$key].questions[question.$key]"
-              (change)="updatePoints(input)">
-            <md-radio-button value="1">never</md-radio-button>
-            <md-radio-button value="2">sometimes</md-radio-button>
-            <md-radio-button value="3">often</md-radio-button>
-            <md-radio-button value="4">almost always</md-radio-button>
-            <md-radio-button value="5">always</md-radio-button>
+            <md-radio-button value="1">Never</md-radio-button>
+            <md-radio-button value="2">Sometimes</md-radio-button>
+            <md-radio-button value="3">Often</md-radio-button>
+            <md-radio-button value="4">Almost always</md-radio-button>
+            <md-radio-button value="5">Always</md-radio-button>
           </md-radio-group>
         </p>
       </div>
-      <h2>Points: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}</h2>
-      <button *ngIf="!lastGroup" md-raised-button color="accent" (click)="selectedTab=selectedTab+1">Next</button>
-      <button *ngIf="lastGroup" md-raised-button color="accent" (click)="submit()">Submit</button>
-    </template>
+
+      <button md-raised-button color="accent" (click)="header.scrollIntoView(true); selectedTab=selectedTab+1">Next</button>
+    </div>
+  </md-tab>
+  <md-tab *ngIf="(fitTest | async)?.length" label="Results">
+    <div class="section">
+      <md-card>
+        <h2>Results</h2>
+        <md-list>
+          <md-list-item *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key">
+            {{group?.title}}: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}        
+          </md-list-item>
+        </md-list>
+        <h3>Total: {{answers?.points}}/{{answers?.pointsPossible}}</h3>
+        <button md-raised-button color="accent" (click)="submit()">SAVE</button>
+      </md-card>
+    </div>
   </md-tab>
 </md-tab-group>

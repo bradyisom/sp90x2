@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
+import { Observable } from 'rxjs';
 
+import * as _ from 'lodash';
 import * as moment from 'moment';
 
 @Component({
@@ -11,6 +13,7 @@ import * as moment from 'moment';
 })
 export class FitTestComponent implements OnInit {
   private fitTest: FirebaseListObservable<any>;
+  private entry: FirebaseObjectObservable<any>;
   private questionLists: any;
 
   private userId: string;
@@ -41,29 +44,45 @@ export class FitTestComponent implements OnInit {
       }
     });
 
+    this.entry = this.af.database.object(`/entries/${this.scheduleId}/fitTest/${this.date}`);
+
     // Load each child question list
-    this.fitTest.take(1).forEach((groups: any[]) => {
+    Observable.zip(this.fitTest, this.entry).take(1).forEach((values: any[]) => {
+      let groups: any[] = values[0];
+      let existing: any = values[1];
+
       this.questionLists = {};
+
       this.answers = {
         points: 0,
         pointsPossible: 0,
         groups: {}
       };
+
       groups.forEach((group)=> {
-        this.answers.groups[group.$key] = {
+        let answerGroup = this.answers.groups[group.$key] = {
           points: 0,
           pointsPossible: 0,
           questions: {}
         };
-        this.questionLists[group.$key] = this.af.database.list(`fitTest/${group.$key}/questions`, {
-          query: { orderByChild: 'order' }
-        })
-        this.questionLists[group.$key].subscribe((questions: any[]) => {
-          questions.forEach((question)=> {
-            this.answers.pointsPossible += 5;
-            this.answers.groups[group.$key].pointsPossible += 5;
-          });
-        })
+        let questionList: any[] = [];
+        Object.keys(group.questions).forEach((questionKey: string) => {
+          let question = group.questions[questionKey];
+          question.$key = questionKey;
+          questionList.push(question);
+        });
+        this.questionLists[group.$key] = _.sortBy(questionList, 'order');
+        for (let question of this.questionLists[group.$key]) {
+          this.answers.pointsPossible += 5;
+          answerGroup.pointsPossible += 5;
+          if (existing && existing.groups[group.$key] && existing.groups[group.$key].questions && 
+              existing.groups[group.$key].questions[question.$key]) {
+            let points = existing.groups[group.$key].questions[question.$key];
+            this.answers.points += points;
+            answerGroup.points += points;
+            answerGroup.questions[question.$key] = points;
+          }
+        }
       });
     });
   }
@@ -84,8 +103,8 @@ export class FitTestComponent implements OnInit {
   }
 
   submit() {
-    let entry = this.af.database.object(`/entries/${this.scheduleId}/fitTest/${this.date}`);
-    entry.set(this.answers).then(() => {
+    this.updatePoints();
+    this.entry.set(this.answers).then(() => {
       this.router.navigate(['/track', this.scheduleId, this.date]);
     });
   }

@@ -17,6 +17,7 @@ export class TrackComponent implements OnInit {
   public programDay: number;
   public dailyEntries: FirebaseListObservable<any[]>;
   public monthlyEntries: FirebaseListObservable<any[]>;
+  public fitTest: FirebaseObjectObservable<any> | null;
   userId: string;
   scheduleId: string;
   startDate: any;
@@ -68,6 +69,13 @@ export class TrackComponent implements OnInit {
     let day: string = this.date.format('dd');
 
     this.programDay = this.date.diff(this.startDate, 'days')+1;
+
+    if (this.showFitTest()) {
+      this.fitTest = this.af.database.object(`/entries/${this.scheduleId}/fitTest/${this.date.format('YYYY-MM-DD')}`);
+    }
+    else {
+      this.fitTest = null;
+    }
 
     this.dailyEntries = this.af.database.list(
       `/entries/${this.scheduleId}/daily/${this.date.format('YYYY-MM-DD')}`

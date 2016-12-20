@@ -1,11 +1,42 @@
-// .category {
-//     border-bottom: 1px solid;
-//     margin-top: 32px;
-// }
+:host {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-// .question {
-//     font-style: italic;
-// }
+    display: flex;
+    flex-direction: column;
+}
+
+md-toolbar {
+    flex: 0 0 auto;
+    [md-icon-button] {
+        margin-right: 8px;
+    }
+}
+
+md-tab-group {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.section {
+    padding: 20px;
+}
+
+.question-group {
+    margin-bottom: 42px;
+}
+
+.question-scripture {
+    font-size: 12px;
+    font-style: italic;
+}
 
 md-radio-button {
     margin-left: 16px;

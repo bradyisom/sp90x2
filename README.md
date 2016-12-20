@@ -9,12 +9,14 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Show and calculate points
 - [x] Implement fit test and add to tracking days
 - [x] Simplify navigation and app flow
-- [ ] Show fit test results in tracker
+- [x] Show fit test results in tracker
 - [ ] Fit test report
 - [ ] Unit tests
 - [ ] Supplemental materials
 - [ ] Register email users
 - [ ] Customize schedules
+- [ ] Better, stylized header fonts
+- [ ] Scripture link pipe
 - [x] Deploy
 - [ ] AOT Deploy
 - [ ] Optimize for phone viewing
@@ -25,7 +27,8 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 ## BUGS
 - [x] Tracking does not honor initial date in route
 - [x] Prevent tracking from going beyond date boundaries
-- [ ] Reload answers for fit test
+- [x] Reload answers for fit test
+- [ ] Update select elements to md-select
 - [ ] Preserve tracked tasks after schedule edit
 - [ ] Create services for data access
 

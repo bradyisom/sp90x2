@@ -13,10 +13,15 @@
 </h4>
 <md-list>
   <md-list-item *ngIf="showFitTest()">
-    <button md-raised-button color="accent" 
-        [routerLink]="['/fittest', scheduleId, getDay()]">
-      Take Fit Test
-    </button>
+    <p md-line>
+      <button md-raised-button color="accent" 
+          [routerLink]="['/fittest', scheduleId, getDay()]">
+        Take Fit Test
+      </button>
+      <span class="fit-test-results" *ngIf="(fitTest | async)?.points">
+        Fit Test Points: {{(fitTest | async)?.points}} / {{(fitTest | async)?.pointsPossible}}
+      </span>
+    </p>
   </md-list-item>
   <h3 md-subheader>
     Daily Tasks
