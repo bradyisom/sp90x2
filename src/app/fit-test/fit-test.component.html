@@ -1,9 +1,9 @@
 <md-toolbar class="md-elevation-z4">
-  <button md-icon-button (click)="submit()">
-    <md-icon>chevron_left</md-icon>
-  </button>
-  <span>Spiritual Fit Test - {{date | date}}</span>
+  <span class="title">Spiritual Fit Test - {{date | date}}</span>
   <span class="spacer"></span>
+  <button md-button (click)="submit()">
+    SAVE
+  </button>
 </md-toolbar>
 
 <md-tab-group *ngIf="questionLists" [selectedIndex]="selectedTab" (selectChange)="selectedTab = $event.index">
@@ -14,8 +14,10 @@
       <div class="question-group"
         *ngFor="let question of questionLists[group?.$key]; trackBy: question?.$key">
         <p class="question" md-line>
-          {{question.title}}<br>
-          <span class="question-scripture">({{question.scripture}})</span>
+          {{question.title}}
+          <a class="question-scripture" [href]="question.link" target="sp90xScriptureWindow">
+            {{question.scripture}}
+          </a>
         </p>
         <p>
           <md-radio-group [(ngModel)]="answers.groups[group.$key].questions[question.$key]"

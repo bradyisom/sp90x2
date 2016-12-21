@@ -38,7 +38,10 @@
       {{task.title}}
     </h3>
     <p md-line class="sub-task" *ngIf="task.subTask">
-      {{task.subTask}}
+      <a *ngIf="task.subTaskLink" [href]="task.subTaskLink" target="sp90xScriptureWindow">
+        {{task.subTask}}
+      </a>
+      <span *ngIf="!task.subTaskLink">{{task.subTask}}</span>
     </p>
     <p md-line class="task-description">
       {{task.description}}
@@ -55,7 +58,10 @@
       {{task.title}}
     </h3>
     <p md-line class="sub-task" *ngIf="task.subTask">
-      {{task.subTask}}
+      <a *ngIf="task.subTaskLink" [href]="task.subTaskLink" target="sp90xScriptureWindow">
+        {{task.subTask}}
+      </a>
+      <span *ngIf="!task.subTaskLink">{{task.subTask}}</span>
     </p>
     <p md-line class="task-description">
       {{task.description}}

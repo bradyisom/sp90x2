@@ -110,6 +110,9 @@
           "order": {
             ".validate": "newData.isNumber()"
           },
+          "link": {
+            ".validate": "newData.isString()"
+          },
           "title": {
             ".validate": "newData.isString()"
           }
@@ -234,6 +237,9 @@
               ".validate": "newData.isNumber()"
             },
             "title": {
+              ".validate": "newData.isString()"
+            },
+            "link": {
               ".validate": "newData.isString()"
             },
             "scripture": {

@@ -33,8 +33,14 @@ body, html {
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-h1,h2,legend {
+h1,h2,legend,
+md-toolbar .title {
     font-family: 'Audiowide', Roboto, 'Helvetica Neue', sans-serif;
+    letter-spacing: 1px;
+}
+
+a {
+    color: md-color($dark-accent, A200);
 }
 
 .app-loading {

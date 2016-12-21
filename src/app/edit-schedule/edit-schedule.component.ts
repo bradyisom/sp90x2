@@ -119,7 +119,10 @@ export class EditScheduleComponent implements OnInit {
                 let order = orders[task.$key] = orders[task.$key] || 0;
                 let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
                 if (subTasks[order]) {
-                  tasks.daily[key][task.$key].subTask = subTasks[order].title;
+                  tasks.monthly[key][task.$key].subTask = subTasks[order].title;
+                  if (subTasks[order].link) {
+                    tasks.monthly[key][task.$key].subTaskLink = subTasks[order].link;
+                  }
                   orders[task.$key]++;
                 }
               }
@@ -143,6 +146,9 @@ export class EditScheduleComponent implements OnInit {
                 let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
                 if (subTasks[order]) {
                   tasks.daily[key][task.$key].subTask = subTasks[order].title;
+                  if (subTasks[order].link) {
+                    tasks.daily[key][task.$key].subTaskLink = subTasks[order].link;
+                  }
                   orders[task.$key]++;
                 }
               }

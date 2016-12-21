@@ -11,7 +11,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Simplify navigation and app flow
 - [x] Show fit test results in tracker
 - [x] Better, stylized header fonts
-- [ ] Scripture link pipe
+- [x] Scripture links
 - [ ] Register email users
 - [ ] Fit test report
 - [ ] Supplemental materials
@@ -30,6 +30,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Tracking does not honor initial date in route
 - [x] Prevent tracking from going beyond date boundaries
 - [x] Reload answers for fit test
+- [ ] Disable main header for full screen dialogs
 - [ ] Preserve tracked tasks after schedule edit
 
 ## Development server
