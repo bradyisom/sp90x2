@@ -75,7 +75,7 @@ export class FitTestComponent implements OnInit {
         for (let question of this.questionLists[group.$key]) {
           this.answers.pointsPossible += 5;
           answerGroup.pointsPossible += 5;
-          if (existing && existing.groups[group.$key] && existing.groups[group.$key].questions && 
+          if (existing && existing.groups && existing.groups[group.$key] && existing.groups[group.$key].questions && 
               existing.groups[group.$key].questions[question.$key]) {
             let points = existing.groups[group.$key].questions[question.$key];
             this.answers.points += points;

@@ -8,8 +8,9 @@
 }
 
 .fit-test-results {
-    float: right;
-    margin-left: 10px;
+    md-icon {
+        vertical-align: middle;
+    }
 }
 
 p[md-line] {

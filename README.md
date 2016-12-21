@@ -10,27 +10,27 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Implement fit test and add to tracking days
 - [x] Simplify navigation and app flow
 - [x] Show fit test results in tracker
-- [ ] Fit test report
-- [ ] Unit tests
-- [ ] Supplemental materials
-- [ ] Register email users
-- [ ] Customize schedules
-- [ ] Better, stylized header fonts
+- [x] Better, stylized header fonts
 - [ ] Scripture link pipe
+- [ ] Register email users
+- [ ] Fit test report
+- [ ] Supplemental materials
+- [ ] Unit tests
+- [ ] Update select elements to md-select (after final release)
 - [x] Deploy
 - [ ] AOT Deploy
+- [ ] Additional stock schedules
+- [ ] Customize schedules
 - [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports
-- [ ] Additional stock schedules
+- [ ] Create services for data access?
 
 ## BUGS
 - [x] Tracking does not honor initial date in route
 - [x] Prevent tracking from going beyond date boundaries
 - [x] Reload answers for fit test
-- [ ] Update select elements to md-select
 - [ ] Preserve tracked tasks after schedule edit
-- [ ] Create services for data access
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

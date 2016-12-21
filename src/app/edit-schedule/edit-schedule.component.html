@@ -5,6 +5,11 @@
   </div>
   <div class="form-group">
     <label>Program:</label>
+    <!--<md-select formControlName="program" required>
+      <md-option *ngFor="let program of (programs | async)" [value]="program.$key">
+        {{ program.title }}
+      </md-option>
+    </md-select>-->
     <select formControlName="program" required>
       <option *ngFor="let program of (programs | async)" [ngValue]="program.$key">
         {{ program.title }}

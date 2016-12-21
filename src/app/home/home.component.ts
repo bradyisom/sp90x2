@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../auth.service';
 
@@ -13,12 +13,14 @@ export class HomeComponent implements OnInit {
   private rawList: FirebaseListObservable<any>;
   public list: Observable<any>;
 
+  private userSubscription: Subscription;
+
   constructor(private auth: AuthService, private af: AngularFire) { 
   }
 
   ngOnInit() {
     this.user = this.auth.user;
-    this.user.subscribe(user => {
+    this.userSubscription = this.user.subscribe(user => {
       if (user) {
         this.rawList = this.af.database.list(`/schedules/${user.uid}`, {
           query: {
@@ -35,9 +37,11 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  removeSchedule(event: any, schedule: any) {
-    event.preventDefault();
-    event.stopImmediatePropagation();
+  ngOnDestroy() {
+    this.userSubscription.unsubscribe();    
+  }
+
+  removeSchedule(schedule: any) {
     this.af.database.object(`/entries/${schedule.$key}`).remove().then(() => {
       this.rawList.remove(schedule);
     });

@@ -12,27 +12,31 @@
   </button>
 </h4>
 <md-list>
+  <h2 md-subheader *ngIf="showFitTest()">
+    Fit Test
+  </h2>
   <md-list-item *ngIf="showFitTest()">
     <p md-line>
       <button md-raised-button color="accent" 
           [routerLink]="['/fittest', scheduleId, getDay()]">
         Take Fit Test
       </button>
-      <span class="fit-test-results" *ngIf="(fitTest | async)?.points">
-        Fit Test Points: {{(fitTest | async)?.points}} / {{(fitTest | async)?.pointsPossible}}
-      </span>
+    </p>
+    <p md-line class="fit-test-results" *ngIf="(fitTest | async)?.points">
+      <md-icon>check_circle</md-icon>
+      Results: {{(fitTest | async)?.points}} / {{(fitTest | async)?.pointsPossible}}
     </p>
   </md-list-item>
-  <h3 md-subheader>
+  <h2 md-subheader>
     Daily Tasks
-  </h3>
+  </h2>
   <md-list-item *ngFor="let task of (dailyEntries | async); trackBy: task?.$key">
     <md-checkbox [checked]="task.finished"
                  (change)="checkEntry('daily', task, $event.checked)">
     </md-checkbox>
-    <h2 md-line>
+    <h3 md-line>
       {{task.title}}
-    </h2>
+    </h3>
     <p md-line class="sub-task" *ngIf="task.subTask">
       {{task.subTask}}
     </p>
@@ -40,16 +44,16 @@
       {{task.description}}
     </p>    
   </md-list-item>
-  <h3 md-subheader>
+  <h2 md-subheader>
     Monthly Tasks
-  </h3>
+  </h2>
   <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: task?.$key">
     <md-checkbox [checked]="task.finished"
                  (change)="checkEntry('monthly', task, $event.checked)">
     </md-checkbox>
-    <h2 md-line>
+    <h3 md-line>
       {{task.title}}
-    </h2>
+    </h3>
     <p md-line class="sub-task" *ngIf="task.subTask">
       {{task.subTask}}
     </p>
