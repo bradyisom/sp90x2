@@ -43,8 +43,7 @@ export class TrackComponent implements OnInit {
           this.points = schedule.points;
           this.loadDay();
         });
-      }
-      else {
+      } else {
         this.navigateDate(moment().startOf('day'));
       }
     });
@@ -75,12 +74,11 @@ export class TrackComponent implements OnInit {
 
     let day: string = this.date.format('dd');
 
-    this.programDay = this.date.diff(this.startDate, 'days')+1;
+    this.programDay = this.date.diff(this.startDate, 'days') + 1;
 
     if (this.showFitTest()) {
       this.fitTest = this.af.database.object(`/entries/${this.scheduleId}/fitTest/${this.date.format('YYYY-MM-DD')}`);
-    }
-    else {
+    } else {
       this.fitTest = null;
     }
 
@@ -112,9 +110,9 @@ export class TrackComponent implements OnInit {
   }
 
   checkEntry(type: string, task: any, value: boolean) {
-    if (type == 'daily') {
+    if (type === 'daily') {
       this.dailyEntries.update(task.$key, {finished: value});
-    } else if (type == 'monthly') {
+    } else if (type === 'monthly') {
       this.monthlyEntries.update(task.$key, {finished: value});
     }
     if (value) {

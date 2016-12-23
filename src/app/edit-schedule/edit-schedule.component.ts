@@ -58,7 +58,7 @@ export class EditScheduleComponent implements OnInit {
       if (user) {
         this.userId = user.uid;
         if (this.scheduleId) {
-          this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`)
+          this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
           this.schedule.first().subscribe((schedule) => {
             this.editForm.setValue({
               programTitle: schedule.programTitle,
@@ -68,8 +68,7 @@ export class EditScheduleComponent implements OnInit {
             return true;
           });
         }
-      }
-      else {
+      } else {
         this.userId = null;
       }
     });
@@ -81,7 +80,7 @@ export class EditScheduleComponent implements OnInit {
     this.programTasks.first().subscribe(() => {
       this.filteredTasks = this.tasks.withLatestFrom(this.programTasks)
         .map(([tasks, programTasks]) => {
-          let val = _.filter(tasks, (t: any)=> {
+          let val = _.filter(tasks, (t: any) => {
             return !!_.find(programTasks, {$key: t.$key});
           });
           return val;
@@ -102,11 +101,11 @@ export class EditScheduleComponent implements OnInit {
     let orders = {};
     let pointsPossible = 0;
     this.filteredTasks.reduce((tasks: any, taskList: any) => {
-      moment.range(startDate, endDate).by('days', (day)=> {
+      moment.range(startDate, endDate).by('days', (day) => {
         for (let task of taskList) {
-          if (task.defaultInterval == 'monthly') {
-            if(day.isSame(startDate, 'day') || day.date() == 1) {
-              let key = day.format('YYYY-MM'); 
+          if (task.defaultInterval === 'monthly') {
+            if (day.isSame(startDate, 'day') || day.date() === 1) {
+              let key = day.format('YYYY-MM');
               tasks.monthly[key] = tasks.monthly[key] || {};
               tasks.monthly[key][task.$key] = {
                 title: task.title,
@@ -127,12 +126,11 @@ export class EditScheduleComponent implements OnInit {
                 }
               }
             }
-          }
-          else {
+          } else {
             let weekday = day.format('dd');
-            if(task.defaultInterval == 'daily' ||
-                task.defaultInterval.split(',').some((value: string) => value == weekday)) {
-              let key = day.format('YYYY-MM-DD'); 
+            if (task.defaultInterval === 'daily' ||
+                task.defaultInterval.split(',').some((value: string) => value === weekday)) {
+              let key = day.format('YYYY-MM-DD');
               tasks.daily[key] = tasks.daily[key] || {};
               tasks.daily[key][task.$key] = {
                 title: task.title,
@@ -171,14 +169,13 @@ export class EditScheduleComponent implements OnInit {
       let promise;
       if (this.schedule) {
         promise = this.schedule.set(newValue);
-      }
-      else {
+      } else {
         let schedules = this.af.database.list(`/schedules/${this.userId}`);
         promise = schedules.push(newValue);
       }
 
       promise.then((result: any) => {
-        this.scheduleId = this.scheduleId || result.key; 
+        this.scheduleId = this.scheduleId || result.key;
 
         let entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
         return entriesObj.set(tasks);

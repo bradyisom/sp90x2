@@ -24,22 +24,20 @@ export class AuthService {
               displayName: auth.google.displayName,
               avatar: auth.google.photoURL
             });
-          }          
-          else if (auth.provider === AuthProviders.Facebook) {
+          } else if (auth.provider === AuthProviders.Facebook) {
             this._user.set({
               uid: auth.uid,
               email: auth.facebook.email,
               displayName: auth.facebook.displayName,
               avatar: auth.facebook.photoURL
             });
-          }          
+          }
           this.user.next(u);
           if (this.router.url === '/login') {
             this.router.navigate(['/']);
           }
         });
-      }
-      else {
+      } else {
         this._user = null;
         this.user.next(null);
       }
@@ -58,7 +56,7 @@ export class AuthService {
       provider: AuthProviders.Google,
       method: AuthMethods.Popup,
       scope: ['email']
-    })
+    });
   }
 
   facebookLogin() {
@@ -66,7 +64,7 @@ export class AuthService {
       provider: AuthProviders.Facebook,
       method: AuthMethods.Popup,
       scope: ['email']
-    })
+    });
   }
 
   logout() {

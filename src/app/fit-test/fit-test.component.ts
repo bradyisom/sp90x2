@@ -59,7 +59,7 @@ export class FitTestComponent implements OnInit {
         groups: {}
       };
 
-      groups.forEach((group)=> {
+      groups.forEach((group) => {
         let answerGroup = this.answers.groups[group.$key] = {
           points: 0,
           pointsPossible: 0,
@@ -75,7 +75,7 @@ export class FitTestComponent implements OnInit {
         for (let question of this.questionLists[group.$key]) {
           this.answers.pointsPossible += 5;
           answerGroup.pointsPossible += 5;
-          if (existing && existing.groups && existing.groups[group.$key] && existing.groups[group.$key].questions && 
+          if (existing && existing.groups && existing.groups[group.$key] && existing.groups[group.$key].questions &&
               existing.groups[group.$key].questions[question.$key]) {
             let points = existing.groups[group.$key].questions[question.$key];
             this.answers.points += points;
@@ -98,7 +98,7 @@ export class FitTestComponent implements OnInit {
     let total = 0;
     Object.keys(this.answers.groups).forEach((group) => {
       let groupTotal = 0;
-      Object.keys(this.answers.groups[group].questions).forEach((question)=> {
+      Object.keys(this.answers.groups[group].questions).forEach((question) => {
         this.answers.groups[group].questions[question] = +this.answers.groups[group].questions[question] || 0;
         let val = this.answers.groups[group].questions[question];
         total += val;
