@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
-import { Gravatar } from 'ng2-gravatar-directive';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
@@ -37,7 +36,6 @@ export const firebaseAuthConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    Gravatar,
     LoginComponent,
     HomeComponent,
     EditScheduleComponent,

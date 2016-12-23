@@ -23,7 +23,6 @@
       </span>
       <button md-icon-button *ngIf="(auth.user | async)" [md-menu-trigger-for]="userMenu">
         <img class="user-avatar" src="{{(auth.user | async)?.avatar}}" alt="">
-        <!--<img gravatar [email]="(auth.user|async)?.email" size="40">-->
       </button>
 
       <md-menu #userMenu="mdMenu" x-position="before">
