@@ -14,11 +14,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Scripture links
 - [ ] Register email users
 - [ ] Fit test report
+- [ ] Switch to lookup task/subtask details?
 - [ ] Supplemental materials
 - [ ] Unit tests
 - [ ] Update select elements to md-select (after final release)
 - [x] Deploy
-- [ ] AOT Deploy
+- [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Additional stock schedules
 - [ ] Customize schedules
 - [ ] Optimize for phone viewing
@@ -31,7 +32,6 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Prevent tracking from going beyond date boundaries
 - [x] Reload answers for fit test
 - [x] Disable main header for full screen dialogs
-- [ ] Preserve tracked tasks after schedule edit
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

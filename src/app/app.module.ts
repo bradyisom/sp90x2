@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { AuthResolver } from './auth-resolver.service';
 
+import 'hammerjs';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -17,8 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 import { TrackComponent } from './track/track.component';
 import { FitTestComponent } from './fit-test/fit-test.component';
-
-import 'hammerjs';
+import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confirm-delete-schedule.component';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo",
@@ -40,7 +40,8 @@ export const firebaseAuthConfig = {
     HomeComponent,
     EditScheduleComponent,
     TrackComponent,
-    FitTestComponent
+    FitTestComponent,
+    ConfirmDeleteScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +102,9 @@ export const firebaseAuthConfig = {
     AuthGuard,
     AuthResolver
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    ConfirmDeleteScheduleComponent
+  ]
 })
 export class AppModule { }

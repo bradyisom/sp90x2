@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Observable, Subscription } from 'rxjs';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../auth.service';
+import { ConfirmDeleteScheduleComponent } from '../confirm-delete-schedule/confirm-delete-schedule.component';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +16,13 @@ export class HomeComponent implements OnInit {
   public list: Observable<any>;
 
   private userSubscription: Subscription;
+  private confirmDialogRef: MdDialogRef<ConfirmDeleteScheduleComponent>;
 
-  constructor(private auth: AuthService, private af: AngularFire) { 
+  constructor(
+    private auth: AuthService,
+    private af: AngularFire,
+    private dialog: MdDialog,
+    private viewContainerRef: ViewContainerRef) { 
   }
 
   ngOnInit() {
@@ -42,9 +49,17 @@ export class HomeComponent implements OnInit {
   }
 
   removeSchedule(schedule: any) {
-    this.af.database.object(`/entries/${schedule.$key}`).remove().then(() => {
-      this.rawList.remove(schedule);
+    this.confirmDialogRef = this.dialog.open(ConfirmDeleteScheduleComponent, {});
+    this.confirmDialogRef.afterClosed().subscribe(result => {
+      // console.log('result: ' + result);
+      this.confirmDialogRef = null;
+      if (result === 'delete') {
+        this.af.database.object(`/entries/${schedule.$key}`).remove().then(() => {
+          this.rawList.remove(schedule);
+        });
+      }
     });
+
   }
 
 }

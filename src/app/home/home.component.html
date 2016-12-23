@@ -22,14 +22,14 @@
       <p md-line class="schedule-points">
         Points: {{item.points}} / {{item.pointsPossible}}
       </p>
-      <button md-icon-button routerLink="/track/{{item.$key}}"
+      <!--<button md-icon-button routerLink="/track/{{item.$key}}"
         (click)="$event.preventDefault(); $event.stopImmediatePropagation()">
         <md-icon>check_circle</md-icon>
       </button>
       <button md-icon-button routerLink="/editschedule/{{item.$key}}"
         (click)="$event.preventDefault(); $event.stopImmediatePropagation()">
         <md-icon>edit</md-icon>
-      </button>
+      </button>-->
       <button md-icon-button
         (click)="$event.preventDefault(); $event.stopImmediatePropagation(); removeSchedule(item)">
         <md-icon>delete</md-icon>
