@@ -7,12 +7,12 @@
 </md-toolbar>
 
 <md-tab-group *ngIf="questionLists" [selectedIndex]="selectedTab" (selectChange)="selectedTab = $event.index">
-  <md-tab *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key"
+  <md-tab *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: entryKey"
     [label]="group?.title">
     <div class="section">
       <h2 #header>{{group?.title}}</h2>
       <div class="question-group"
-        *ngFor="let question of questionLists[group?.$key]; trackBy: question?.$key">
+        *ngFor="let question of questionLists[group?.$key]; trackBy: entryKey">
         <p class="question" md-line>
           {{question.title}}
           <a class="question-scripture" [href]="question.link" target="sp90xScriptureWindow">
@@ -39,7 +39,7 @@
       <md-card>
         <h2>Results</h2>
         <md-list>
-          <md-list-item *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: group?.$key">
+          <md-list-item *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: entryKey">
             {{group?.title}}: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}        
           </md-list-item>
         </md-list>

@@ -87,6 +87,13 @@ export class FitTestComponent implements OnInit {
     });
   }
 
+  public entryKey(entry) {
+    if (!entry) {
+      return '';
+    }
+    return entry.$key;
+  }
+
   updatePoints() {
     let total = 0;
     Object.keys(this.answers.groups).forEach((group) => {

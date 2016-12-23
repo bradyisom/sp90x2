@@ -30,7 +30,7 @@
   <h2 md-subheader>
     Daily Tasks
   </h2>
-  <md-list-item *ngFor="let task of (dailyEntries | async); trackBy: task?.$key">
+  <md-list-item *ngFor="let task of (dailyEntries | async); trackBy: taskKey">
     <md-checkbox [checked]="task.finished"
                  (change)="checkEntry('daily', task, $event.checked)">
     </md-checkbox>
@@ -50,7 +50,7 @@
   <h2 md-subheader>
     Monthly Tasks
   </h2>
-  <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: task?.$key">
+  <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: taskKey">
     <md-checkbox [checked]="task.finished"
                  (change)="checkEntry('monthly', task, $event.checked)">
     </md-checkbox>

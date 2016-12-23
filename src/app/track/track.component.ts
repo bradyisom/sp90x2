@@ -50,6 +50,13 @@ export class TrackComponent implements OnInit {
     });
   }
 
+  public taskKey(task) {
+    if (!task) {
+      return '';
+    }
+    return task.$key;
+  }
+
   navigateDate(date) {
     this.router.navigate(['/track', this.scheduleId, date.format('YYYY-MM-DD')], {
       replaceUrl: true
