@@ -11,7 +11,7 @@ export class AuthService {
 
   constructor(private af: AngularFire, private router: Router) {
     this.af.auth.subscribe(auth => {
-      console.log('auth', auth);
+      // console.log('auth', auth);
       if (auth) {
         this._user = af.database.object(`/users/${auth.uid}`);
         let subscription: Subscription = this._user.subscribe((u: any) => {

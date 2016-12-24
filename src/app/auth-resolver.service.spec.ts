@@ -1,16 +1,29 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { AuthResolverService } from './auth-resolver.service';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+import { AuthResolver } from './auth-resolver.service';
 
 describe('Service: AuthResolver', () => {
+
+  const mockAuthService = {
+    user: Observable.of({
+      uid: 'U1'
+    })
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthResolverService]
+      providers: [
+        AuthResolver,
+        { provide: AuthService, useValue: mockAuthService }
+      ]
     });
   });
 
-  it('should ...', inject([AuthResolverService], (service: AuthResolverService) => {
+  it('should create', inject([AuthResolver], (service: AuthResolver) => {
     expect(service).toBeTruthy();
   }));
 });
