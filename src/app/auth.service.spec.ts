@@ -29,7 +29,7 @@ describe('Service: Auth', () => {
 
   let mockRouter = {
     url: '',
-    navigate: jasmine.createSpy('navigate');
+    navigate: jasmine.createSpy('navigate')
   };
 
   beforeEach(() => {

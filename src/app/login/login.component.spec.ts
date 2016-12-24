@@ -16,7 +16,10 @@ describe('LoginComponent', () => {
   const mockAuthService = {
     user: Observable.of({
       uid: 'U1'
-    })
+    }),
+    login: jasmine.createSpy('login'),
+    googleLogin: jasmine.createSpy('googleLogin'),
+    facebookLogin: jasmine.createSpy('facebookLogin')
   };
 
   beforeEach(async(() => {
@@ -41,5 +44,28 @@ describe('LoginComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('login', () => {
+    it('should login with password', () => {
+      component.email = 'bradyisom@gmail.com';
+      component.password = 'password1';
+      component.login();
+      expect(mockAuthService.login).toHaveBeenCalledWith('bradyisom@gmail.com', 'password1');
+    });
+  });
+
+  describe('googleLogin', () => {
+    it('should login to Google', () => {
+      component.googleLogin();
+      expect(mockAuthService.googleLogin).toHaveBeenCalled();
+    });
+  });
+
+  describe('facebookLogin', () => {
+    it('should login to Facebook', () => {
+      component.facebookLogin();
+      expect(mockAuthService.facebookLogin).toHaveBeenCalled();
+    });
   });
 });
