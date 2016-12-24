@@ -8,10 +8,7 @@ import { AuthGuard } from './auth-guard.service';
 
 describe('Service: AuthGuard', () => {
 
-  const mockAuthService = {
-    user: Observable.of({
-      uid: 'U1'
-    })
+  let mockAuthService: any = {
   };
 
   beforeEach(() => {
@@ -26,7 +23,32 @@ describe('Service: AuthGuard', () => {
     });
   });
 
+  beforeEach(() => {
+    mockAuthService.user = Observable.of({
+      uid: 'U1'
+    });
+  });
+
   it('should create', inject([AuthGuard], (service: AuthGuard) => {
     expect(service).toBeTruthy();
   }));
+
+  it('should resolve to true if logged in', inject([AuthGuard], (service: AuthGuard) => {
+    service.canActivateChild(<any>{}, <any>{}).subscribe((loggedIn) => {
+      expect(loggedIn).toBe(true);
+    });
+  }));
+
+  describe('not logged in', () => {
+    beforeEach(() => {
+      mockAuthService.user = Observable.of(null);
+    });
+
+    it('should resolve to false', inject([AuthGuard], (service: AuthGuard) => {
+      service.canActivateChild(<any>{}, <any>{}).subscribe((loggedIn) => {
+        expect(loggedIn).toBe(false);
+      });
+    }));
+
+  });
 });

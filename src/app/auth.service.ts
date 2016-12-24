@@ -14,8 +14,7 @@ export class AuthService {
       // console.log('auth', auth);
       if (auth) {
         this._user = af.database.object(`/users/${auth.uid}`);
-        let subscription: Subscription = this._user.subscribe((u: any) => {
-          subscription.unsubscribe();
+        this._user.take(1).subscribe((u: any) => {
           // Create the user object
           if (auth.provider === AuthProviders.Google) {
             this._user.set({
