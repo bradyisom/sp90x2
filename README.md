@@ -12,12 +12,12 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Show fit test results in tracker
 - [x] Better, stylized header fonts
 - [x] Scripture links
+- [ ] Unit tests
 - [ ] Register email users
 - [ ] Fit test report
 - [ ] Switch to lookup task/subtask details?
 - [ ] Supplemental materials
-- [ ] Unit tests
-- [ ] Update select elements to md-select (after final release)
+- [x] Update select elements to md-select
 - [x] Deploy
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Additional stock schedules

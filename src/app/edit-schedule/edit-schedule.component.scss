@@ -15,7 +15,12 @@ label {
     display: block;
     clear: both;
 }
-select {
+
+md-input-container,
+md-select {
+    min-width: 200px;
+}
+md-select {
     margin: 16px 0;
 }
 

@@ -18,6 +18,7 @@ export class EditScheduleComponent implements OnInit {
   userId: string;
   scheduleId: string;
   public editForm: FormGroup;
+  public programControl: FormControl;
   public schedule: FirebaseObjectObservable<any>;
   public programs: FirebaseListObservable<any>;
   public filteredTasks: Observable<any>;
@@ -35,13 +36,13 @@ export class EditScheduleComponent implements OnInit {
       this.scheduleId = params['id'];
     });
 
-    let programControl = new FormControl('', Validators.required);
-    programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
+    this.programControl = new FormControl('', Validators.required);
+    this.programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
 
     this.editForm = new FormGroup({
       programTitle: new FormControl('SP90X Classic', Validators.required),
       startDate: new FormControl(moment().format('YYYY-MM-DD'), Validators.required),
-      program: programControl
+      program: this.programControl
     });
 
     this.programs = this.af.database.list('/programs');
