@@ -1,8 +1,9 @@
-# Sp90x2
+# SP90X2
+
+Scripture Power Extreme 90 - Extreme Spiritual Fitness
 
 [![Build Status](https://travis-ci.org/bradyisom/sp90x2.svg?branch=master)](https://travis-ci.org/bradyisom/sp90x2)
-
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.17.
+[![Codecov](https://img.shields.io/codecov/c/github/bradyisom/sp90x2.svg)]()
 
 ## TODO
 
@@ -17,6 +18,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Scripture links
 - [x] Update select elements to md-select
 - [x] Unit tests
+- [x] Add Travis CI and Codecov
 - [ ] Switch to lookup task/subtask details?
 - [ ] Register email users
 - [ ] Fit test report
@@ -24,6 +26,7 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [ ] Additional stock schedules
 - [ ] Customize schedules
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
+- [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports
