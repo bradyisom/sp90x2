@@ -92,7 +92,7 @@ export class TrackComponent implements OnInit {
 
   }
 
-  moveDay(num: number) {
+  public moveDay(num: number) {
     let next = moment(this.date).add(num, 'days');
     this.router.navigate(['..', next.format('YYYY-MM-DD')], {
       relativeTo: this.route
@@ -101,19 +101,22 @@ export class TrackComponent implements OnInit {
     this.loadDay();
   }
 
-  showFitTest() {
+  public showFitTest() {
     return [1, 30, 60, 90].indexOf(this.programDay) !== -1;
   }
 
-  getDay() {
+  public getDay() {
     return this.date.format('YYYY-MM-DD');
   }
 
-  checkEntry(type: string, task: any, value: boolean) {
-    if (type === 'daily') {
-      this.dailyEntries.update(task.$key, {finished: value});
-    } else if (type === 'monthly') {
-      this.monthlyEntries.update(task.$key, {finished: value});
+  public checkEntry(type: string, task: any, value: boolean) {
+    switch (type) {
+      case 'daily':
+        this.dailyEntries.update(task.$key, {finished: value});
+        break;
+      case 'monthly':
+        this.monthlyEntries.update(task.$key, {finished: value});
+        break;
     }
     if (value) {
       this.points += task.points;
