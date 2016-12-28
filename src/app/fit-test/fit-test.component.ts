@@ -12,9 +12,9 @@ import * as moment from 'moment';
   styleUrls: ['./fit-test.component.scss']
 })
 export class FitTestComponent implements OnInit {
-  private fitTest: FirebaseListObservable<any>;
+  public fitTest: FirebaseListObservable<any>;
+  public questionLists: any;
   private entry: FirebaseObjectObservable<any>;
-  private questionLists: any;
 
   private userId: string;
   private scheduleId: string;
@@ -33,9 +33,7 @@ export class FitTestComponent implements OnInit {
     this.userId = this.route.snapshot.data['user'].uid;
     this.route.params.forEach((params: Params) => {
       this.scheduleId = params['scheduleId'];
-      if (params['date']) {
-        this.date = moment(params['date']).startOf('day').format('YYYY-MM-DD');
-      }
+      this.date = moment(params['date']).startOf('day').format('YYYY-MM-DD');
     });
 
     this.fitTest = this.af.database.list('fitTest', {
@@ -99,7 +97,7 @@ export class FitTestComponent implements OnInit {
     Object.keys(this.answers.groups).forEach((group) => {
       let groupTotal = 0;
       Object.keys(this.answers.groups[group].questions).forEach((question) => {
-        this.answers.groups[group].questions[question] = +this.answers.groups[group].questions[question] || 0;
+        this.answers.groups[group].questions[question] = +this.answers.groups[group].questions[question];
         let val = this.answers.groups[group].questions[question];
         total += val;
         groupTotal += val;
