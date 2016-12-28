@@ -13,9 +13,9 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Better, stylized header fonts
 - [x] Scripture links
 - [ ] Unit tests
+- [ ] Switch to lookup task/subtask details?
 - [ ] Register email users
 - [ ] Fit test report
-- [ ] Switch to lookup task/subtask details?
 - [ ] Supplemental materials
 - [x] Update select elements to md-select
 - [x] Deploy

@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import {
+  // ActivatedRoute, Params,
+  Router
+} from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import * as moment from 'moment';
@@ -27,14 +30,16 @@ export class EditScheduleComponent implements OnInit {
   subTasks: any;
 
   constructor(
-    private route: ActivatedRoute, private router: Router,
-    private auth: AuthService, private af: AngularFire
+    // private route: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService,
+    private af: AngularFire
   ) { }
 
   ngOnInit() {
-    this.route.params.forEach((params: Params) => {
-      this.scheduleId = params['id'];
-    });
+    // this.route.params.forEach((params: Params) => {
+    //   this.scheduleId = params['id'];
+    // });
 
     this.programControl = new FormControl('', Validators.required);
     this.programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
@@ -56,22 +61,18 @@ export class EditScheduleComponent implements OnInit {
     });
 
     this.auth.user.first().subscribe(user => {
-      if (user) {
-        this.userId = user.uid;
-        if (this.scheduleId) {
-          this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
-          this.schedule.first().subscribe((schedule) => {
-            this.editForm.setValue({
-              programTitle: schedule.programTitle,
-              startDate: moment(schedule.startDate).format('YYYY-MM-DD'),
-              program: schedule.program || ''
-            });
-            return true;
-          });
-        }
-      } else {
-        this.userId = null;
-      }
+      this.userId = user.uid;
+      // if (this.scheduleId) {
+      //   this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
+      //   this.schedule.first().subscribe((schedule) => {
+      //     this.editForm.setValue({
+      //       programTitle: schedule.programTitle,
+      //       startDate: moment(schedule.startDate).format('YYYY-MM-DD'),
+      //       program: schedule.program || ''
+      //     });
+      //     return true;
+      //   });
+      // }
     });
 
   }
@@ -115,17 +116,17 @@ export class EditScheduleComponent implements OnInit {
                 finished: false
               };
               pointsPossible += task.points;
-              if (task.subTasks) {
-                let order = orders[task.$key] = orders[task.$key] || 0;
-                let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
-                if (subTasks[order]) {
-                  tasks.monthly[key][task.$key].subTask = subTasks[order].title;
-                  if (subTasks[order].link) {
-                    tasks.monthly[key][task.$key].subTaskLink = subTasks[order].link;
-                  }
-                  orders[task.$key]++;
-                }
-              }
+              // if (task.subTasks) {
+              //   let order = orders[task.$key] = orders[task.$key] || 0;
+              //   let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+              //   if (subTasks[order]) {
+              //     tasks.monthly[key][task.$key].subTask = subTasks[order].title;
+              //     if (subTasks[order].link) {
+              //       tasks.monthly[key][task.$key].subTaskLink = subTasks[order].link;
+              //     }
+              //     orders[task.$key]++;
+              //   }
+              // }
             }
           } else {
             let weekday = day.format('dd');
@@ -167,25 +168,30 @@ export class EditScheduleComponent implements OnInit {
         pointsPossible: pointsPossible,
       });
 
-      let promise;
-      if (this.schedule) {
-        promise = this.schedule.set(newValue);
-      } else {
-        let schedules = this.af.database.list(`/schedules/${this.userId}`);
-        promise = schedules.push(newValue);
-      }
+      // let promise;
+      // if (this.schedule) {
+      //   promise = this.schedule.set(newValue);
+      // } else {
+      //   let schedules = this.af.database.list(`/schedules/${this.userId}`);
+      //   promise = schedules.push(newValue);
+      // }
+      // promise.then((result: any) => {
+      this.af.database.list(`/schedules/${this.userId}`).push(newValue)
+        .then((result: any) => {
+          this.scheduleId = this.scheduleId || result.key;
 
-      promise.then((result: any) => {
-        this.scheduleId = this.scheduleId || result.key;
-
-        let entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
-        return entriesObj.set(tasks);
-      }).then(() => {
-        this.router.navigate(['/home']);
-      });
+          let entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
+          return entriesObj.set(tasks);
+        }).then(() => {
+          this.router.navigate(['/home']);
+        });
     });
 
 
+  }
+
+  cancel() {
+    this.router.navigate(['/home']);
   }
 
 }
