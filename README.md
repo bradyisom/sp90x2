@@ -9,29 +9,28 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 - [x] Show and calculate points
 - [x] Implement fit test and add to tracking days
 - [x] Simplify navigation and app flow
+- [x] Deploy
 - [x] Show fit test results in tracker
 - [x] Better, stylized header fonts
 - [x] Scripture links
-- [ ] Unit tests
+- [x] Update select elements to md-select
+- [x] Unit tests
 - [ ] Switch to lookup task/subtask details?
 - [ ] Register email users
 - [ ] Fit test report
 - [ ] Supplemental materials
-- [x] Update select elements to md-select
-- [x] Deploy
-- [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Additional stock schedules
 - [ ] Customize schedules
+- [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Optimize for phone viewing
 - [ ] Add groups, or following
 - [ ] Group reports
+- [ ] Change to use side menu
+- [ ] Delete user account
+- [ ] e2e tests
 - [ ] Create services for data access?
+- [ ] Create extra dev/prod database
 
-## BUGS
-- [x] Tracking does not honor initial date in route
-- [x] Prevent tracking from going beyond date boundaries
-- [x] Reload answers for fit test
-- [x] Disable main header for full screen dialogs
 
 ## Development server
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
