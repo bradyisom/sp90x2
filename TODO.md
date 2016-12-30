@@ -1,0 +1,32 @@
+
+## TODO
+
+- [x] Edit schedule
+- [x] Show and track tasks by day
+- [x] Show and calculate points
+- [x] Implement fit test and add to tracking days
+- [x] Simplify navigation and app flow
+- [x] Deploy
+- [x] Show fit test results in tracker
+- [x] Better, stylized header fonts
+- [x] Scripture links
+- [x] Update select elements to md-select
+- [x] Unit tests
+- [x] Add Travis CI and Codecov
+- [x] Switch to lookup task/subtask details?
+- [x] Register email users
+- [ ] Fit test report
+- [ ] Supplemental materials
+- [ ] Additional stock schedules
+- [ ] Customize schedules
+- [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
+- [ ] Auto-deploy from Travis
+- [ ] Optimize for phone viewing
+- [ ] Change to use side menu
+- [ ] Delete user account
+- [ ] Create services for data access?
+- [ ] Create extra dev/prod database
+- [ ] UI/template tests
+- [ ] e2e tests
+- [ ] Add groups, or following
+- [ ] Group reports
