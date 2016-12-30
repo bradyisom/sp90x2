@@ -110,8 +110,6 @@ export class EditScheduleComponent implements OnInit {
               let key = day.format('YYYY-MM');
               tasks.monthly[key] = tasks.monthly[key] || {};
               tasks.monthly[key][task.$key] = {
-                title: task.title,
-                description: task.description,
                 points: task.points,
                 finished: false
               };
@@ -135,22 +133,23 @@ export class EditScheduleComponent implements OnInit {
               let key = day.format('YYYY-MM-DD');
               tasks.daily[key] = tasks.daily[key] || {};
               tasks.daily[key][task.$key] = {
-                title: task.title,
-                description: task.description,
                 points: task.points,
                 finished: false
               };
               pointsPossible += task.points;
               if (task.subTasks) {
                 let order = orders[task.$key] = orders[task.$key] || 0;
-                let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
-                if (subTasks[order]) {
-                  tasks.daily[key][task.$key].subTask = subTasks[order].title;
-                  if (subTasks[order].link) {
-                    tasks.daily[key][task.$key].subTaskLink = subTasks[order].link;
-                  }
-                  orders[task.$key]++;
-                }
+                tasks.daily[key][task.$key].order = order;
+                orders[task.$key]++;
+
+                // let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+                // if (subTasks[order]) {
+                //   tasks.daily[key][task.$key].subTask = subTasks[order].title;
+                //   if (subTasks[order].link) {
+                //     tasks.daily[key][task.$key].subTaskLink = subTasks[order].link;
+                //   }
+                //   orders[task.$key]++;
+                // }
               }
             }
           }

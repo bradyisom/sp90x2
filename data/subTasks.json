@@ -1,1036 +1,830 @@
 {
   "BOFM90": {
-    "-K3wRI-XOGWZoiuRa3LO": {
-      "order": 0,
+    "0": {
       "title": "1 Nephi 1-3",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/1"
     },
-    "-K3wRI-dA5bnp65V49RH": {
-      "order": 1,
+    "1": {
       "title": "1 Nephi 4-6",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/4"
     },
-    "-K3wRI-mQZ4X6fX23zY_": {
-      "order": 2,
+    "2": {
       "title": "1 Nephi 7-10",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/7"
     },
-    "-K3wRI-t-eWzepsm1nN9": {
-      "order": 3,
+    "3": {
       "title": "1 Nephi 11-12",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/11"
     },
-    "-K3wRI02shyGtTUnQGUK": {
-      "order": 4,
+    "4": {
       "title": "1 Nephi 13-14",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/13"
     },
-    "-K3wRI0DeOBSOd1CKqt5": {
-      "order": 5,
+    "5": {
       "title": "1 Nephi 15-16",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/15"
     },
-    "-K3wRI0KgxMywdPclnat": {
-      "order": 6,
+    "6": {
       "title": "1 Nephi 17-18",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/17"
     },
-    "-K3wRI0QHtKXRRV7EPvj": {
-      "order": 7,
+    "7": {
       "title": "1 Nephi 19-20",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/19"
     },
-    "-K3wRI0Xfq2EzBZfg-TZ": {
-      "order": 8,
+    "8": {
       "title": "1 Nephi 21-22",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/21"
     },
-    "-K3wRI0du9Trj7r_5vHf": {
-      "order": 9,
+    "9": {
       "title": "2 Nephi 1-2",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/1"
     },
-    "-K3wRI0nr4qT3myWSfFv": {
-      "order": 10,
+    "10": {
       "title": "2 Nephi 3-4",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/3"
     },
-    "-K3wRI0tp2cRc1qRpiCR": {
-      "order": 11,
+    "11": {
       "title": "2 Nephi 5-7",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/5"
     },
-    "-K3wRI0zGJa8CvBtHqFk": {
-      "order": 12,
+    "12": {
       "title": "2 Nephi 8-9",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/8"
     },
-    "-K3wRI14k0j1cCuc96b7": {
-      "order": 13,
+    "13": {
       "title": "2 Nephi 10-12",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/10"
     },
-    "-K3wRI1F99n5MSZlPCUJ": {
-      "order": 14,
+    "14": {
       "title": "2 Nephi 13-18",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/13"
     },
-    "-K3wRI1MYkUoVrGLha_i": {
-      "order": 15,
+    "15": {
       "title": "2 Nephi 19-23",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/19"
     },
-    "-K3wRI1VE_uv3NpArPW8": {
-      "order": 16,
+    "16": {
       "title": "2 Nephi 24-25",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/24"
     },
-    "-K3wRI1cP9hXIpwKCtk0": {
-      "order": 17,
+    "17": {
       "title": "2 Nephi 26-27",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/26"
     },
-    "-K3wRI1iz4r_gL_0E6HY": {
-      "order": 18,
+    "18": {
       "title": "2 Nephi 28-30",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/28"
     },
-    "-K3wRI1qoqVnHxOdu9Ii": {
-      "order": 19,
+    "19": {
       "title": "2 Nephi 31-33",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/31"
     },
-    "-K3wRI1xnO5g7RmjkX73": {
-      "order": 20,
+    "20": {
       "title": "Jacob 1-3",
       "link": "https://www.lds.org/scriptures/bofm/jacob/1"
     },
-    "-K3wRI253s1sarbi_Z5Z": {
-      "order": 21,
+    "21": {
       "title": "Jacob 4-5",
       "link": "https://www.lds.org/scriptures/bofm/jacob/4"
     },
-    "-K3wRI2BMB45tJDVu8Jn": {
-      "order": 22,
+    "22": {
       "title": "Jacob 6-7",
       "link": "https://www.lds.org/scriptures/bofm/jacob/6"
     },
-    "-K3wRI2KniE4OsWB_95Y": {
-      "order": 23,
+    "23": {
       "title": "Enos, Jarom, Omni",
       "link": "https://www.lds.org/scriptures/bofm/enos"
     },
-    "-K3wRI2SP7k8PcwChtex": {
-      "order": 24,
+    "24": {
       "title": "Words of Mormon, Mosiah 1",
       "link": "https://www.lds.org/scriptures/bofm/w-of-m"
     },
-    "-K3wRI2ag3npDgjv9NwP": {
-      "order": 25,
+    "25": {
       "title": "Mosiah 2-3",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/2"
     },
-    "-K3wRI2gcaL1GI4INqR6": {
-      "order": 26,
+    "26": {
       "title": "Mosiah 4-5",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/4"
     },
-    "-K3wRI2nMD_9WdqhD5w-": {
-      "order": 27,
+    "27": {
       "title": "Mosiah 6-9",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/6"
     },
-    "-K3wRI2uxRq7DCLCnqbe": {
-      "order": 28,
+    "28": {
       "title": "Mosiah 10-12",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/10"
     },
-    "-K3wRI3ApYoaT_HFxHMS": {
-      "order": 29,
+    "29": {
       "title": "Mosiah 13-15",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/13"
     },
-    "-K3wRI3HvzWAhA0aP-Yv": {
-      "order": 30,
+    "30": {
       "title": "Mosiah 16-18",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/16"
     },
-    "-K3wRI3ORw26KseDm-da": {
-      "order": 31,
+    "31": {
       "title": "Mosiah 19-21",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/19"
     },
-    "-K3wRI3UH7dHF_emgxBD": {
-      "order": 32,
+    "32": {
       "title": "Mosiah 22-24",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/22"
     },
-    "-K3wRI3a1rubFHwkFpPQ": {
-      "order": 33,
+    "33": {
       "title": "Mosiah 25-26",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/25"
     },
-    "-K3wRI3gKerKRgBzAP9Z": {
-      "order": 34,
+    "34": {
       "title": "Mosiah 27-29",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/27"
     },
-    "-K3wRI3o9HIOTtsr0t5R": {
-      "order": 35,
+    "35": {
       "title": "Alma 1-2",
       "link": "https://www.lds.org/scriptures/bofm/alma/1"
     },
-    "-K3wRI3vN_SShbLcZgBV": {
-      "order": 36,
+    "36": {
       "title": "Alma 3-4",
       "link": "https://www.lds.org/scriptures/bofm/alma/3"
     },
-    "-K3wRI4QNPTX_seZ4XO0": {
-      "order": 37,
+    "37": {
       "title": "Alma 5-6",
       "link": "https://www.lds.org/scriptures/bofm/alma/5"
     },
-    "-K3wRI4WWjpv2VI6yBin": {
-      "order": 38,
+    "38": {
       "title": "Alma 7-9",
       "link": "https://www.lds.org/scriptures/bofm/alma/7"
     },
-    "-K3wRI4dIJbrIgmIbiP7": {
-      "order": 39,
+    "39": {
       "title": "Alma 10-11",
       "link": "https://www.lds.org/scriptures/bofm/alma/10"
     },
-    "-K3wRI4mOf541PUMge8i": {
-      "order": 40,
+    "40": {
       "title": "Alma 12-13",
       "link": "https://www.lds.org/scriptures/bofm/alma/12"
     },
-    "-K3wRI51zdISOKWhoosP": {
-      "order": 41,
+    "41": {
       "title": "Alma 14-15",
       "link": "https://www.lds.org/scriptures/bofm/alma/14"
     },
-    "-K3wRI59eFwasfEm3iIg": {
-      "order": 42,
+    "42": {
       "title": "Alma 16-17",
       "link": "https://www.lds.org/scriptures/bofm/alma/16"
     },
-    "-K3wRI5FakJt6mv_Q-Gj": {
-      "order": 43,
+    "43": {
       "title": "Alma 18-19",
       "link": "https://www.lds.org/scriptures/bofm/alma/18"
     },
-    "-K3wRI5Le8HUUg5ALtW6": {
-      "order": 44,
+    "44": {
       "title": "Alma 20-22",
       "link": "https://www.lds.org/scriptures/bofm/alma/20"
     },
-    "-K3wRI5RIZVIpwOctpgo": {
-      "order": 45,
+    "45": {
       "title": "Alma 23-24",
       "link": "https://www.lds.org/scriptures/bofm/alma/23"
     },
-    "-K3wRI5X7OsCVNYB_viC": {
-      "order": 46,
+    "46": {
       "title": "Alma 25-27",
       "link": "https://www.lds.org/scriptures/bofm/alma/25"
     },
-    "-K3wRI5bGErEzdq0oiwJ": {
-      "order": 47,
+    "47": {
       "title": "Alma 28-30",
       "link": "https://www.lds.org/scriptures/bofm/alma/28"
     },
-    "-K3wRI5iVQ-Id617pfZ0": {
-      "order": 48,
+    "48": {
       "title": "Alma 31-32",
       "link": "https://www.lds.org/scriptures/bofm/alma/31"
     },
-    "-K3wRI5oYDWw10Yyls5x": {
-      "order": 49,
+    "49": {
       "title": "Alma 33-34",
       "link": "https://www.lds.org/scriptures/bofm/alma/33"
     },
-    "-K3wRI5vjNmrmmbruhbp": {
-      "order": 50,
+    "50": {
       "title": "Alma 35-36",
       "link": "https://www.lds.org/scriptures/bofm/alma/35"
     },
-    "-K3wRI60giC8Nlwsk8hC": {
-      "order": 51,
+    "51": {
       "title": "Alma 37-39",
       "link": "https://www.lds.org/scriptures/bofm/alma/37"
     },
-    "-K3wRI66eMrtgP5B0q5u": {
-      "order": 52,
+    "52": {
       "title": "Alma 40-42",
       "link": "https://www.lds.org/scriptures/bofm/alma/40"
     },
-    "-K3wRI6CVLLsEYrVazLY": {
-      "order": 53,
+    "53": {
       "title": "Alma 43-44",
       "link": "https://www.lds.org/scriptures/bofm/alma/43"
     },
-    "-K3wRI6H6JLDh8v4gP3r": {
-      "order": 54,
+    "54": {
       "title": "Alma 45-46",
       "link": "https://www.lds.org/scriptures/bofm/alma/45"
     },
-    "-K3wRI6NsfdXQeieLNhr": {
-      "order": 55,
+    "55": {
       "title": "Alma 47-48",
       "link": "https://www.lds.org/scriptures/bofm/alma/47"
     },
-    "-K3wRI6Unkh4Yqq2rwHa": {
-      "order": 56,
+    "56": {
       "title": "Alma 49-50",
       "link": "https://www.lds.org/scriptures/bofm/alma/49"
     },
-    "-K3wRI6bMwARb9qOLbVn": {
-      "order": 57,
+    "57": {
       "title": "Alma 51-52",
       "link": "https://www.lds.org/scriptures/bofm/alma/51"
     },
-    "-K3wRI6h_o-0FQMMlLNW": {
-      "order": 58,
+    "58": {
       "title": "Alma 53-55",
       "link": "https://www.lds.org/scriptures/bofm/alma/53"
     },
-    "-K3wRI6p-6k3QMdmyKgz": {
-      "order": 59,
+    "59": {
       "title": "Alma 56-57",
       "link": "https://www.lds.org/scriptures/bofm/alma/56"
     },
-    "-K3wRI6ymvSrv54idX-0": {
-      "order": 60,
+    "60": {
       "title": "Alma 58-60",
       "link": "https://www.lds.org/scriptures/bofm/alma/58"
     },
-    "-K3wRI75dc98PhRJhmZZ": {
-      "order": 61,
+    "61": {
       "title": "Alma 61-62",
       "link": "https://www.lds.org/scriptures/bofm/alma/61"
     },
-    "-K3wRI7N1RfI_ZUnKg_8": {
-      "order": 62,
+    "62": {
       "title": "Alma 63 - Helaman 2",
       "link": "https://www.lds.org/scriptures/bofm/alma/63"
     },
-    "-K3wRI7Tw-XfVpixWEUG": {
-      "order": 63,
+    "63": {
       "title": "Helaman 3-4",
       "link": "https://www.lds.org/scriptures/bofm/hel/3"
     },
-    "-K3wRI7aXbEh2V0RqE81": {
-      "order": 64,
+    "64": {
       "title": "Helaman 5-6",
       "link": "https://www.lds.org/scriptures/bofm/hel/5"
     },
-    "-K3wRI7gqEHrd09cbLDU": {
-      "order": 65,
+    "65": {
       "title": "Helaman 7-9",
       "link": "https://www.lds.org/scriptures/bofm/hel/7"
     },
-    "-K3wRI7yKH_PEGR9og7Y": {
-      "order": 66,
+    "66": {
       "title": "Helaman 10-11",
       "link": "https://www.lds.org/scriptures/bofm/hel/10"
     },
-    "-K3wRI83PMXao1WHKGRp": {
-      "order": 67,
+    "67": {
       "title": "Helaman 12-13",
       "link": "https://www.lds.org/scriptures/bofm/hel/12"
     },
-    "-K3wRI89ykGCihwlJ5Iz": {
-      "order": 68,
+    "68": {
       "title": "Helaman 14-16",
       "link": "https://www.lds.org/scriptures/bofm/hel/14"
     },
-    "-K3wRI8Fo_yejTO60Se9": {
-      "order": 69,
+    "69": {
       "title": "3 Nephi 1-3",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/1"
     },
-    "-K3wRI8L8jbCEFJctLWM": {
-      "order": 70,
+    "70": {
       "title": "3 Nephi 4-6",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/4"
     },
-    "-K3wRI8TlaY2O00f9E3i": {
-      "order": 71,
+    "71": {
       "title": "3 Nephi 7-9",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/7"
     },
-    "-K3wRI8aDqJF6F2sYBvQ": {
-      "order": 72,
+    "72": {
       "title": "3 Nephi 10-11",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/10"
     },
-    "-K3wRI8gR6IDeBYRxbZG": {
-      "order": 73,
+    "73": {
       "title": "3 Nephi 12-15",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/12"
     },
-    "-K3wRI8mBLQTKqU-Rqnb": {
-      "order": 74,
+    "74": {
       "title": "3 Nephi 16-18",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/16"
     },
-    "-K3wRI8sJe9fSkm_bS0l": {
-      "order": 75,
+    "75": {
       "title": "3 Nephi 19-20",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/19"
     },
-    "-K3wRI8y0dsxkKhRlM7b": {
-      "order": 76,
+    "76": {
       "title": "3 Nephi 21-23",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/21"
     },
-    "-K3wRI96n-nTlk1otYun": {
-      "order": 77,
+    "77": {
       "title": "3 Nephi 24-27",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/24"
     },
-    "-K3wRI9CnNo_NCtjYn_M": {
-      "order": 78,
+    "78": {
       "title": "3 Nephi 28-30",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/28"
     },
-    "-K3wRI9K9Mvsi8w5kgIF": {
-      "order": 79,
+    "79": {
       "title": "4 Nephi, Mormon 1-2",
       "link": "https://www.lds.org/scriptures/bofm/4-ne"
     },
-    "-K3wRI9RWYLxpIQWrKPC": {
-      "order": 80,
+    "80": {
       "title": "Mormon 3-5",
       "link": "https://www.lds.org/scriptures/bofm/morm/3"
     },
-    "-K3wRI9XmpkvcilPWhSa": {
-      "order": 81,
+    "81": {
       "title": "Mormon 6-8",
       "link": "https://www.lds.org/scriptures/bofm/morm/6"
     },
-    "-K3wRI9ddhz8qDW_uPzH": {
-      "order": 82,
+    "82": {
       "title": "Mormon 9, Ether 1",
       "link": "https://www.lds.org/scriptures/bofm/morm/9"
     },
-    "-K3wRI9jRpb-8K3wjtYT": {
-      "order": 83,
+    "83": {
       "title": "Ether 2-5",
       "link": "https://www.lds.org/scriptures/bofm/ether/2"
     },
-    "-K3wRI9yOfmXP4EiNOFG": {
-      "order": 84,
+    "84": {
       "title": "Ether 6-8",
       "link": "https://www.lds.org/scriptures/bofm/ether/6"
     },
-    "-K3wRIA66PMzubCEgBHl": {
-      "order": 85,
+    "85": {
       "title": "Ether 9-11",
       "link": "https://www.lds.org/scriptures/bofm/ether/9"
     },
-    "-K3wRIAIk6rp0D71hJwg": {
-      "order": 86,
+    "86": {
       "title": "Ether 12-13",
       "link": "https://www.lds.org/scriptures/bofm/ether/12"
     },
-    "-K3wRIAQcMr-xzw3Cg1e": {
-      "order": 87,
+    "87": {
       "title": "Ether 14-15, Moroni 1-5",
       "link": "https://www.lds.org/scriptures/bofm/ether/14"
     },
-    "-K3wRIAo1mqRw-2anonQ": {
-      "order": 88,
+    "88": {
       "title": "Moroni 6-7",
       "link": "https://www.lds.org/scriptures/bofm/moro/6"
     },
-    "-K3wRIAxkeHygsnNzfC_": {
-      "order": 89,
+    "89": {
       "title": "Moroni 8-10",
       "link": "https://www.lds.org/scriptures/bofm/moro/8"
     }
   },
   "PMG": {
-    "-K3wRITe7qEpRqngL_1e": {
-      "order": 0,
+    "0": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRITkFJuW6xqJ3sTJ": {
-      "order": 1,
+    "1": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRITpftUjrRFn7BDI": {
-      "order": 2,
+    "2": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRITuOX2KJucBHtOa": {
-      "order": 3,
+    "3": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRIU-UItHWY9NOzXE": {
-      "order": 4,
+    "4": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRIU5RP6tNRfijfgr": {
-      "order": 5,
+    "5": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRIUCFhfLIQUER4nW": {
-      "order": 6,
+    "6": {
       "title": "Chapter 1: What Is My Purpose as a Missionary?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-my-purpose-as-a-missionary"
     },
-    "-K3wRIUIlTD5mtWn3riE": {
-      "order": 7,
+    "7": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUO_f50cLaTcSp_": {
-      "order": 8,
+    "8": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUUNbvsOw6rAIUv": {
-      "order": 9,
+    "9": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUcK_WXc5eQxLHN": {
-      "order": 10,
+    "10": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUk0AJlSAxpvpaA": {
-      "order": 11,
+    "11": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUpIWwNU0CzO_yl": {
-      "order": 12,
+    "12": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIUvKSbuLQL3f9cb": {
-      "order": 13,
+    "13": {
       "title": "Chapter 2: How Do I Study Effectively and Prepare to Teach?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-study-effectively-and-prepare-to-teach"
     },
-    "-K3wRIV-0LbpUk52cMxX": {
-      "order": 14,
+    "14": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVAvm3GUNdi-kzs": {
-      "order": 15,
+    "15": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVGtToycwnMSwse": {
-      "order": 16,
+    "16": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVLEEgq9YN25lEF": {
-      "order": 17,
+    "17": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVS8oP7GLHfdJHi": {
-      "order": 18,
+    "18": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVX0bBVCiUUkK_U": {
-      "order": 19,
+    "19": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVgck4K29nkfU1k": {
-      "order": 20,
+    "20": {
       "title": "Chapter 3 (Lesson 1): The Message of the Restoration of the Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-1-the-message-of-the-restoration-of-the-gospel-of-jesus-christ"
     },
-    "-K3wRIVyvoXEHNHMoqnD": {
-      "order": 21,
+    "21": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIW2qyJx2fSjIEzS": {
-      "order": 22,
+    "22": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIW9vX7Fx_xgHTZZ": {
-      "order": 23,
+    "23": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIWE9jsXR0wFHq9B": {
-      "order": 24,
+    "24": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIWJfy10IXJjexR2": {
-      "order": 25,
+    "25": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIWP8ZBKhsPdEtWa": {
-      "order": 26,
+    "26": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIWUKdasjcpPoIVt": {
-      "order": 27,
+    "27": {
       "title": "Chapter 3 (Lesson 2): The Plan of Salvation",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-2-the-plan-of-salvation"
     },
-    "-K3wRIWZWt3iV9wEaEUD": {
-      "order": 28,
+    "28": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIWeqSdhiJl8c5Vh": {
-      "order": 29,
+    "29": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIWkrI2UD3aqv9YI": {
-      "order": 30,
+    "30": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIWpe01svVzvW3AN": {
-      "order": 31,
+    "31": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIWwkvUmvsB11zRU": {
-      "order": 32,
+    "32": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIX3pjeyHC6n-3yR": {
-      "order": 33,
+    "33": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIXCyZxpSBonrjfG": {
-      "order": 34,
+    "34": {
       "title": "Chapter 3 (Lesson 3): The Gospel of Jesus Christ",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-3-the-gospel-of-jesus-christ"
     },
-    "-K3wRIXIy3_T62PY13lt": {
-      "order": 35,
+    "35": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIXP0TP3292NS-8u": {
-      "order": 36,
+    "36": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIXqiwLByqN5udnZ": {
-      "order": 37,
+    "37": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIXwnxAHdK9wSBDB": {
-      "order": 38,
+    "38": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIY0A-IXZ2JBP3Ua": {
-      "order": 39,
+    "39": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIY5ooQorkkZjvyD": {
-      "order": 40,
+    "40": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIYAtfvIQf8u0tdj": {
-      "order": 41,
+    "41": {
       "title": "Chapter 3 (Lesson 4): The Commandments",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-4-the-commandments"
     },
-    "-K3wRIYGNooXHpSoQAmr": {
-      "order": 42,
+    "42": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYLxc5ivvmGO_xD": {
-      "order": 43,
+    "43": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYTLEYJv0wpyT2q": {
-      "order": 44,
+    "44": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYZc91_MJ_zr3UK": {
-      "order": 45,
+    "45": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYdm3kBcS3kO5B0": {
-      "order": 46,
+    "46": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYiHqi3cD1Q0yZa": {
-      "order": 47,
+    "47": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYo8Yqq9nM0yTHf": {
-      "order": 48,
+    "48": {
       "title": "Chapter 3 (Lesson 5): Laws and Ordinances",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/lesson-5-laws-and-ordinances"
     },
-    "-K3wRIYtkMzHUmRnpdFS": {
-      "order": 49,
+    "49": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIYyI4Ps9-0Z1Hzv": {
-      "order": 50,
+    "50": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZ66qfTnEnHgFAP": {
-      "order": 51,
+    "51": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZBkTwvZZVwvDPy": {
-      "order": 52,
+    "52": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZGBRsdU__2TKNy": {
-      "order": 53,
+    "53": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZLbq8LXaCpH0UQ": {
-      "order": 54,
+    "54": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZRGnQpXuYloD2c": {
-      "order": 55,
+    "55": {
       "title": "Chapter 4: How Do I Recognize and Understand the Spirit?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-recognize-and-understand-the-spirit"
     },
-    "-K3wRIZWBZia4BzDZ0xy": {
-      "order": 56,
+    "56": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRIZoVV1JR5Wdn-J6": {
-      "order": 57,
+    "57": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRI_18GRUitTSCCnX": {
-      "order": 58,
+    "58": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRI_8QwJV2k6-HozN": {
-      "order": 59,
+    "59": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRI_kdWn4WYkmzsIz": {
-      "order": 60,
+    "60": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRI_q8JnjJBZUh2mA": {
-      "order": 61,
+    "61": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRI_x6M7FqfLeNu5q": {
-      "order": 62,
+    "62": {
       "title": "Chapter 5: What Is the Role of the Book of Mormon?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/what-is-the-role-of-the-book-of-mormon"
     },
-    "-K3wRIa2rVuR4iPosOFN": {
-      "order": 63,
+    "63": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIa77mmCVosWGMb-": {
-      "order": 64,
+    "64": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIaEzP8xiCobvcQ4": {
-      "order": 65,
+    "65": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIaKvQs4Lc4lVDIf": {
-      "order": 66,
+    "66": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIaPW9tsiX6ESPlH": {
-      "order": 67,
+    "67": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIaX_kT4d6dBSh7M": {
-      "order": 68,
+    "68": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIacZ33WvBC8K4Qv": {
-      "order": 69,
+    "69": {
       "title": "Chapter 6: How Do I Develop Christlike Attributes?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-develop-christlike-attributes"
     },
-    "-K3wRIak5xA7lF21I_hf": {
-      "order": 70,
+    "70": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIarC8ysV1jfR4B8": {
-      "order": 71,
+    "71": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIay45KkNmCKNQR0": {
-      "order": 72,
+    "72": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIba0thNuZpZp8Ml": {
-      "order": 73,
+    "73": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIc-LIOEx-a2rRiX": {
-      "order": 74,
+    "74": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIc6J004R7v_gwF9": {
-      "order": 75,
+    "75": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIcD3artisN-zzj7": {
-      "order": 76,
+    "76": {
       "title": "Chapter 8: How Do I Use Time Wisely?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-use-time-wisely"
     },
-    "-K3wRIcJBr9DkhtvVYK6": {
-      "order": 77,
+    "77": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIcXPpmAnADqSCW_": {
-      "order": 78,
+    "78": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIcdRvzA9WMNEWUn": {
-      "order": 79,
+    "79": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIcl1nlcCB1odyiD": {
-      "order": 80,
+    "80": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIczx5iaJrTzyw_4": {
-      "order": 81,
+    "81": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRId5mrLxZ3LjQPS-": {
-      "order": 82,
+    "82": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIezyb2xde2-vqkB": {
-      "order": 83,
+    "83": {
       "title": "Chapter 10: How Can I Improve My Teaching Skills?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-can-i-improve-my-teaching-skills"
     },
-    "-K3wRIf4YZ-N6IobQv9l": {
-      "order": 84,
+    "84": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIfIP5-AgOpJQlMy": {
-      "order": 85,
+    "85": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIhDayZtsZVhBcMN": {
-      "order": 86,
+    "86": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIhdZOo2_ITSARJ0": {
-      "order": 87,
+    "87": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIhjV-dhOAcizF4a": {
-      "order": 88,
+    "88": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIhqKxoDzk7v20js": {
-      "order": 89,
+    "89": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     },
-    "-K3wRIhx8nPJ1dFr5hkB": {
-      "order": 90,
+    "90": {
       "title": "Chapter 11: How Do I Help People Make and Keep Commitments?",
       "link": "https://www.lds.org/manual/preach-my-gospel-a-guide-to-missionary-service/how-do-i-help-people-make-and-keep-commitments"
     }
   },
   "SM-BOFM": {
-    "-K3wRIFd5bPTgWXNVKYY": {
-      "order": 0,
+    "0": {
       "title": "1 Nephi 3:7",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/3.7#6"
     },
-    "-K3wRIFj3CUe1NG5Yg4L": {
-      "order": 1,
+    "1": {
       "title": "1 Nephi 19:23",
       "link": "https://www.lds.org/scriptures/bofm/1-ne/19.23#22"
     },
-    "-K3wRIFoiUgBoKQZgz07": {
-      "order": 2,
+    "2": {
       "title": "2 Nephi 2:25",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/2.25#24"
     },
-    "-K3wRIFt3sEHMTTg8F6B": {
-      "order": 3,
+    "3": {
       "title": "2 Nephi 2:27",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/2.27#26"
     },
-    "-K3wRIG0O0wrQuziDetJ": {
-      "order": 4,
+    "4": {
       "title": "2 Nephi 9:28-29",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/9.28-29#27"
     },
-    "-K3wRIG6mbleQjqhYr7K": {
-      "order": 5,
+    "5": {
       "title": "2 Nephi 28:7-9",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/28.7-9#6"
     },
-    "-K3wRIGCgYnXS293ncSY": {
-      "order": 6,
+    "6": {
       "title": "2 Nephi 32:3",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/32.3#2"
     },
-    "-K3wRIGH2EKdw2dkHlZs": {
-      "order": 7,
+    "7": {
       "title": "2 Nephi 32:8-9",
       "link": "https://www.lds.org/scriptures/bofm/2-ne/32.8-9#7"
     },
-    "-K3wRIGNaeg_jaMwpi8W": {
-      "order": 8,
+    "8": {
       "title": "Jacob 2:18-19",
       "link": "https://www.lds.org/scriptures/bofm/jacob/2.18-19#17"
     },
-    "-K3wRIGSbW9IyBFil1zh": {
-      "order": 9,
+    "9": {
       "title": "Mosiah 2:17",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/2.17#16"
     },
-    "-K3wRIGXOPLoA_QwXy_U": {
-      "order": 10,
+    "10": {
       "title": "Mosiah 3:19",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/3.19#18"
     },
-    "-K3wRIGbCbFG94SI6i4D": {
-      "order": 11,
+    "11": {
       "title": "Mosiah 4:30",
       "link": "https://www.lds.org/scriptures/bofm/mosiah/4.30#29"
     },
-    "-K3wRIGinJL8SfQ-OEWy": {
-      "order": 12,
+    "12": {
       "title": "Alma 32:21",
       "link": "https://www.lds.org/scriptures/bofm/alma/32.21#20"
     },
-    "-K3wRIGnR0wk_PjyPeZW": {
-      "order": 13,
+    "13": {
       "title": "Alma 34:32-34",
       "link": "https://www.lds.org/scriptures/bofm/alma/34.32-34#31"
     },
-    "-K3wRIGuki7JnB6nQtcC": {
-      "order": 14,
+    "14": {
       "title": "Alma 37:6-7",
       "link": "https://www.lds.org/scriptures/bofm/alma/37.6-7#5"
     },
-    "-K3wRIGzdlUB8kg_UZp6": {
-      "order": 15,
+    "15": {
       "title": "Alma 37:35",
       "link": "https://www.lds.org/scriptures/bofm/alma/37.35#34"
     },
-    "-K3wRIH5LlYFxrQ8z5hX": {
-      "order": 16,
+    "16": {
       "title": "Alma 41:10",
       "link": "https://www.lds.org/scriptures/bofm/alma/41.10#9"
     },
-    "-K3wRIHBIP5STBTo6xZt": {
-      "order": 17,
+    "17": {
       "title": "Helaman 5:12",
       "link": "https://www.lds.org/scriptures/bofm/hel/5.12#11"
     },
-    "-K3wRIHGPnFIudc0feih": {
-      "order": 18,
+    "18": {
       "title": "3 Nephi 11:29",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/11.29#28"
     },
-    "-K3wRIHLBCkwKignEQ3Z": {
-      "order": 19,
+    "19": {
       "title": "3 Nephi 27:27",
       "link": "https://www.lds.org/scriptures/bofm/3-ne/27.27#26"
     },
-    "-K3wRIHSAXgLOSUhkYxw": {
-      "order": 20,
+    "20": {
       "title": "Ether 12:6",
       "link": "https://www.lds.org/scriptures/bofm/ether/12.6#5"
     },
-    "-K3wRIHYE0KtTvz_N1v2": {
-      "order": 21,
+    "21": {
       "title": "Ether 12:27",
       "link": "https://www.lds.org/scriptures/bofm/ether/12.27#26"
     },
-    "-K3wRIHomJMc_lNT6YvX": {
-      "order": 22,
+    "22": {
       "title": "Moroni 7:16-17",
       "link": "https://www.lds.org/scriptures/bofm/moro/7.16-17#15"
     },
-    "-K3wRIHwCP0v6F4dTDLH": {
-      "order": 23,
+    "23": {
       "title": "Moroni 7:45",
       "link": "https://www.lds.org/scriptures/bofm/moro/7.45#44"
     },
-    "-K3wRII7RUIg5vPb5dEJ": {
-      "order": 24,
+    "24": {
       "title": "Moroni 10:4-5",
       "link": "https://www.lds.org/scriptures/bofm/moro/10.4-5#3"
     }

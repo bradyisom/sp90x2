@@ -19,13 +19,22 @@ describe('Component: TrackComponent', () => {
   let route: ActivatedRoute;
 
   let schedule: any;
+  let dailyEntries: any[];
+  let monthlyEntries: any[];
 
   let updateSpy = jasmine.createSpy('update');
   let updateScheduleSpy = jasmine.createSpy('update schedule');
   const mockAngularFire = {
     database: {
-      list: jasmine.createSpy('list', () =>  {
-        let result = Observable.of([]);
+      list: jasmine.createSpy('list', (path: string) =>  {
+        let result: Observable<any[]>;
+        if (path.indexOf('/daily/') !== -1) {
+          result = Observable.of(dailyEntries);
+        } else if (path.indexOf('/monthly/') !== -1) {
+          result = Observable.of(monthlyEntries);
+        } else {
+          result = Observable.of([]);
+        }
         (<any>result).update = updateSpy;
         return result;
       }).and.callThrough(),
@@ -80,6 +89,23 @@ describe('Component: TrackComponent', () => {
       points: 30,
       pointsPossible: 195,
     };
+
+    dailyEntries = [{
+      $key: 'BOFM90',
+      order: 1,
+      points: 1,
+      finished: false
+    }, {
+      $key: 'PONDER',
+      points: 1,
+      finished: false
+    }];
+
+    monthlyEntries = [{
+      $key: 'FASTING',
+      points: 20,
+      finished: false
+    }];
   });
 
   describe('without date', () => {
@@ -177,15 +203,36 @@ describe('Component: TrackComponent', () => {
 
     it('should load the daily entries', () => {
       expect(mockAngularFire.database.list).toHaveBeenCalledWith('/entries/SCHED1/daily/2016-12-27');
-      component.dailyEntries.subscribe((dailyEntries) => {
-        expect(dailyEntries).toEqual([]);
+      component.dailyEntries.subscribe((entries) => {
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/BOFM90');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/subTasks/BOFM90/1');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/PONDER');
+        expect(entries).toEqual([{
+          $key: 'BOFM90',
+          order: 1,
+          points: 1,
+          finished: false,
+          details: jasmine.any(Object),
+          subtaskDetails: jasmine.any(Object)
+        }, {
+          $key: 'PONDER',
+          points: 1,
+          finished: false,
+          details: jasmine.any(Object),
+        }]);
       });
     });
 
     it('should load the monthly entries', () => {
       expect(mockAngularFire.database.list).toHaveBeenCalledWith('/entries/SCHED1/monthly/2016-12');
-      component.monthlyEntries.subscribe((monthlyEntries) => {
-        expect(monthlyEntries).toEqual([]);
+      component.monthlyEntries.subscribe((entries) => {
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/FASTING');
+        expect(entries).toEqual([{
+          $key: 'FASTING',
+          points: 20,
+          finished: false,
+          details: jasmine.any(Object),
+        }]);
       });
     });
 
@@ -288,15 +335,36 @@ describe('Component: TrackComponent', () => {
 
     it('should load the daily entries', () => {
       expect(mockAngularFire.database.list).toHaveBeenCalledWith('/entries/SCHED1/daily/2016-12-28');
-      component.dailyEntries.subscribe((dailyEntries) => {
-        expect(dailyEntries).toEqual([]);
+      component.dailyEntries.subscribe((entries) => {
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/BOFM90');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/subTasks/BOFM90/1');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/PONDER');
+        expect(entries).toEqual([{
+          $key: 'BOFM90',
+          order: 1,
+          points: 1,
+          finished: false,
+          details: jasmine.any(Object),
+          subtaskDetails: jasmine.any(Object)
+        }, {
+          $key: 'PONDER',
+          points: 1,
+          finished: false,
+          details: jasmine.any(Object),
+        }]);
       });
     });
 
     it('should load the monthly entries', () => {
       expect(mockAngularFire.database.list).toHaveBeenCalledWith('/entries/SCHED1/monthly/2016-12');
-      component.monthlyEntries.subscribe((monthlyEntries) => {
-        expect(monthlyEntries).toEqual([]);
+      component.monthlyEntries.subscribe((entries) => {
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/tasks/FASTING');
+        expect(entries).toEqual([{
+          $key: 'FASTING',
+          points: 20,
+          finished: false,
+          details: jasmine.any(Object),
+        }]);
       });
     });
 

@@ -253,21 +253,18 @@ describe('Component: EditSchedule', () => {
       let entries = setSpy.calls.mostRecent().args[0];
       expect(_.keys(entries.daily).length).toBe(90);
       expect(entries.daily['2016-12-27']).toEqual({
-        BOFM90: { title: 'Book of Mormon 90', description: 'Desc 1', points: 1, finished: false, subTask: '1 Nephi 1-3' }
+        BOFM90: { order: 0, points: 1, finished: false }
       });
       expect(entries.daily['2016-12-28']).toEqual({
-        BOFM90: {
-          title: 'Book of Mormon 90', description: 'Desc 1', points: 1, finished: false,
-          subTask: '1 Nephi 4-6', subTaskLink: 'https://www.lds.org/scriptures/bofm/1-ne/4'
-        }
+        BOFM90: { order: 1, points: 1, finished: false }
       });
       expect(entries.daily['2016-12-29']).toEqual({
-        BOFM90: { title: 'Book of Mormon 90', description: 'Desc 1', points: 1, finished: false },
-        GC: { title: 'General Conference', description: 'Desc 4', points: 1, finished: false }
+        BOFM90: { order: 2, points: 1, finished: false },
+        GC: { points: 1, finished: false }
       });
       expect(_.keys(entries.monthly)).toEqual(['2016-12', '2017-01', '2017-02', '2017-03']);
       expect(entries.monthly['2016-12']).toEqual({
-        FASTING: { title: 'Fasting', description: 'Desc 3', points: 20, finished: false }
+        FASTING: { points: 20, finished: false }
       });
     }));
 

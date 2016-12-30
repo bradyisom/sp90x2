@@ -15,8 +15,10 @@ export class TrackComponent implements OnInit {
   public schedule: FirebaseObjectObservable<any>;
   public date: any;
   public programDay: number;
-  public dailyEntries: FirebaseListObservable<any[]>;
-  public monthlyEntries: FirebaseListObservable<any[]>;
+  rawDailyEntries: FirebaseListObservable<any[]>;
+  public dailyEntries: Observable<any[]>;
+  rawMonthlyEntries: FirebaseListObservable<any[]>;
+  public monthlyEntries: Observable<any[]>;
   public fitTest: FirebaseObjectObservable<any> | null;
   userId: string;
   scheduleId: string;
@@ -82,13 +84,28 @@ export class TrackComponent implements OnInit {
       this.fitTest = null;
     }
 
-    this.dailyEntries = this.af.database.list(
+    this.rawDailyEntries = this.af.database.list(
       `/entries/${this.scheduleId}/daily/${this.date.format('YYYY-MM-DD')}`
     );
+    this.dailyEntries = this.rawDailyEntries.map((entries) => {
+      entries.forEach(entry => {
+        entry.details = this.af.database.object(`/tasks/${entry.$key}`);
+        if (entry.order !== undefined) {
+          entry.subtaskDetails = this.af.database.object(`/subTasks/${entry.$key}/${entry.order}`);
+        }
+      });
+      return entries;
+    });
 
-    this.monthlyEntries = this.af.database.list(
+    this.rawMonthlyEntries = this.af.database.list(
       `/entries/${this.scheduleId}/monthly/${this.date.format('YYYY-MM')}`
     );
+    this.monthlyEntries = this.rawMonthlyEntries.map((entries) => {
+      entries.forEach(entry => {
+        entry.details = this.af.database.object(`/tasks/${entry.$key}`);
+      });
+      return entries;
+    });
 
   }
 
@@ -112,10 +129,10 @@ export class TrackComponent implements OnInit {
   public checkEntry(type: string, task: any, value: boolean) {
     switch (type) {
       case 'daily':
-        this.dailyEntries.update(task.$key, {finished: value});
+        this.rawDailyEntries.update(task.$key, {finished: value});
         break;
       case 'monthly':
-        this.monthlyEntries.update(task.$key, {finished: value});
+        this.rawMonthlyEntries.update(task.$key, {finished: value});
         break;
     }
     if (value) {

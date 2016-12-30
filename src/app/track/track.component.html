@@ -35,16 +35,18 @@
                  (change)="checkEntry('daily', task, $event.checked)">
     </md-checkbox>
     <h3 md-line>
-      {{task.title}}
+      {{(task.details | async)?.title}}
     </h3>
-    <p md-line class="sub-task" *ngIf="task.subTask">
-      <a *ngIf="task.subTaskLink" [href]="task.subTaskLink" target="sp90xScriptureWindow">
-        {{task.subTask}}
+    <p md-line class="sub-task" *ngIf="(task.subtaskDetails | async)">
+      <a *ngIf="(task.subtaskDetails | async)?.link" [href]="(task.subtaskDetails | async)?.link" target="sp90xScriptureWindow">
+        {{(task.subtaskDetails | async)?.title}}
       </a>
-      <span *ngIf="!task.subTaskLink">{{task.subTask}}</span>
+      <span *ngIf="!(task.subtaskDetails | async)?.link">
+        {{(task.subtaskDetails | async)?.title}}
+      </span>
     </p>
     <p md-line class="task-description">
-      {{task.description}}
+      {{(task.details | async)?.description}}
     </p>    
   </md-list-item>
   <h2 md-subheader>
@@ -55,16 +57,10 @@
                  (change)="checkEntry('monthly', task, $event.checked)">
     </md-checkbox>
     <h3 md-line>
-      {{task.title}}
+      {{(task.details | async)?.title}}
     </h3>
-    <p md-line class="sub-task" *ngIf="task.subTask">
-      <a *ngIf="task.subTaskLink" [href]="task.subTaskLink" target="sp90xScriptureWindow">
-        {{task.subTask}}
-      </a>
-      <span *ngIf="!task.subTaskLink">{{task.subTask}}</span>
-    </p>
     <p md-line class="task-description">
-      {{task.description}}
+      {{(task.details | async)?.description}}
     </p>    
   </md-list-item>
 </md-list>

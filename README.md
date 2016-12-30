@@ -20,7 +20,7 @@ Scripture Power Extreme 90 - Extreme Spiritual Fitness
 - [x] Update select elements to md-select
 - [x] Unit tests
 - [x] Add Travis CI and Codecov
-- [ ] Switch to lookup task/subtask details?
+- [x] Switch to lookup task/subtask details?
 - [ ] Register email users
 - [ ] Fit test report
 - [ ] Supplemental materials
@@ -33,9 +33,10 @@ Scripture Power Extreme 90 - Extreme Spiritual Fitness
 - [ ] Group reports
 - [ ] Change to use side menu
 - [ ] Delete user account
-- [ ] e2e tests
 - [ ] Create services for data access?
 - [ ] Create extra dev/prod database
+- [ ] UI/template tests
+- [ ] e2e tests
 
 
 ## Development server
