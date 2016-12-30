@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   removeSchedule(schedule: any) {
     this.confirmDialogRef = this.dialog.open(ConfirmDeleteScheduleComponent, {});
-    this.confirmDialogRef.afterClosed().subscribe(result => {
+    this.confirmDialogRef.afterClosed().first().subscribe(result => {
       // console.log('result: ' + result);
       this.confirmDialogRef = null;
       if (result === 'delete') {

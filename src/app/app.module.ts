@@ -9,6 +9,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { AuthResolver } from './auth-resolver.service';
+import { ErrorService, ErrorComponent } from './error.service';
 
 import 'hammerjs';
 
@@ -19,6 +20,7 @@ import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 import { TrackComponent } from './track/track.component';
 import { FitTestComponent } from './fit-test/fit-test.component';
 import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confirm-delete-schedule.component';
+import { RegisterComponent } from './register/register.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo',
@@ -41,7 +43,9 @@ export const firebaseAuthConfig = {
     EditScheduleComponent,
     TrackComponent,
     FitTestComponent,
-    ConfirmDeleteScheduleComponent
+    ConfirmDeleteScheduleComponent,
+    RegisterComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -88,10 +92,12 @@ export const firebaseAuthConfig = {
               user: AuthResolver
             },
         }]
-      },
-      {
+      },{
         path: 'login',
         component: LoginComponent
+      },{
+        path: 'register',
+        component: RegisterComponent
       }
     ], {
       initialNavigation: true
@@ -100,11 +106,13 @@ export const firebaseAuthConfig = {
   providers: [
     AuthService,
     AuthGuard,
-    AuthResolver
+    AuthResolver,
+    ErrorService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    ConfirmDeleteScheduleComponent
+    ConfirmDeleteScheduleComponent,
+    ErrorComponent
   ]
 })
 export class AppModule { }

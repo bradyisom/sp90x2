@@ -53,6 +53,9 @@ describe('Service: Auth', () => {
     });
     (<any>mockAngularFire.auth).login = jasmine.createSpy('login');
     (<any>mockAngularFire.auth).logout = jasmine.createSpy('logout');
+    (<any>mockAngularFire.auth).createUser = jasmine.createSpy('createUser', () => {
+      return Promise.resolve({ uid: 'U1'});
+    }).and.callThrough();
   });
 
   it('should create', inject([AuthService], (service: AuthService) => {
@@ -146,6 +149,22 @@ describe('Service: Auth', () => {
       }));
     });
 
+  });
+
+  describe('create', () => {
+    it('should create a user', inject([AuthService], (service: AuthService) => {
+      service.create('Brady Isom', 'bradyisom@gmail.com', 'password', 'https://goog.le/avatar.png');
+      expect((<any>mockAngularFire.auth).createUser).toHaveBeenCalledWith({
+        email: 'bradyisom@gmail.com',
+        password: 'password'
+      });
+      expect(userSet).toHaveBeenCalledWith({
+        uid: 'U1',
+        email: 'bradyisom@gmail.com',
+        displayName: 'Brady Isom',
+        avatar: 'http://goog.le/avatar.png'
+      });
+    }));
   });
 
   describe('login', () => {

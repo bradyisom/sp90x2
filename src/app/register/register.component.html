@@ -1,0 +1,43 @@
+<md-card>
+  <md-card-title>Create an Account</md-card-title>
+  <form [formGroup]="editForm">
+    <div class="form-group">
+      <label>Avatar:</label>
+      <img [src]="getGravatarUrl()">
+    </div>
+    <div class="form-group">
+      <label>First name:</label>
+      <md-input-container>
+        <input md-input type="text" formControlName="firstName">
+      </md-input-container>
+    </div>
+    <div class="form-group">
+      <label>Last name:</label>
+      <md-input-container>
+        <input md-input type="text" formControlName="lastName">
+      </md-input-container>
+    </div>
+    <div class="form-group">
+      <label>Email:</label>
+      <md-input-container>
+        <input md-input type="email" formControlName="email">
+      </md-input-container>
+    </div>
+    <div class="form-group">
+      <label>Password:</label>
+      <md-input-container>
+        <input md-input type="password" formControlName="password">
+      </md-input-container>
+    </div>
+    <div class="form-group">
+      <label>Confirm password:</label>
+      <md-input-container>
+        <input md-input type="password" formControlName="passwordConfirm">
+      </md-input-container>
+    </div>
+    <button md-raised-button color="accent" (click)="create()"
+      [disabled]="editForm.invalid">Create</button>
+    <button md-raised-button color="primary" type="button"
+      (click)="cancel()">Cancel</button>
+  </form>
+</md-card>
