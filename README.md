@@ -1,5 +1,7 @@
 # SP90X2
 
+![Logo](https://sp90x.bradyisom.com/assets/logo-noback.png)
+
 Scripture Power Extreme 90 - Extreme Spiritual Fitness
 
 [https://sp90x.bradyisom.com](https://sp90x.bradyisom.com)

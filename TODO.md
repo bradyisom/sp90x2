@@ -19,10 +19,10 @@
 - [ ] Supplemental materials
 - [ ] Additional stock schedules
 - [ ] Customize schedules
+- [ ] Change to use side menu
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
-- [ ] Change to use side menu
 - [ ] Delete user account
 - [ ] Create services for data access?
 - [ ] Create extra dev/prod database
