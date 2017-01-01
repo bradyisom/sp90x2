@@ -6,9 +6,24 @@ a {
     }
 }
 
-.schedule-dates,
 .schedule-points {
     opacity: 0.5;
+}
+
+.schedule-cards {
+  display: flex;
+  flex-wrap: wrap;
+
+  md-card {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 20px;
+
+    md-card-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
 }
 
 [md-fab] {

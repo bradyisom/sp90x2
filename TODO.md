@@ -15,15 +15,16 @@
 - [x] Add Travis CI and Codecov
 - [x] Switch to lookup task/subtask details?
 - [x] Register email users
-- [ ] Fit test report
-- [ ] Supplemental materials
+- [x] Fit test report
+- [x] Supplemental materials
+- [x] Change schedule list to cards with actions
+- [ ] Change to use side menu
 - [ ] Additional stock schedules
 - [ ] Customize schedules
-- [ ] Change schedule list to cards with actions
-- [ ] Change to use side menu
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
+- [ ] Send feedback form
 - [ ] Delete user account
 - [ ] Create services for data access?
 - [ ] Create extra dev/prod database

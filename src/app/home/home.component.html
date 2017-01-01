@@ -1,5 +1,5 @@
 <div *ngIf="(user | async)">
-  
+
   <button md-fab routerLink="/newschedule">
       <md-icon class="md-24">add</md-icon>
   </button>
@@ -10,39 +10,46 @@
     Click the plus button to get started.
   </div>
 
-  <md-list>
-    <a md-list-item *ngFor="let item of list | async"
-      href="" routerLink="/track/{{item.$key}}">
-      <h3 md-line>
+  <div class="schedule-cards">
+    <md-card *ngFor="let item of list | async">
+      <md-card-title>
         {{ item.programTitle }}
-      </h3>
-      <p md-line class="schedule-dates">
+      </md-card-title>
+      <md-card-subtitle class="schedule-dates">
         {{item.startDate | date}} - {{item.endDate | date}}
-      </p>
-      <p md-line class="schedule-points">
-        Points: {{item.points}} / {{item.pointsPossible}}
-      </p>
-      <!--<button md-icon-button routerLink="/track/{{item.$key}}"
-        (click)="$event.preventDefault(); $event.stopImmediatePropagation()">
-        <md-icon>check_circle</md-icon>
-      </button>
-      <button md-icon-button routerLink="/editschedule/{{item.$key}}"
-        (click)="$event.preventDefault(); $event.stopImmediatePropagation()">
-        <md-icon>edit</md-icon>
-      </button>-->
-      <button md-icon-button
-        (click)="$event.preventDefault(); $event.stopImmediatePropagation(); removeSchedule(item)">
-        <md-icon>delete</md-icon>
-      </button>
-    </a>
-  </md-list>
+      </md-card-subtitle>
+      <md-card-content>
+        <p md-line class="schedule-points">
+          Points: {{item.points}} / {{item.pointsPossible}}
+        </p>
+      </md-card-content>
+      <md-card-actions>
+        <button md-button
+          (click)="removeSchedule(item)">
+          DELETE
+        </button>
+        <button md-raised-button color="accent"
+          routerLink="/track/{{item.$key}}">
+          TRACK
+        </button>
+      </md-card-actions>
+    </md-card>
+  </div>
 
 </div>
 
 <div>
   <h2>Welcome to SP90X!</h2>
   <p>
-    Here is some information about the program.
+    <iframe src="https://docs.google.com/presentation/d/1HM_M4D2peOkCiKECx2k-tK0CYTyqjf1MIbvnoEgUHmY/embed?start=false&loop=true&delayms=15000"
+      frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
   </p>
+  <p>
+    Download the program guide:
+  </p>
+  <ul>
+    <li><a href="/assets/SP90XProgramGuide.doc" download="SP90XProgramGuide.doc">Word Format (.doc)</a></li>
+    <li><a href="/assets/SP90XProgramGuide.pdf" download="SP90XProgramGuide.pdf">PDF Format</a></li>
+  </ul>
 </div>
 
