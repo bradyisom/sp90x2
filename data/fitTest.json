@@ -1,6 +1,7 @@
 {
   "CHARITY": {
     "order": 3,
+    "pointsPossible": 50,
     "questions": {
       "Q1": {
         "order": 1,
@@ -67,6 +68,7 @@
   },
   "DILIGENCE": {
     "order": 8,
+    "pointsPossible": 35,
     "questions": {
       "Q1": {
         "order": 1,
@@ -115,6 +117,7 @@
   },
   "FAITH": {
     "order": 1,
+    "pointsPossible": 45,
     "questions": {
       "Q1": {
         "order": 1,
@@ -175,6 +178,7 @@
   },
   "HOPE": {
     "order": 2,
+    "pointsPossible": 20,
     "questions": {
       "Q1": {
         "order": 1,
@@ -205,6 +209,7 @@
   },
   "HUMILITY": {
     "order": 7,
+    "pointsPossible": 30,
     "questions": {
       "Q1": {
         "order": 1,
@@ -247,6 +252,7 @@
   },
   "KNOWLEDGE": {
     "order": 5,
+    "pointsPossible": 25,
     "questions": {
       "Q1": {
         "order": 1,
@@ -283,6 +289,7 @@
   },
   "OBEDIENCE": {
     "order": 9,
+    "pointsPossible": 20,
     "questions": {
       "Q1": {
         "order": 1,
@@ -313,6 +320,7 @@
   },
   "PATIENCE": {
     "order": 6,
+    "pointsPossible": 30,
     "questions": {
       "Q1": {
         "order": 1,
@@ -355,6 +363,7 @@
   },
   "VIRTUE": {
     "order": 4,
+    "pointsPossible": 30,
     "questions": {
       "Q1": {
         "order": 1,

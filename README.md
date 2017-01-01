@@ -2,7 +2,7 @@
 
 ![Logo](https://sp90x.bradyisom.com/assets/logo-noback.png)
 
-Scripture Power Extreme 90 - Extreme Spiritual Fitness
+Scripture Power 90 Extreme - Extreme Spiritual Fitness
 
 [https://sp90x.bradyisom.com](https://sp90x.bradyisom.com)
 

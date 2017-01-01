@@ -19,6 +19,7 @@
 - [ ] Supplemental materials
 - [ ] Additional stock schedules
 - [ ] Customize schedules
+- [ ] Change schedule list to cards with actions
 - [ ] Change to use side menu
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis

@@ -1,0 +1,22 @@
+<h1>
+  Fit Test Progress
+</h1>
+<p *ngIf="loaded && !fitTestCharts">
+  You have not recorded any fit test data yet.
+  <a href="" routerLink="/newschedule">Create a schedule</a>
+  and take your first fit test.
+</p>
+<div *ngIf="fitTestCharts">
+  <md-card class="line-chart" *ngFor="let chart of fitTestCharts; trackBy chartTitle">
+    <md-card-title>{{chart.title}}</md-card-title>
+    <md-card-content>
+      <canvas baseChart width="450" height="200"
+        [datasets]="chart.data"
+        [labels]="chart.labels"
+        [options]="chart.options"
+        [colors]="chart.colors"
+        [legend]="false"
+        chartType="line"></canvas>
+    </md-card-content>
+  </md-card>
+</div>

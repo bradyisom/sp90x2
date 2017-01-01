@@ -28,6 +28,7 @@
       <md-menu #userMenu="mdMenu" x-position="before">
         <button md-menu-item disabled> Profile </button>
         <button md-menu-item disabled> Help </button>
+        <button md-menu-item routerLink="/progress"> Progress </button>
         <button md-menu-item (click)="auth.logout()">
           Logout
         </button>

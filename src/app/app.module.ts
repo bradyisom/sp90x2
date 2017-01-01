@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
@@ -21,6 +22,7 @@ import { TrackComponent } from './track/track.component';
 import { FitTestComponent } from './fit-test/fit-test.component';
 import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confirm-delete-schedule.component';
 import { RegisterComponent } from './register/register.component';
+import { ProgressComponent } from './progress/progress.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo',
@@ -45,7 +47,8 @@ export const firebaseAuthConfig = {
     FitTestComponent,
     ConfirmDeleteScheduleComponent,
     RegisterComponent,
-    ErrorComponent
+    ErrorComponent,
+    ProgressComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ export const firebaseAuthConfig = {
     ReactiveFormsModule,
     HttpModule,
     MaterialModule.forRoot(),
+    ChartsModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
     RouterModule.forRoot([
       {
@@ -91,11 +95,17 @@ export const firebaseAuthConfig = {
             resolve: {
               user: AuthResolver
             },
+        }, {
+            path: 'progress',
+            component: ProgressComponent,
+            resolve: {
+              user: AuthResolver
+            },
         }]
-      },{
+      }, {
         path: 'login',
         component: LoginComponent
-      },{
+      }, {
         path: 'register',
         component: RegisterComponent
       }
