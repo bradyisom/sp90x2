@@ -38,6 +38,10 @@
         <md-icon md-list-avatar>info</md-icon>
         <h4 md-line>What is SP90X?</h4>
       </a>
+      <a md-list-item href="https://goo.gl/forms/Qf4avwYjjUR9ImUG2" target="_blank">
+        <md-icon md-list-avatar>feedback</md-icon>
+        <h4 md-line>Provide Feedback</h4>
+      </a>
       <a md-list-item href=""
         (click)="$event.preventDefault(); $event.stopImmediatePropagation(); auth.logout(); sidenav.close();"
         *ngIf="(auth.user | async)">
