@@ -23,6 +23,7 @@ import { FitTestComponent } from './fit-test/fit-test.component';
 import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confirm-delete-schedule.component';
 import { RegisterComponent } from './register/register.component';
 import { ProgressComponent } from './progress/progress.component';
+import { AboutComponent } from './about/about.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo',
@@ -49,6 +50,7 @@ export const firebaseAuthConfig = {
     RegisterComponent,
     ErrorComponent,
     ProgressComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,58 +60,81 @@ export const firebaseAuthConfig = {
     MaterialModule.forRoot(),
     ChartsModule,
     AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
-    RouterModule.forRoot([
-      {
-        path: '',
-        redirectTo: '/home',
-        pathMatch: 'full'
-      },
-      {
-        path: 'home',
-        component: HomeComponent
-      },
-      {
-        path: '',
-        canActivateChild: [AuthGuard],
-        children: [{
-            path: 'newschedule',
-            component: EditScheduleComponent
-        }, {
-            path: 'editschedule/:id',
-            component: EditScheduleComponent
-        }, {
-            path: 'track/:scheduleId',
-            component: TrackComponent,
-            resolve: {
-              user: AuthResolver
-            },
-        }, {
-            path: 'track/:scheduleId/:date',
-            component: TrackComponent,
-            resolve: {
-              user: AuthResolver
-            },
-        }, {
-            path: 'fittest/:scheduleId/:date',
-            component: FitTestComponent,
-            resolve: {
-              user: AuthResolver
-            },
-        }, {
-            path: 'progress',
-            component: ProgressComponent,
-            resolve: {
-              user: AuthResolver
-            },
-        }]
-      }, {
-        path: 'login',
-        component: LoginComponent
-      }, {
-        path: 'register',
-        component: RegisterComponent
+    RouterModule.forRoot([{
+      path: '',
+      redirectTo: '/about',
+      pathMatch: 'full'
+    }, {
+      path: 'about',
+      component: AboutComponent,
+      data: {
+        title: 'About'
       }
-    ], {
+    }, {
+      path: '',
+      canActivateChild: [AuthGuard],
+      children: [{
+        path: 'home',
+        component: HomeComponent,
+        data: {
+          title: 'Home'
+        }
+      }, {
+          path: 'newschedule',
+          component: EditScheduleComponent,
+          data: {
+            title: 'Create Schedule'
+          }
+      }, {
+          path: 'editschedule/:id',
+          component: EditScheduleComponent,
+          data: {
+            title: 'Edit Schedule'
+          }
+      }, {
+          path: 'track/:scheduleId',
+          component: TrackComponent,
+          resolve: {
+            user: AuthResolver
+          }
+      }, {
+          path: 'track/:scheduleId/:date',
+          component: TrackComponent,
+          resolve: {
+            user: AuthResolver
+          },
+          data: {
+            title: 'Track'
+          }
+      }, {
+          path: 'fittest/:scheduleId/:date',
+          component: FitTestComponent,
+          resolve: {
+            user: AuthResolver
+          },
+      }, {
+          path: 'progress',
+          component: ProgressComponent,
+          resolve: {
+            user: AuthResolver
+          },
+          data: {
+            title: 'Progress'
+          }
+      }]
+    }, {
+      path: 'login',
+      component: LoginComponent,
+      data: {
+        title: 'Login'
+      }
+    }, {
+      path: 'register',
+      component: RegisterComponent,
+      data: {
+        title: 'Create an Account'
+      }
+    }], {
       initialNavigation: true
     })
   ],

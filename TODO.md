@@ -18,7 +18,7 @@
 - [x] Fit test report
 - [x] Supplemental materials
 - [x] Change schedule list to cards with actions
-- [ ] Change to use side menu
+- [x] Change to use side menu
 - [ ] Additional stock schedules
 - [ ] Customize schedules
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)

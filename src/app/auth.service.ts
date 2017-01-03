@@ -37,7 +37,7 @@ export class AuthService {
           }
           this.user.next(u);
           if (this.router.url === '/login') {
-            this.router.navigate(['/']);
+            this.router.navigate(['/home']);
           }
         });
       } else {

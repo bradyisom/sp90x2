@@ -1,6 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
+import { Router, NavigationEnd } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -8,7 +10,24 @@ import { AuthService } from './auth.service';
 
 import { AppComponent } from './app.component';
 
+@Component({
+  template: `
+    <router-outlet></router-outlet>
+    <router-outlet name="other"></router-outlet>
+  `
+})
+class ParentComponent {
+}
+
+@Component({
+  template: ''
+})
+class DummyComponent {
+}
+
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
 
   const mockAuthService = {
     user: Observable.of({
@@ -20,30 +39,117 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
-        RouterTestingModule.withRoutes([])
+        RouterTestingModule.withRoutes([{
+          path: '',
+          component: ParentComponent,
+          children: [{
+            path: '',
+            component: DummyComponent
+          }, {
+            path: 'title',
+            children: [{
+              path: '',
+              outlet: 'other',
+              component: DummyComponent,
+              data: {
+                title: 'Hidden Title'
+              }
+            }, {
+              path: '',
+              component: DummyComponent,
+              data: {
+                title: 'Test Title'
+              }
+            }]
+          }, {
+            path: 'home',
+            component: DummyComponent,
+            data: {
+              title: 'Home'
+            }
+          }, {
+            path: 'about',
+            component: DummyComponent,
+            data: {
+              title: 'About'
+            }
+          }]
+        }])
       ],
       providers: [
-        { provide: AuthService, useValue: mockAuthService }
+        { provide: AuthService, useValue: mockAuthService },
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        DummyComponent,
+        ParentComponent
       ],
     });
     TestBed.compileComponents();
   });
 
-  it('should create the app', async(() => {
-    let fixture = TestBed.createComponent(AppComponent);
-    let app = fixture.debugElement.componentInstance;
+  beforeEach(() => {
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    expect(app).toBeTruthy();
-  }));
+  });
 
-  // it(`should have as title 'app works!'`, async(() => {
-  //   let fixture = TestBed.createComponent(AppComponent);
-  //   let app = fixture.debugElement.componentInstance;
-  //   expect(app.title).toEqual('app works!');
-  // }));
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should set the auth property', () => {
+    component.auth.user.subscribe((user) => {
+      expect(user.uid).toBe('U1');
+    });
+  });
+
+  it(`should have an app title`, () => {
+    expect(component.appName).toEqual('SP90X');
+  });
+
+  it(`should initialize showTitle to false`, () => {
+    expect(component.showTitle).toBe(false);
+  });
+
+
+  describe('route changes', () => {
+    let router: Router;
+
+    beforeEach(() => {
+      router = TestBed.get(Router);
+    });
+
+    it('should handle no title', fakeAsync(() => {
+      router.navigate(['/']);
+      tick();
+      expect(component.showTitle).toBe(true);
+      expect(component.title).toBe('');
+    }));
+
+    it('should handle a title', fakeAsync(() => {
+      router.navigate(['/title']);
+      tick();
+      expect(component.showTitle).toBe(true);
+      expect(component.title).toBe('Test Title');
+    }));
+
+    it('should hide home title', fakeAsync(() => {
+      router.navigate(['/home']);
+      tick();
+      expect(component.showTitle).toBe(false);
+      expect(component.title).toBe('Home');
+    }));
+
+    it('should hide about title', fakeAsync(() => {
+      router.navigate(['/about']);
+      tick();
+      expect(component.showTitle).toBe(false);
+      expect(component.title).toBe('About');
+    }));
+
+  });
+
 
   // it('should render title in a h1 tag', async(() => {
   //   let fixture = TestBed.createComponent(AppComponent);

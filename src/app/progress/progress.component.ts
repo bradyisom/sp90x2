@@ -148,7 +148,7 @@ export class ProgressComponent implements OnInit, OnDestroy {
       // Overall overrides
       if (group.title === 'Overall') {
         chart.options.scales.yAxes[0].ticks.max = 300;
-        chart.options.scales.yAxes[0].ticks.stepSize = 30;
+        chart.options.scales.yAxes[0].ticks.stepSize = 60;
         chart.colors = [{ // Deep Orange
           backgroundColor: 'rgba(255,87,34,0.2)',
           borderColor: 'rgba(255,87,34,1)',

@@ -93,7 +93,7 @@ describe('Service: Auth', () => {
         mockRouter.url = '/login';
       });
       it('should navigate home', inject([AuthService], (service: AuthService) => {
-        expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
+        expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
       }));
     });
 

@@ -15,7 +15,7 @@
         *ngFor="let question of questionLists[group?.$key]; trackBy: entryKey">
         <p class="question" md-line>
           {{question.title}}
-          <a class="question-scripture" [href]="question.link" target="sp90xScriptureWindow">
+          <a class="question-scripture" [href]="question.link" target="_blank">
             {{question.scripture}}
           </a>
         </p>
@@ -40,7 +40,7 @@
         <h2>Results</h2>
         <md-list>
           <md-list-item *ngFor="let group of (fitTest | async); let lastGroup = last; trackBy: entryKey">
-            {{group?.title}}: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}        
+            {{group?.title}}: {{answers.groups[group.$key].points}}/{{answers.groups[group.$key].pointsPossible}}
           </md-list-item>
         </md-list>
         <h3>Total: {{answers?.points}}/{{answers?.pointsPossible}}</h3>

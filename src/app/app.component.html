@@ -1,44 +1,82 @@
 <md-sidenav-container fullscreen>
   <md-sidenav #sidenav (click)="sidenav.close()">
+    <div class="sidenav-header">
+      <h2 class="app-logo">
+        <img src="/assets/logo-noback.png" alt="{{appName}}">
+      </h2>
+      <div *ngIf="(auth.user | async)" class="user-info">
+        <div class="user-avatar-ct">
+          <img class="user-avatar" src="{{(auth.user | async)?.avatar}}" alt="">
+        </div>
+        <div class="user-subtitle">
+          <div class="user-name">
+            {{ (auth.user | async)?.displayName }}
+          </div>
+          <div class="user-email">
+            {{ (auth.user | async)?.email }}
+          </div>
+        </div>
+      </div>
+    </div>
     <md-nav-list>
-      <a md-list-item routerLink="/home">
-        Home
+      <a md-list-item href="" routerLink="/home"
+        *ngIf="(auth.user | async)">
+        <md-icon md-list-avatar>home</md-icon>
+        <h4 md-line>Home</h4>
+      </a>
+      <a md-list-item href="" routerLink="/newschedule"
+        *ngIf="(auth.user | async)">
+        <md-icon md-list-avatar>create</md-icon>
+        <h4 md-line>Create Schedule</h4>
+      </a>
+      <a md-list-item href="" routerLink="/progress"
+        *ngIf="(auth.user | async)">
+        <md-icon md-list-avatar>trending_up</md-icon>
+        <h4 md-line>Progress</h4>
+      </a>
+      <a md-list-item href="" routerLink="/about">
+        <md-icon md-list-avatar>info</md-icon>
+        <h4 md-line>What is SP90X?</h4>
+      </a>
+      <a md-list-item href=""
+        (click)="$event.preventDefault(); $event.stopImmediatePropagation(); auth.logout(); sidenav.close();"
+        *ngIf="(auth.user | async)">
+        <md-icon md-list-avatar>power_settings_new</md-icon>
+        <h4 md-line>Logout</h4>
+      </a>
+      <a md-list-item href="" routerLink="/login"
+        *ngIf="!(auth.user | async)">
+        <md-icon md-list-avatar>power_settings_new</md-icon>
+        <h4 md-line>Login</h4>
       </a>
     </md-nav-list>
   </md-sidenav>
 
   <div class="app-ct">
     <md-toolbar color="primary" class="md-elevation-z4">
-      <!--<button md-icon-button (click)="sidenav.open()">
+      <button class="menu-button" md-icon-button (click)="sidenav.open()">
         <md-icon>menu</md-icon>
-      </button>-->
-      <h1 class="app-logo" routerLink="/">
-        <img src="/assets/logo-noback.png" alt="{{title}}">
-      </h1>
-      
-      <div class="spacer"></div>
-      
-      <span *ngIf="(auth.user | async)" class="user-name">
-        {{ (auth.user | async)?.displayName }}
-      </span>
-      <button md-icon-button *ngIf="(auth.user | async)" [md-menu-trigger-for]="userMenu">
-        <img class="user-avatar" src="{{(auth.user | async)?.avatar}}" alt="">
       </button>
+      <h1 class="page-title" *ngIf="showTitle">
+        {{title}}
+      </h1>
+      <h1 class="app-logo" *ngIf="!showTitle">
+        <img src="/assets/logo-noback.png" alt="{{appName}}">
+      </h1>
 
-      <md-menu #userMenu="mdMenu" x-position="before">
-        <button md-menu-item disabled> Profile </button>
-        <button md-menu-item disabled> Help </button>
-        <button md-menu-item routerLink="/progress"> Progress </button>
-        <button md-menu-item (click)="auth.logout()">
-          Logout
-        </button>
-      </md-menu>
+      <div class="spacer"></div>
 
-      <div *ngIf="!(auth.user | async)">
-        <button md-button routerLink="/login">
-          Login
+      <!--<span *ngIf="(auth.user | async)" class="user-name">
+        {{ (auth.user | async)?.displayName }}
+      </span>-->
+      <!--<img class="user-avatar" *ngIf="(auth.user | async)"
+        src="{{(auth.user | async)?.avatar}}" alt="">-->
+
+      <!--<div *ngIf="!(auth.user | async)">
+        <button md-raised-button color="accent" routerLink="/login">
+          LOGIN
         </button>
-      </div>
+      </div>-->
     </md-toolbar>
 
     <div class="top-content">

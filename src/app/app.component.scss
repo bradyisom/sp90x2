@@ -1,19 +1,25 @@
 .app-logo {
-    cursor: pointer;
-
     img {
         width: 200px;
         vertical-align: middle;
     }
 }
 
+.menu-button {
+  margin-left: -10px;
+  margin-right: 10px;
+}
+
 .spacer {
     flex: 1 1 auto;
 }
 
-.user-name {
-    display: none;
+.page-title {
+  font-size: 18px;
 }
+// .user-name {
+//     display: none;
+// }
 
 @media (min-width:640px) {
     .app-logo {
@@ -22,10 +28,10 @@
             vertical-align: top;
         }
     }
-    .user-name {
-        display: inline;
-        margin-right: 16px;
-    }
+    // .user-name {
+    //     display: inline;
+    //     margin-right: 16px;
+    // }
 }
 
 .user-avatar {
@@ -52,6 +58,53 @@ md-toolbar {
 
 md-sidenav-container {
     flex: 1 1 auto;
+
+    md-sidenav {
+      .sidenav-header {
+        background: url('/assets/dark-grey-background.jpg');
+        background-size: cover;
+        background-position: center center;
+
+        padding: 16px 16px 8px;
+
+        .app-logo {
+            margin: 0 0 10px;
+
+            img {
+                width: 200px;
+                vertical-align: middle;
+            }
+        }
+
+        .user-avatar {
+          height: 64px;
+          width: 64px;
+        }
+
+        .user-subtitle {
+          height: 56px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          .user-name {
+            font-weight: 500;
+          }
+
+          .user-email {
+            opacity: 0.5;
+          }
+        }
+
+      }
+
+      md-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+      }
+    }
 }
 
 .top-content {

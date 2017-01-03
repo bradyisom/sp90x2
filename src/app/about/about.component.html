@@ -1,0 +1,132 @@
+<div>
+  <h1>Welcome to SP90X</h1>
+  <div class="action-buttons">
+    <div class="welcome-back" *ngIf="(auth.user | async)">
+      Welcome back, {{(auth.user | async)?.displayName}}!
+    </div>
+    <button md-raised-button color="accent"
+      *ngIf="(auth.user | async)"
+      routerLink="/home">
+      Continue Tracking
+    </button>
+    <button md-raised-button color="accent"
+      *ngIf="!(auth.user | async)"
+      routerLink="/login">
+      Login
+    </button>
+  </div>
+  <p>
+    <iframe src="https://docs.google.com/presentation/d/1HM_M4D2peOkCiKECx2k-tK0CYTyqjf1MIbvnoEgUHmY/embed?start=false&loop=true&delayms=15000"
+      frameborder="0" width="480" height="299" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+  </p>
+	<h2>Study</h2>
+    <p>
+	    Daily scripture study is an essential part of spirituality.
+	    Studying the word of God keeps our minds pointed towards Him and gives us perspective throughout our day.
+	    For those of us preparing to go on missions or doing any other type of teaching, study is also a pre-requisite (<a href="http://lds.org/scriptures/dc-testament/dc/11.21?lang=eng#20" target="_blank">D&amp;C 11:21</a>).
+	    During this program, you will read the entire Book of Mormon, do daily topical study and read the words of our living prophets.
+	    The study portion of the program should take approximately one hour each day.
+	    That may seem like a lot of time, but as you do your best to be consistent each day, you will find yourself looking forward to the study instead of it feeling like something that you are required to do.
+    </p>
+    <div class="scriptures"></div>
+
+    <h2>Action</h2>
+    <p>
+		The Gospel of Jesus Christ is not just studying; it's a program of action.
+		We seek learning by study, but also by faith (<a href="http://lds.org/scriptures/dc-testament/dc/88.118?lang=eng#117" target="_blank">D&amp;C 88:118</a>).
+		We need to put into action what we learn with regular daily and monthly activities to apply what we learn and become who Heavenly Father wants us to become.
+		During this program, you will focus on meaningful prayer, pondering, service, temple attendance, fasting and journal writing to make the Gospel one of action in your life.
+    </p>
+
+    <h2>Do Your Best</h2>
+    <p>
+		The program that is outlined on this site is an intense one.
+		Those who keep up with the schedule will be blessed for their efforts and dedication.
+		However, if you are less than perfect at following the schedule, don't worry.
+		Do the best that you can and keep moving forward.
+		If you miss study, you can either start where you left off, or just keep following the schedule.
+		You may try to catch up during days when your study session seems light or when you have extra time.
+		Or, you can just wait until youve finished the 90 days and add some extra days on the end to do what you missed.
+	</p>
+
+	<h2>Daily Study</h2>
+	<p>Each day during the program, follow the suggested study routine below</p>
+  <md-list>
+    <md-list-item>
+      <p md-line>Book of Mormon</p>
+      <p md-line class="desc">Read the assigned chapters in the Book of Mormon each day.</p>
+    </md-list-item>
+    <md-list-item>
+      <p md-line>Topical Study</p>
+      <p md-line class="desc">Study a chapter in Preach My Gospel. Study enough each day so you will finish the chapter by the end of the week.</p>
+    </md-list-item>
+    <md-list-item>
+      <p md-line>Duty to God or Personal Progress</p>
+      <p md-line class="desc">Work on your Duty to God or Personal Progress for at least half an hour each Sunday.</p>
+    </md-list-item>
+    <md-list-item>
+      <p md-line>Genernal Conference Talks</p>
+      <p md-line class="desc">Study one talk from the most recent General Conference on each day assigned.</p>
+    </md-list-item>
+    <md-list-item>
+      <p md-line>Church Magazines</p>
+      <p md-line class="desc">Read an article from a recent issue of the New Era or Ensign each day assigned.</p>
+    </md-list-item>
+    <md-list-item>
+      <p md-line>Scripture Mastery</p>
+      <p md-line class="desc">Memorize the specified scripture mastery scripture each day assigned.
+		  If you need more than one day to memorize the scripture, spend a little bit of time on it each day and extra time on the scheduled day.</p>
+    </md-list-item>
+  </md-list>
+	<h2>Daily Actions</h2>
+	<p>Perform the following tasks each day to keep applying what you are learning</p>
+	<md-list>
+		<md-list-item>
+      <p md-line>Meaningful Prayer</p>
+      <p md-line class="desc">Have a <i>meaningful</i> conversation with your Heavenly Father at least morning and night.</p>
+		</md-list-item>
+		<md-list-item>
+      <p md-line>Pondering</p>
+      <p md-line class="desc">There's a lot of studying in this program, but the biggest benefit comes from pondering what we're studying and applying itto our lives.
+		  Find some time each day to quietly ponder the gospel and your life.</p>
+    </md-list-item>
+		<md-list-item>
+      <p md-line>Service</p>
+      <p md-line class="desc">Search for ways to serve those around you and perform at least one act of servie a day.
+		  It doesn't have to be a big thing, just service.
+		  Don't forget your family members, as well.</p>
+    </md-list-item>
+		<md-list-item>
+      <p md-line>Journal Writing</p>
+      <p md-line class="desc">Record your progress and how the Lord has blessed your life each day.</p>
+		</md-list-item>
+	</md-list>
+	<h2>Monthly Actions</h2>
+	<p>Perform the following actions monthly to apply what you're learning and to evaluate your progress and direction</p>
+	<md-list>
+		<md-list-item>
+      <p md-line>Fasting</p>
+      <p md-line class="desc">Fast for two meals at least each month on Fast Sunday with a purpose.</p>
+		</md-list-item>
+		<md-list-item>
+      <p md-line>Temple Attendance</p>
+      <p md-line class="desc">If you hold a temple recommend, attend the temple at least once a month.</p>
+		</md-list-item>
+		<md-list-item>
+      <p md-line>Home and Visiting Teaching</p>
+      <p md-line class="desc">If you are a home or visiting teacher, have at least one meaningful visit each month with each of your assigned families or sisters.</p>
+		</md-list-item>
+		<md-list-item>
+      <p md-line>Fit Test</p>
+      <p md-line class="desc">Take the "Christlike Attributes" questionnaire found in <i>Preach My Gospel</i> on page 126 on days 1, 30, 60 and 90 to track your spiritual progress.</p>
+		</md-list-item>
+	</md-list>
+  <h2>
+    Supplemental Materials
+  </h2>
+  <ul>
+    <li><a href="/assets/SP90XProgramGuide.doc" download="SP90XProgramGuide.doc">Program Guide (.doc)</a></li>
+    <li><a href="/assets/SP90XProgramGuide.pdf" download="SP90XProgramGuide.pdf">Program Guide (.pdf)</a></li>
+    <li><a href="/assets/SP90X.pptx" download="SP90X.pptx">Intro Slideshow (.pptx)</a></li>
+  </ul>
+</div>

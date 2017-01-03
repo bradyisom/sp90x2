@@ -170,7 +170,7 @@ describe('ProgressComponent', () => {
       expect(_.map(component.fitTestCharts, entry => {
        return entry.options.scales.yAxes[0].ticks;
       })).toEqual([
-        jasmine.objectContaining({max: 300, stepSize: 30}),
+        jasmine.objectContaining({max: 300, stepSize: 60}),
         jasmine.objectContaining({max: 45, stepSize: 5}),
         jasmine.objectContaining({max: 20, stepSize: 5}),
       ]);
