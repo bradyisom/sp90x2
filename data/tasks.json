@@ -6,6 +6,27 @@
     "subTasks": true,
     "title": "Book of Mormon 90"
   },
+  "DC90": {
+    "defaultInterval": "daily",
+    "description": "Read the entire Doctrine and Covenants in 90 days",
+    "points": 1,
+    "subTasks": true,
+    "title": "D&C 90"
+  },
+  "NT90": {
+    "defaultInterval": "daily",
+    "description": "Read the entire New Testament in 90 days",
+    "points": 1,
+    "subTasks": true,
+    "title": "New Testament 90"
+  },
+  "OT90": {
+    "defaultInterval": "daily",
+    "description": "Read the entire Old Testament in 90 days",
+    "points": 1,
+    "subTasks": true,
+    "title": "Old Testament 90"
+  },
   "DTG": {
     "abbr": "DTG",
     "defaultInterval": "Su",

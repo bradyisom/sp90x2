@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   // ActivatedRoute, Params,
   Router
@@ -17,7 +17,7 @@ import * as _ from 'lodash';
   templateUrl: './edit-schedule.component.html',
   styleUrls: ['./edit-schedule.component.scss']
 })
-export class EditScheduleComponent implements OnInit {
+export class EditScheduleComponent implements OnInit, OnDestroy {
   userId: string;
   scheduleId: string;
   public editForm: FormGroup;
@@ -28,6 +28,9 @@ export class EditScheduleComponent implements OnInit {
   programTasks: FirebaseListObservable<any>;
   tasks: FirebaseListObservable<any>;
   subTasks: any;
+  programsSnapshot: any[];
+  programsSubscription: Subscription;
+  lastProgram: any = null;
 
   constructor(
     // private route: ActivatedRoute,
@@ -45,12 +48,20 @@ export class EditScheduleComponent implements OnInit {
     this.programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
 
     this.editForm = new FormGroup({
-      programTitle: new FormControl('SP90X Classic', Validators.required),
+      programTitle: new FormControl('', Validators.required),
       startDate: new FormControl(moment().format('YYYY-MM-DD'), Validators.required),
       program: this.programControl
     });
 
-    this.programs = this.af.database.list('/programs');
+    this.programs = this.af.database.list('/programs', {
+      query: {
+        orderByChild: 'order'
+      }
+    });
+    this.programsSubscription = this.programs.subscribe((programs) => {
+      this.programsSnapshot = programs;
+    });
+
     this.tasks = this.af.database.list('/tasks', {
       query: {
         orderByChild: 'title'
@@ -77,7 +88,18 @@ export class EditScheduleComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+    this.programsSubscription.unsubscribe();
+  }
+
   programChange(programId: string) {
+    let newProgram = _.find(this.programsSnapshot, {$key: programId});
+    let titleField = this.editForm.get('programTitle');
+    if (newProgram && (!this.lastProgram || (this.lastProgram && this.lastProgram.title === titleField.value))) {
+      titleField.setValue(newProgram.title);
+    }
+    this.lastProgram = newProgram;
+
     this.programTasks = this.af.database.list(`/programs/${programId}/tasks`);
     this.programTasks.first().subscribe(() => {
       this.filteredTasks = this.tasks.withLatestFrom(this.programTasks)

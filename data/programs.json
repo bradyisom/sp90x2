@@ -1,5 +1,7 @@
 {
   "CLASSIC-M": {
+    "order": 0,
+    "title": "SP90X Classic - Men",
     "description": "The original program for men and boys",
     "tasks": {
       "BOFM90": "daily",
@@ -14,10 +16,11 @@
       "SERVICE": "daily",
       "SM-BOFM": "We,Sa",
       "TEMPLE": "monthly"
-    },
-    "title": "SP90X Classic - Men"
+    }
   },
   "CLASSIC-W": {
+    "order": 1,
+    "title": "SP90X Classic - Women",
     "description": "The original program for women and girls",
     "tasks": {
       "BOFM90": "daily",
@@ -32,7 +35,50 @@
       "SERVICE": "daily",
       "SM-BOFM": "We,Sa",
       "TEMPLE": "monthly"
-    },
-    "title": "SP90X Classic - Women"
+    }
+  },
+  "BOFM90": {
+    "order": 2,
+    "title": "Book of Mormon 90",
+    "description": "Read the entire Book of Mormon in 90 days. Read, ponder and pray.",
+    "tasks": {
+      "BOFM90": "daily",
+      "JOURNAL": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily"
+    }
+  },
+  "DC90": {
+    "order": 3,
+    "title": "D&C 90",
+    "description": "Read the entire Doctrine and Covenants in 90 days. Read, ponder and pray.",
+    "tasks": {
+      "DC90": "daily",
+      "JOURNAL": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily"
+    }
+  },
+  "NT90": {
+    "order": 4,
+    "title": "New Testament 90",
+    "description": "Read the entire New Testament in 90 days. Read, ponder and pray.",
+    "tasks": {
+      "NT90": "daily",
+      "JOURNAL": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily"
+    }
+  },
+  "OT90": {
+    "order": 5,
+    "title": "Old Testament 90",
+    "description": "Read the entire Old Testament in 90 days. Read, ponder and pray.",
+    "tasks": {
+      "OT90": "daily",
+      "JOURNAL": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily"
+    }
   }
 }

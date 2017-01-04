@@ -20,12 +20,12 @@
 - [x] Change schedule list to cards with actions
 - [x] Change to use side menu
 - [x] Send feedback form
-- [ ] Additional stock schedules
+- [x] Additional stock schedules
+- [ ] Delete user account
 - [ ] Customize schedules
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
-- [ ] Delete user account
 - [ ] Create services for data access?
 - [ ] Create extra dev/prod database
 - [ ] UI/template tests

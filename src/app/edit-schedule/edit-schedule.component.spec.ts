@@ -163,7 +163,11 @@ describe('Component: EditSchedule', () => {
   });
 
   it('should load programs', () => {
-    expect(mockAngularFire.database.list).toHaveBeenCalledWith('/programs');
+    expect(mockAngularFire.database.list).toHaveBeenCalledWith('/programs', {
+      query: {
+        orderByChild: 'order'
+      }
+    });
     component.programs.subscribe((list) => {
       expect(list).toEqual(programs);
     });
@@ -190,7 +194,7 @@ describe('Component: EditSchedule', () => {
   });
 
   it('should setup the edit form', () => {
-    expect(component.editForm.controls['programTitle'].value).toEqual('SP90X Classic');
+    expect(component.editForm.controls['programTitle'].value).toEqual('');
     expect(component.editForm.controls['startDate'].value).toEqual(moment().format('YYYY-MM-DD'));
     expect(component.editForm.controls['program'].value).toBeFalsy();
   });
@@ -203,6 +207,37 @@ describe('Component: EditSchedule', () => {
       component.filteredTasks.subscribe((tasks) => {
         expect(_.map(tasks, '$key')).toEqual(['BOFM90', 'FASTING', 'GC']);
       });
+    });
+
+    it('should leave the title empty', () => {
+      component.programControl.setValue('PROG1');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('');
+    });
+
+    it('should set the initial title', () => {
+      component.programControl.setValue('CLASSIC-M');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
+    });
+
+    it('should change the title', () => {
+      component.programControl.setValue('CLASSIC-M');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
+      component.programControl.setValue('CLASSIC-W');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Women');
+    });
+
+    it('should leave the title if changed', () => {
+      component.programControl.setValue('CLASSIC-M');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
+      component.editForm.get('programTitle').setValue('SP90X - Men - Changed');
+      component.programControl.setValue('CLASSIC-W');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men - Changed');
     });
 
   });

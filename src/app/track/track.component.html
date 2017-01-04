@@ -51,7 +51,7 @@
       {{(task.details | async)?.description}}
     </p>
   </md-list-item>
-  <h2 md-subheader>
+  <h2 md-subheader *ngIf="(monthlyEntries | async)?.length">
     Monthly Tasks
   </h2>
   <md-list-item *ngFor="let task of (monthlyEntries | async); trackBy: taskKey">
