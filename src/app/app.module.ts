@@ -24,6 +24,7 @@ import { ConfirmDeleteScheduleComponent } from './confirm-delete-schedule/confir
 import { RegisterComponent } from './register/register.component';
 import { ProgressComponent } from './progress/progress.component';
 import { AboutComponent } from './about/about.component';
+import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo',
@@ -51,6 +52,7 @@ export const firebaseAuthConfig = {
     ErrorComponent,
     ProgressComponent,
     AboutComponent,
+    ConfirmDeleteAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -147,6 +149,7 @@ export const firebaseAuthConfig = {
   bootstrap: [AppComponent],
   entryComponents: [
     ConfirmDeleteScheduleComponent,
+    ConfirmDeleteAccountComponent,
     ErrorComponent
   ]
 })

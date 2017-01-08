@@ -1,0 +1,7 @@
+<p md-dialog-content>
+  Are you sure you want to permanently delete your account and all of your data?
+</p>
+<md-dialog-actions>
+  <button color="primary" md-button md-dialog-close>CANCEL</button>
+  <button color="warn" md-button (click)="dialogRef.close('delete')">DELETE MY ACCOUNT</button>
+</md-dialog-actions>

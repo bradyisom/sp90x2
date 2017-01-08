@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
 import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
 
 import { AppComponent } from './app.component';
 
@@ -32,7 +33,15 @@ describe('AppComponent', () => {
   const mockAuthService = {
     user: Observable.of({
       uid: 'U1'
-    })
+    }),
+    delete: jasmine.createSpy('delete account', () => {}).and.callThrough()
+  };
+
+  let dialogResult = 'delete';
+  let mockDialog = {
+    open: jasmine.createSpy('open', () => {
+      return { afterClosed: () => Observable.of(dialogResult) };
+    }).and.callThrough()
   };
 
   beforeEach(() => {
@@ -78,17 +87,21 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: AuthService, useValue: mockAuthService },
+        { provide: MdDialog, useValue: mockDialog },
       ],
       declarations: [
         AppComponent,
         DummyComponent,
-        ParentComponent
+        ParentComponent,
+        ConfirmDeleteAccountComponent,
       ],
     });
     TestBed.compileComponents();
   });
 
   beforeEach(() => {
+    mockAuthService.delete.calls.reset();
+
     fixture = TestBed.createComponent(AppComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -157,4 +170,26 @@ describe('AppComponent', () => {
   //   let compiled = fixture.debugElement.nativeElement;
   //   expect(compiled.querySelector('h1').textContent).toContain('app works!');
   // }));
+
+
+  describe('deleteAccount', () => {
+
+    it('should confirm', () => {
+      component.deleteAccount();
+      expect(mockDialog.open).toHaveBeenCalledWith(ConfirmDeleteAccountComponent, {});
+    });
+
+    it('should remove the account', () => {
+      component.deleteAccount();
+      expect(mockAuthService.delete).toHaveBeenCalled();
+    });
+
+    it('should not remove the account', () => {
+      dialogResult = 'cancel';
+      component.deleteAccount();
+      expect(mockAuthService.delete).not.toHaveBeenCalled();
+    });
+
+  });
+
 });

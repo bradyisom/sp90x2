@@ -22,13 +22,13 @@
 - [x] Send feedback form
 - [x] Additional stock schedules
 - [x] Customize schedules
-- [ ] Delete user account
+- [x] Delete user account
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
-- [ ] Create services for data access?
-- [ ] Create extra dev/prod database
-- [ ] UI/template tests
-- [ ] e2e tests
 - [ ] Add groups, or following
 - [ ] Group reports
+- [ ] UI/template tests
+- [ ] e2e tests
+- [ ] Create services for data access?
+- [ ] Create extra dev/prod database

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MdDialog, MdDialogRef } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './auth.service';
+import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +14,12 @@ export class AppComponent {
   public title = '';
   public showTitle = false;
 
+  private confirmDialogRef: MdDialogRef<ConfirmDeleteAccountComponent>;
+
   constructor(
     public auth: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MdDialog
   ) {
     this.router.events.filter(event => event instanceof NavigationEnd)
       .subscribe(event => {
@@ -36,5 +41,16 @@ export class AppComponent {
 
         this.showTitle = (this.title !== 'Home' && this.title !== 'About');
       });
+  }
+
+  public deleteAccount() {
+    this.confirmDialogRef = this.dialog.open(ConfirmDeleteAccountComponent, {});
+    this.confirmDialogRef.afterClosed().first().subscribe(result => {
+      // console.log('result: ' + result);
+      this.confirmDialogRef = null;
+      if (result === 'delete') {
+        this.auth.delete();
+      }
+    });
   }
 }

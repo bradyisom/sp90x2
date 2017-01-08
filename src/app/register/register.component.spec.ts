@@ -149,7 +149,7 @@ describe('RegisterComponent', () => {
     it('should navigate to home on success', fakeAsync(() => {
       component.create();
       tick();
-      expect(mockRouter.navigate).toHaveBeenCalledWith(['/']);
+      expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
     }));
 
     it('should show an error', fakeAsync(() => {

@@ -5,7 +5,7 @@ import {
   FirebaseAuthState,
   FirebaseObjectObservable
 } from 'angularfire2';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription, Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -53,6 +53,45 @@ export class AuthService {
       password: password
     }).then((state: FirebaseAuthState) => {
       return this.updateUser(state.uid, displayName, email, avatarUrl);
+    });
+  }
+
+  delete() {
+    if (!this._user) {
+      return;
+    }
+    // Delete existing user data
+    this.user.first().subscribe(user => {
+      let userId = user.uid;
+
+      // List schedules
+      let schedulesRef = this.af.database.object(`/schedules/${userId}`);
+      schedulesRef.first().subscribe((schedulesObj: any) => {
+        let schedules: any[] = Object.keys(schedulesObj)
+          .filter((key) => !key.startsWith('$'));
+
+        // Delete schedule entries
+        let promises: firebase.Promise<void>[] = [];
+        schedules.forEach((schedule: any) => {
+          promises.push(this.af.database.object(`/entries/${schedule}`).remove());
+        });
+
+        // Delete schedules
+        Promise.all(promises).then(() => {
+          schedulesRef.remove().then(() => {
+            // Delete the actual user account
+            this.af.database.object(`/users/${userId}`)
+            .remove()
+            .then(() => {
+              this.af.auth.first().subscribe(authState => {
+                authState.auth.delete().then(() => {
+                  this.logout();
+                });
+              });
+            });
+          });
+        });
+      });
     });
   }
 

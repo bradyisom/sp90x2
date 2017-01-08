@@ -16,6 +16,12 @@
             {{ (auth.user | async)?.email }}
           </div>
         </div>
+        <button md-icon-button
+          class="delete-account"
+          md-tooltip="Permanently delete this account"
+          (click)="deleteAccount()">
+          <md-icon>delete</md-icon>
+        </button>
       </div>
     </div>
     <md-nav-list>
