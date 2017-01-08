@@ -110,5 +110,32 @@
       "FASTING": "monthly",
       "TEMPLE": "monthly"
     }
+  },
+  "CUSTOM": {
+    "order": 7,
+    "title": "Custom",
+    "description": "Build your own program from the available tasks",
+    "tasks": {
+      "BOFM90": "daily",
+      "DC90": "daily",
+      "NT90": "daily",
+      "OT90": "daily",
+      "SM-BOFM": "We,Sa",
+      "SM-DC": "We,Sa",
+      "SM-NT": "We,Sa",
+      "SM-OT": "We,Sa",
+      "DTG": "Su",
+      "PP": "Su",
+      "GC": "Mo,Th",
+      "MAG": "Tu,Fr",
+      "PMG": "daily",
+      "TOPIC": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily",
+      "JOURNAL": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
+    }
   }
 }

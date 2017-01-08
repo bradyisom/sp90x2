@@ -40,6 +40,11 @@ md-toolbar .title {
     // letter-spacing: 1px;
 }
 
+[md-button],
+[md-raised-button] {
+  text-transform: uppercase;
+}
+
 a {
     color: md-color($dark-accent, A200);
 }

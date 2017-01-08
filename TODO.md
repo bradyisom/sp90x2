@@ -21,8 +21,8 @@
 - [x] Change to use side menu
 - [x] Send feedback form
 - [x] Additional stock schedules
+- [x] Customize schedules
 - [ ] Delete user account
-- [ ] Customize schedules
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
 - [ ] Auto-deploy from Travis
 - [ ] Optimize for phone viewing

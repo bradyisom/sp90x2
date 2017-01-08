@@ -173,10 +173,6 @@ describe('Component: EditSchedule', () => {
     });
   });
 
-  it('should initialize filteredTasks', () => {
-    expect(component.filteredTasks).toBeFalsy();
-  });
-
   it('should load all tasks', () => {
     expect(mockAngularFire.database.list).toHaveBeenCalledWith('/tasks', {
       query: {
@@ -194,9 +190,9 @@ describe('Component: EditSchedule', () => {
   });
 
   it('should setup the edit form', () => {
-    expect(component.editForm.controls['programTitle'].value).toEqual('');
+    expect(component.editForm.controls['programTitle'].value).toEqual('SP90X - Men');
     expect(component.editForm.controls['startDate'].value).toEqual(moment().format('YYYY-MM-DD'));
-    expect(component.editForm.controls['program'].value).toBeFalsy();
+    expect(component.editForm.controls['program'].value).toEqual('CLASSIC-M');
   });
 
   describe('program change', () => {
@@ -209,25 +205,25 @@ describe('Component: EditSchedule', () => {
       });
     });
 
-    it('should leave the title empty', () => {
+    it('should leave the initial title', () => {
       component.programControl.setValue('PROG1');
       fixture.detectChanges();
-      expect(component.editForm.get('programTitle').value).toBe('');
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
     });
 
     it('should set the initial title', () => {
-      component.programControl.setValue('CLASSIC-M');
-      fixture.detectChanges();
-      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
-    });
-
-    it('should change the title', () => {
-      component.programControl.setValue('CLASSIC-M');
-      fixture.detectChanges();
-      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
       component.programControl.setValue('CLASSIC-W');
       fixture.detectChanges();
       expect(component.editForm.get('programTitle').value).toBe('SP90X - Women');
+    });
+
+    it('should change the title', () => {
+      component.programControl.setValue('CLASSIC-W');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Women');
+      component.programControl.setValue('CLASSIC-M');
+      fixture.detectChanges();
+      expect(component.editForm.get('programTitle').value).toBe('SP90X - Men');
     });
 
     it('should leave the title if changed', () => {
@@ -255,8 +251,8 @@ describe('Component: EditSchedule', () => {
 
     it('should not save an invalid schedule', fakeAsync(() => {
       component.editForm.setValue({
-        programTitle: 'My Schedule',
-        program: null,
+        programTitle: '',
+        program: '',
         startDate: '2016-12-27'
       });
       fixture.detectChanges();
@@ -296,6 +292,30 @@ describe('Component: EditSchedule', () => {
       expect(entries.daily['2016-12-29']).toEqual({
         BOFM90: { order: 2, points: 1, finished: false },
         GC: { points: 1, finished: false }
+      });
+      expect(_.keys(entries.monthly)).toEqual(['2016-12', '2017-01', '2017-02', '2017-03']);
+      expect(entries.monthly['2016-12']).toEqual({
+        FASTING: { points: 20, finished: false }
+      });
+    }));
+
+    it('should save valid with tasks omitted', fakeAsync(() => {
+      component.filteredTasks.first().subscribe((taskList: any[]) => {
+        taskList[2].include = false;
+      });
+      component.save();
+      tick();
+      expect(setSpy).toHaveBeenCalled();
+      let entries = setSpy.calls.mostRecent().args[0];
+      expect(_.keys(entries.daily).length).toBe(90);
+      expect(entries.daily['2016-12-27']).toEqual({
+        BOFM90: { order: 0, points: 1, finished: false }
+      });
+      expect(entries.daily['2016-12-28']).toEqual({
+        BOFM90: { order: 1, points: 1, finished: false }
+      });
+      expect(entries.daily['2016-12-29']).toEqual({
+        BOFM90: { order: 2, points: 1, finished: false }
       });
       expect(_.keys(entries.monthly)).toEqual(['2016-12', '2017-01', '2017-02', '2017-03']);
       expect(entries.monthly['2016-12']).toEqual({

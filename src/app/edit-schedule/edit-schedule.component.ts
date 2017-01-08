@@ -44,7 +44,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     //   this.scheduleId = params['id'];
     // });
 
-    this.programControl = new FormControl('', Validators.required);
+    this.programControl = new FormControl('');
     this.programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
 
     this.editForm = new FormGroup({
@@ -58,15 +58,19 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
         orderByChild: 'order'
       }
     });
-    this.programsSubscription = this.programs.subscribe((programs) => {
-      this.programsSnapshot = programs;
-    });
 
     this.tasks = this.af.database.list('/tasks', {
       query: {
         orderByChild: 'title'
       }
     });
+
+    this.programsSubscription = this.programs.subscribe((programs) => {
+      this.programsSnapshot = programs;
+      this.programControl.setValue(this.programsSnapshot[0].$key);
+      this.programChange(this.programsSnapshot[0].$key);
+    });
+
     this.af.database.object(`/subTasks`).first().subscribe((subTasks) => {
       this.subTasks = subTasks;
     });
@@ -107,8 +111,12 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
           let val = _.filter(tasks, (t: any) => {
             return !!_.find(programTasks, {$key: t.$key});
           });
+          val.forEach((task) => {
+            task.include = true;
+          });
           return val;
-        }).take(1).publishReplay(1).refCount();
+        })
+        .take(1).publishReplay(1).refCount();
     });
   }
 
@@ -124,7 +132,10 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     // Calculate all of the tasks
     let orders = {};
     let pointsPossible = 0;
-    this.filteredTasks.reduce((tasks: any, taskList: any) => {
+    this.filteredTasks
+    .map((taskList: any[]) => {
+      return _.filter(taskList, task => task.include);
+    }).reduce((tasks: any, taskList: any) => {
       moment.range(startDate, endDate).by('days', (day) => {
         for (let task of taskList) {
           if (task.defaultInterval === 'monthly') {

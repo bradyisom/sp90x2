@@ -24,6 +24,24 @@ md-select {
     margin: 16px 0;
 }
 
+md-list-item {
+  margin-bottom: 8px;
+}
+
+@media (max-width:640px) {
+  md-list-item {
+    height: 100px;
+  }
+}
+
+fieldset {
+  min-width: 0;
+}
+
+.task-title {
+  white-space: normal;
+}
+
 .task-description {
     white-space: normal;
     opacity: 0.3;
