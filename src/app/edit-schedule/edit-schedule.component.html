@@ -21,6 +21,8 @@
   </div>
   <fieldset class="form-group" *ngIf="(filteredTasks | async)?.length">
     <legend>Program Details</legend>
+    <h2>{{currentProgram?.title}}</h2>
+    <p>{{currentProgram?.description}}</p>
     <md-list>
       <md-list-item *ngFor="let task of (filteredTasks | async)">
         <h3 md-line>{{task.title}} ({{task.defaultInterval}})</h3>

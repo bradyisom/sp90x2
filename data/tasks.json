@@ -61,6 +61,20 @@
     "points": 1,
     "title": "Church Magazines"
   },
+  "SS": {
+    "abbr": "SS",
+    "defaultInterval": "Tu,Fr",
+    "description": "Study the upcoming Sunday School lesson",
+    "points": 1,
+    "title": "Sunday School Study"
+  },
+  "PR-RS": {
+    "abbr": "PR-RS",
+    "defaultInterval": "We,Sa",
+    "description": "Study the upcoming Priesthood or Relief Society lesson",
+    "points": 1,
+    "title": "Priesthood / Relief Society Study"
+  },
   "PMG": {
     "abbr": "PMG",
     "defaultInterval": "daily",
@@ -68,6 +82,13 @@
     "points": 1,
     "subTasks": true,
     "title": "Topical Study: Preach My Gospel"
+  },
+  "TOPIC": {
+    "abbr": "TOPIC",
+    "defaultInterval": "daily",
+    "description": "Ask a question, Search for the answer, Ponder what you're thinking about, Write your thoughts and inspiration and Thank the Lord for your blessings.",
+    "points": 1,
+    "title": "Topical Study: Guided by the Spirit"
   },
   "PONDER": {
     "abbr": "Po",
@@ -98,12 +119,36 @@
     "title": "Service"
   },
   "SM-BOFM": {
-    "abbr": "SM",
+    "abbr": "SM-BOFM",
     "defaultInterval": "We,Sa",
     "description": "Memorize the Book of Mormon scripture mastery scriptures",
     "points": 1,
     "subTasks": true,
     "title": "Scripture Mastery: Book of Mormon"
+  },
+  "SM-DC": {
+    "abbr": "SM-DC",
+    "defaultInterval": "We,Sa",
+    "description": "Memorize the Doctrine and Covenants scripture mastery scriptures",
+    "points": 1,
+    "subTasks": true,
+    "title": "Scripture Mastery: Doctrine and Covenants"
+  },
+  "SM-NT": {
+    "abbr": "SM-NT",
+    "defaultInterval": "We,Sa",
+    "description": "Memorize the New Testament scripture mastery scriptures",
+    "points": 1,
+    "subTasks": true,
+    "title": "Scripture Mastery: New Testament"
+  },
+  "SM-OT": {
+    "abbr": "SM-OT",
+    "defaultInterval": "We,Sa",
+    "description": "Memorize the Old Testament scripture mastery scriptures",
+    "points": 1,
+    "subTasks": true,
+    "title": "Scripture Mastery: Old Testament"
   },
   "TEMPLE": {
     "defaultInterval": "monthly",

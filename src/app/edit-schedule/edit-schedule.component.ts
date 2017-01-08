@@ -30,7 +30,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   subTasks: any;
   programsSnapshot: any[];
   programsSubscription: Subscription;
-  lastProgram: any = null;
+  public currentProgram: any = null;
 
   constructor(
     // private route: ActivatedRoute,
@@ -95,10 +95,10 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   programChange(programId: string) {
     let newProgram = _.find(this.programsSnapshot, {$key: programId});
     let titleField = this.editForm.get('programTitle');
-    if (newProgram && (!this.lastProgram || (this.lastProgram && this.lastProgram.title === titleField.value))) {
+    if (newProgram && (!this.currentProgram || (this.currentProgram && this.currentProgram.title === titleField.value))) {
       titleField.setValue(newProgram.title);
     }
-    this.lastProgram = newProgram;
+    this.currentProgram = newProgram;
 
     this.programTasks = this.af.database.list(`/programs/${programId}/tasks`);
     this.programTasks.first().subscribe(() => {

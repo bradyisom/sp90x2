@@ -37,48 +37,78 @@
       "TEMPLE": "monthly"
     }
   },
-  "BOFM90": {
+  "TOPIC90": {
     "order": 2,
+    "title": "Topical Study 90",
+    "description": "Do deep, topical study, guided by the Spirit each day",
+    "tasks": {
+      "TOPIC": "daily",
+      "JOURNAL": "daily",
+      "PONDER": "daily",
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
+    }
+  },
+  "BOFM90": {
+    "order": 3,
     "title": "Book of Mormon 90",
     "description": "Read the entire Book of Mormon in 90 days. Read, ponder and pray.",
     "tasks": {
       "BOFM90": "daily",
+      "SM-BOFM": "We,Sa",
       "JOURNAL": "daily",
       "PONDER": "daily",
-      "PRAY": "daily"
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
     }
   },
   "DC90": {
-    "order": 3,
+    "order": 4,
     "title": "D&C 90",
     "description": "Read the entire Doctrine and Covenants in 90 days. Read, ponder and pray.",
     "tasks": {
       "DC90": "daily",
+      "SM-DC": "We,Sa",
       "JOURNAL": "daily",
       "PONDER": "daily",
-      "PRAY": "daily"
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
     }
   },
   "NT90": {
-    "order": 4,
+    "order": 5,
     "title": "New Testament 90",
     "description": "Read the entire New Testament in 90 days. Read, ponder and pray.",
     "tasks": {
       "NT90": "daily",
+      "SM-NT": "We,Sa",
       "JOURNAL": "daily",
       "PONDER": "daily",
-      "PRAY": "daily"
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
     }
   },
   "OT90": {
-    "order": 5,
+    "order": 6,
     "title": "Old Testament 90",
     "description": "Read the entire Old Testament in 90 days. Read, ponder and pray.",
     "tasks": {
       "OT90": "daily",
+      "SM-OT": "We,Sa",
       "JOURNAL": "daily",
       "PONDER": "daily",
-      "PRAY": "daily"
+      "PRAY": "daily",
+      "SERVICE": "daily",
+      "FASTING": "monthly",
+      "TEMPLE": "monthly"
     }
   }
 }
