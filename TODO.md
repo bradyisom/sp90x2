@@ -24,10 +24,14 @@
 - [x] Customize schedules
 - [x] Delete user account
 - [ ] AOT Deploy (Blocked by https://github.com/angular/angularfire2/issues/728)
-- [ ] Auto-deploy from Travis
+- [x] Auto-deploy from Travis
 - [ ] Optimize for phone viewing
-- [ ] Add groups, or following
+- [ ] Add groups
+- [ ] Group chat / sharing / discussion
 - [ ] Group reports
+- [ ] Add following / friends
+- [ ] Friend chat / sharing / discussion
+- [ ] Allow for choosing days for off-day tasks (visualize schedule?)
 - [ ] UI/template tests
 - [ ] e2e tests
 - [ ] Create services for data access?

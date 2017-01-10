@@ -23,8 +23,10 @@ install:
 - npm install -g firebase-tools
 - npm install
 
-script: 
+script:
 - ng test -cc -l -sr
+- ng build --prod
 
 after_success:
 - ./node_modules/.bin/codecov
+- firebase deploy --token ${FIREBASE_TOKEN}
