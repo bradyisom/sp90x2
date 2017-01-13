@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AngularFire } from 'angularfire2';
 import { AuthService } from '../auth.service';
 
@@ -20,7 +20,7 @@ describe('ProgressComponent', () => {
   let schedules: any[];
   let entries: any[];
 
-  let mockAngularFire = {
+  const mockAngularFire = {
     database: {
       list: jasmine.createSpy('list', (path: string) => {
         if (path === '/fitTest') {
@@ -37,7 +37,7 @@ describe('ProgressComponent', () => {
     }
   };
 
-  let mockAuthService = {
+  const mockAuthService = {
     user: Observable.of({
       uid: 'U1'
     })

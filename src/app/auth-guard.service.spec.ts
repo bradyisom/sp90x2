@@ -2,13 +2,13 @@
 
 import { TestBed, async, inject } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 
 describe('Service: AuthGuard', () => {
 
-  let mockAuthService: any = {
+  const mockAuthService: any = {
   };
 
   beforeEach(() => {

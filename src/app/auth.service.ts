@@ -5,7 +5,9 @@ import {
   FirebaseAuthState,
   FirebaseObjectObservable
 } from 'angularfire2';
-import { ReplaySubject, Subscription, Observable } from 'rxjs';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -62,16 +64,16 @@ export class AuthService {
     }
     // Delete existing user data
     this.user.first().subscribe(user => {
-      let userId = user.uid;
+      const userId = user.uid;
 
       // List schedules
-      let schedulesRef = this.af.database.object(`/schedules/${userId}`);
+      const schedulesRef = this.af.database.object(`/schedules/${userId}`);
       schedulesRef.first().subscribe((schedulesObj: any) => {
-        let schedules: any[] = Object.keys(schedulesObj)
+        const schedules: any[] = Object.keys(schedulesObj)
           .filter((key) => !key.startsWith('$'));
 
         // Delete schedule entries
-        let promises: firebase.Promise<void>[] = [];
+        const promises: firebase.Promise<void>[] = [];
         schedules.forEach((schedule: any) => {
           promises.push(this.af.database.object(`/entries/${schedule}`).remove());
         });
@@ -96,8 +98,7 @@ export class AuthService {
   }
 
   updateUser (uid: string, displayName: string, email: string, avatarUrl: string): firebase.Promise<void> {
-    let user = this.af.database.object(`/users/${uid}`);
-    return user.set({
+    return this.af.database.object(`/users/${uid}`).set({
       uid: uid,
       email: email,
       displayName: displayName,

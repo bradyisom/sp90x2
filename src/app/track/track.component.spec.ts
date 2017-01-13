@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@angular/material';
 import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { TrackComponent } from './track.component';
 
 import * as moment from 'moment';
@@ -22,8 +22,8 @@ describe('Component: TrackComponent', () => {
   let dailyEntries: any[];
   let monthlyEntries: any[];
 
-  let updateSpy = jasmine.createSpy('update');
-  let updateScheduleSpy = jasmine.createSpy('update schedule');
+  const updateSpy = jasmine.createSpy('update');
+  const updateScheduleSpy = jasmine.createSpy('update schedule');
   const mockAngularFire = {
     database: {
       list: jasmine.createSpy('list', (path: string) =>  {
@@ -40,7 +40,7 @@ describe('Component: TrackComponent', () => {
       }).and.callThrough(),
       object: jasmine.createSpy('object', (path: string) => {
         if (path.startsWith('/schedule')) {
-          let result = Observable.of(schedule);
+          const result = Observable.of(schedule);
           (<any>result).update = updateScheduleSpy;
           return result;
         }
@@ -251,15 +251,15 @@ describe('Component: TrackComponent', () => {
 
     describe('showFitTest', () => {
       it('should return true for days 1, 30, 60 and 90', () => {
-        let days = [1, 30, 60, 90];
-        for (let day of days) {
+        const days = [1, 30, 60, 90];
+        for (const day of days) {
           component.programDay = day;
           expect(component.showFitTest()).toBe(true);
         }
       });
       it('should return false for other days', () => {
-        let days = [2, 29, 31, 59, 61, 89];
-        for (let day of days) {
+        const days = [2, 29, 31, 59, 61, 89];
+        for (const day of days) {
           component.programDay = day;
           expect(component.showFitTest()).toBe(false);
         }

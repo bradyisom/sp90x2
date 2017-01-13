@@ -26,11 +26,11 @@ export class AppComponent {
         this.title = '';
         let currentRoute = this.router.routerState.root;
         do {
-          let childRoutes = currentRoute.children;
+          const childRoutes = currentRoute.children;
           currentRoute = null;
           childRoutes.forEach(route => {
             if (route.outlet === 'primary') {
-              let routeSnapshot = route.snapshot;
+              const routeSnapshot = route.snapshot;
               if (routeSnapshot.data && routeSnapshot.data['title']) {
                 this.title = routeSnapshot.data['title'];
               }

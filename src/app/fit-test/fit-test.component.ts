@@ -1,7 +1,8 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/zip';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
@@ -46,8 +47,8 @@ export class FitTestComponent implements OnInit {
 
     // Load each child question list
     Observable.zip(this.fitTest, this.entry).take(1).forEach((values: any[]) => {
-      let groups: any[] = values[0];
-      let existing: any = values[1];
+      const groups: any[] = values[0];
+      const existing: any = values[1];
 
       this.questionLists = {};
 
@@ -58,24 +59,24 @@ export class FitTestComponent implements OnInit {
       };
 
       groups.forEach((group) => {
-        let answerGroup = this.answers.groups[group.$key] = {
+        const answerGroup = this.answers.groups[group.$key] = {
           points: 0,
           pointsPossible: 0,
           questions: {}
         };
-        let questionList: any[] = [];
+        const questionList: any[] = [];
         Object.keys(group.questions).forEach((questionKey: string) => {
-          let question = group.questions[questionKey];
+          const question = group.questions[questionKey];
           question.$key = questionKey;
           questionList.push(question);
         });
         this.questionLists[group.$key] = _.sortBy(questionList, 'order');
-        for (let question of this.questionLists[group.$key]) {
+        for (const question of this.questionLists[group.$key]) {
           this.answers.pointsPossible += 5;
           answerGroup.pointsPossible += 5;
           if (existing && existing.groups && existing.groups[group.$key] && existing.groups[group.$key].questions &&
               existing.groups[group.$key].questions[question.$key]) {
-            let points = existing.groups[group.$key].questions[question.$key];
+            const points = existing.groups[group.$key].questions[question.$key];
             this.answers.points += points;
             answerGroup.points += points;
             answerGroup.questions[question.$key] = points;
@@ -98,7 +99,7 @@ export class FitTestComponent implements OnInit {
       let groupTotal = 0;
       Object.keys(this.answers.groups[group].questions).forEach((question) => {
         this.answers.groups[group].questions[question] = +this.answers.groups[group].questions[question];
-        let val = this.answers.groups[group].questions[question];
+        const val = this.answers.groups[group].questions[question];
         total += val;
         groupTotal += val;
       });

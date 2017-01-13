@@ -34,7 +34,7 @@ export class ErrorService {
   constructor(private dialog: MdDialog) { }
 
   show(error: Error, title?: string) {
-    let dialogRef: MdDialogRef<ErrorComponent> = this.dialog.open(ErrorComponent);
+    const dialogRef: MdDialogRef<ErrorComponent> = this.dialog.open(ErrorComponent);
     dialogRef.componentInstance.error = error;
     dialogRef.componentInstance.title = title;
   }

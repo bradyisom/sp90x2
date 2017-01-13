@@ -5,7 +5,7 @@ import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule, MdDialog } from '@angular/material';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
 import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
 
@@ -38,7 +38,7 @@ describe('AppComponent', () => {
   };
 
   let dialogResult = 'delete';
-  let mockDialog = {
+  const mockDialog = {
     open: jasmine.createSpy('open', () => {
       return { afterClosed: () => Observable.of(dialogResult) };
     }).and.callThrough()

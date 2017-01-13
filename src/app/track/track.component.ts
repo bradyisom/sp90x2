@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { AuthService } from '../auth.service';
 
@@ -74,7 +74,7 @@ export class TrackComponent implements OnInit {
       return;
     }
 
-    let day: string = this.date.format('dd');
+    const day: string = this.date.format('dd');
 
     this.programDay = this.date.diff(this.startDate, 'days') + 1;
 
@@ -110,7 +110,7 @@ export class TrackComponent implements OnInit {
   }
 
   public moveDay(num: number) {
-    let next = moment(this.date).add(num, 'days');
+    const next = moment(this.date).add(num, 'days');
     this.router.navigate(['..', next.format('YYYY-MM-DD')], {
       relativeTo: this.route
     });

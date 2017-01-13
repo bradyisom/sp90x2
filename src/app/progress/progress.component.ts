@@ -1,7 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from '../auth.service';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/concatMap';
+import 'rxjs/add/observable/merge';
 
 const chartJs = require('chart.js');
 
@@ -44,9 +48,9 @@ export class ProgressComponent implements OnInit, OnDestroy {
           orderBy: 'startDate'
         }
       }).first().subscribe((schedules) => {
-        let fitTests = [];
+        const fitTests = [];
         if (schedules.length) {
-          for (let schedule of schedules) {
+          for (const schedule of schedules) {
             fitTests.push(this.af.database.list(`/entries/${schedule.$key}/fitTest`));
           }
           this.dataSubscription = Observable.merge.apply(Observable, fitTests)
@@ -81,14 +85,14 @@ export class ProgressComponent implements OnInit, OnDestroy {
 
     this.fitTestCharts = [];
     this.fitTestGroups.forEach((group) => {
-      let data: number[] = _.map(entries, (entry: any) => {
+      const data: number[] = _.map(entries, (entry: any) => {
         if (group.title === 'Overall') {
           return entry.points;
         }
         return entry.groups[group.$key].points;
       });
 
-      let chart: any = {
+      const chart: any = {
         title: group.title,
         labels: labels,
         options: {
@@ -98,7 +102,7 @@ export class ProgressComponent implements OnInit, OnDestroy {
           tooltips: {
             callbacks: {
               label: (item, itemData) => {
-                let val = itemData.datasets[0].data[item.index];
+                const val = itemData.datasets[0].data[item.index];
                 return `${group.title} - ${val} / ${group.pointsPossible}`;
               }
             }

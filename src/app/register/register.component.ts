@@ -35,14 +35,14 @@ export class RegisterComponent implements OnInit {
   }
 
   public getGravatarUrl() {
-    let email = this.editForm.get('email').value || '';
+    const email = this.editForm.get('email').value || '';
     return `https://www.gravatar.com/avatar/${md5(email)}?s=80&d=retro`;
   }
 
   public create() {
-    let displayName = `${this.editForm.get('firstName').value} ${this.editForm.get('lastName').value}`;
-    let email = this.editForm.get('email').value;
-    let password = this.editForm.get('password').value;
+    const displayName = `${this.editForm.get('firstName').value} ${this.editForm.get('lastName').value}`;
+    const email = this.editForm.get('email').value;
+    const password = this.editForm.get('password').value;
     this.auth.create(displayName, email, password, this.getGravatarUrl()).then(() => {
       return this.auth.login(email, password);
     }).then(() => {

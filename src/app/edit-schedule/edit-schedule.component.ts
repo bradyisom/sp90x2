@@ -1,7 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/reduce';
+import 'rxjs/add/operator/publishReplay';
 import {
   // ActivatedRoute, Params,
   Router
@@ -97,8 +102,8 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   }
 
   programChange(programId: string) {
-    let newProgram = _.find(this.programsSnapshot, {$key: programId});
-    let titleField = this.editForm.get('programTitle');
+    const newProgram = _.find(this.programsSnapshot, {$key: programId});
+    const titleField = this.editForm.get('programTitle');
     if (newProgram && (!this.currentProgram || (this.currentProgram && this.currentProgram.title === titleField.value))) {
       titleField.setValue(newProgram.title);
     }
@@ -108,7 +113,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     this.programTasks.first().subscribe(() => {
       this.filteredTasks = this.tasks.withLatestFrom(this.programTasks)
         .map(([tasks, programTasks]) => {
-          let val = _.filter(tasks, (t: any) => {
+          const val = _.filter(tasks, (t: any) => {
             return !!_.find(programTasks, {$key: t.$key});
           });
           val.forEach((task) => {
@@ -126,21 +131,21 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day');
-    let endDate = moment(startDate).add(89, 'days').endOf('day');
+    const startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day');
+    const endDate = moment(startDate).add(89, 'days').endOf('day');
 
     // Calculate all of the tasks
-    let orders = {};
+    const orders = {};
     let pointsPossible = 0;
     this.filteredTasks
     .map((taskList: any[]) => {
       return _.filter(taskList, task => task.include);
     }).reduce((tasks: any, taskList: any) => {
       moment.range(startDate, endDate).by('days', (day) => {
-        for (let task of taskList) {
+        for (const task of taskList) {
           if (task.defaultInterval === 'monthly') {
             if (day.isSame(startDate, 'day') || day.date() === 1) {
-              let key = day.format('YYYY-MM');
+              const key = day.format('YYYY-MM');
               tasks.monthly[key] = tasks.monthly[key] || {};
               tasks.monthly[key][task.$key] = {
                 points: task.points,
@@ -148,8 +153,8 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
               };
               pointsPossible += task.points;
               // if (task.subTasks) {
-              //   let order = orders[task.$key] = orders[task.$key] || 0;
-              //   let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+              //   const order = orders[task.$key] = orders[task.$key] || 0;
+              //   const subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
               //   if (subTasks[order]) {
               //     tasks.monthly[key][task.$key].subTask = subTasks[order].title;
               //     if (subTasks[order].link) {
@@ -160,10 +165,10 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
               // }
             }
           } else {
-            let weekday = day.format('dd');
+            const weekday = day.format('dd');
             if (task.defaultInterval === 'daily' ||
                 task.defaultInterval.split(',').some((value: string) => value === weekday)) {
-              let key = day.format('YYYY-MM-DD');
+              const key = day.format('YYYY-MM-DD');
               tasks.daily[key] = tasks.daily[key] || {};
               tasks.daily[key][task.$key] = {
                 points: task.points,
@@ -171,11 +176,11 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
               };
               pointsPossible += task.points;
               if (task.subTasks) {
-                let order = orders[task.$key] = orders[task.$key] || 0;
+                const order = orders[task.$key] = orders[task.$key] || 0;
                 tasks.daily[key][task.$key].order = order;
                 orders[task.$key]++;
 
-                // let subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
+                // const subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
                 // if (subTasks[order]) {
                 //   tasks.daily[key][task.$key].subTask = subTasks[order].title;
                 //   if (subTasks[order].link) {
@@ -193,18 +198,18 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
       daily: {},
       monthly: {}
     }).first().subscribe((tasks) => {
-      let newValue = _.extend({}, this.editForm.value, {
+      const newValue = _.extend({}, this.editForm.value, {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
         points: 0,
         pointsPossible: pointsPossible,
       });
 
-      // let promise;
+      // const promise;
       // if (this.schedule) {
       //   promise = this.schedule.set(newValue);
       // } else {
-      //   let schedules = this.af.database.list(`/schedules/${this.userId}`);
+      //   const schedules = this.af.database.list(`/schedules/${this.userId}`);
       //   promise = schedules.push(newValue);
       // }
       // promise.then((result: any) => {
@@ -212,7 +217,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
         .then((result: any) => {
           this.scheduleId = this.scheduleId || result.key;
 
-          let entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
+          const entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
           return entriesObj.set(tasks);
         }).then(() => {
           this.router.navigate(['/home']);

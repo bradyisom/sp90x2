@@ -4,7 +4,7 @@ import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule, MdDialog } from '@angular/material';
 import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { ConfirmDeleteScheduleComponent } from '../confirm-delete-schedule/confirm-delete-schedule.component';
 import { HomeComponent } from './home.component';
 import { AuthService } from '../auth.service';
@@ -20,12 +20,12 @@ describe('Component: Home', () => {
   const mockAngularFire = {
     database: {
       list: jasmine.createSpy('list', () => {
-        let result = Observable.of(schedules);
+        const result = Observable.of(schedules);
         (<any>result).remove = () => {};
         return result;
       }).and.callThrough(),
       object: jasmine.createSpy('object', () => {
-        let result = Observable.of(schedule);
+        const result = Observable.of(schedule);
         (<any>result).remove = scheduleRemove;
         return result;
       }).and.callThrough()
@@ -33,7 +33,7 @@ describe('Component: Home', () => {
   };
 
   let dialogResult = 'delete';
-  let mockDialog = {
+  const mockDialog = {
     open: jasmine.createSpy('open', () => {
       return { afterClosed: () => Observable.of(dialogResult) };
     }).and.callThrough()
@@ -58,7 +58,7 @@ describe('Component: Home', () => {
   });
 
   describe('init logged in', () => {
-    let mockAuthService: any = {
+    const mockAuthService: any = {
       user: Observable.of({
         uid: 'U1'
       })
@@ -142,7 +142,7 @@ describe('Component: Home', () => {
   });
 
   describe('init not logged in', () => {
-    let mockAuthService: any = {
+    const mockAuthService: any = {
       user: Observable.of(null)
     };
 

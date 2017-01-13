@@ -4,7 +4,8 @@ import { TestBed, async, fakeAsync, tick, inject } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angularfire2';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from './auth.service';
 
 describe('Service: Auth', () => {
@@ -12,21 +13,21 @@ describe('Service: Auth', () => {
   let authData: any = null;
   let authSubject: BehaviorSubject<FirebaseAuthState>;
 
-  let userSet = jasmine.createSpy('user set');
-  let userRemove = jasmine.createSpy('user remove',
+  const userSet = jasmine.createSpy('user set');
+  const userRemove = jasmine.createSpy('user remove',
     () => Promise.resolve(true)
   ).and.callThrough();
-  let entriesRemove = jasmine.createSpy('entries remove',
+  const entriesRemove = jasmine.createSpy('entries remove',
     () => Promise.resolve(true)
   ).and.callThrough();
-  let schedulesRemove = jasmine.createSpy('schedules remove',
+  const schedulesRemove = jasmine.createSpy('schedules remove',
     () => Promise.resolve(true)
   ).and.callThrough();
-  let authDelete = jasmine.createSpy('auth delete',
+  const authDelete = jasmine.createSpy('auth delete',
     () => Promise.resolve(true)
   ).and.callThrough();
 
-  let mockAngularFire = {
+  const mockAngularFire = {
     database: {
       list: () => Observable.of([]),
       object: jasmine.createSpy('object', (path: string): any => {
@@ -54,7 +55,7 @@ describe('Service: Auth', () => {
     auth: Observable.of(null)
   };
 
-  let mockRouter = {
+  const mockRouter = {
     url: '',
     navigate: jasmine.createSpy('navigate')
   };

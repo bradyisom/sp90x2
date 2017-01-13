@@ -6,7 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
 import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
 import { EditScheduleComponent } from './edit-schedule.component';
 
@@ -29,13 +29,13 @@ describe('Component: EditSchedule', () => {
     })
   };
 
-  let pushSpy = jasmine.createSpy('push', () => {
+  const pushSpy = jasmine.createSpy('push', () => {
     return Promise.resolve({
       key: 'SCHED1'
     });
   }).and.callThrough();
 
-  let setSpy = jasmine.createSpy('set', (arg: any) => {
+  const setSpy = jasmine.createSpy('set', (arg: any) => {
     return Promise.resolve({});
   }).and.callThrough();
 
@@ -51,7 +51,7 @@ describe('Component: EditSchedule', () => {
         if (path === '/tasks') {
           return Observable.of(allTasks);
         }
-        let result = Observable.of([]);
+        const result = Observable.of([]);
         (<any>result).push = pushSpy;
         return result;
       }).and.callThrough(),
@@ -59,14 +59,14 @@ describe('Component: EditSchedule', () => {
         if (path === '/subTasks') {
           return Observable.of(subTasks);
         }
-        let result = Observable.of({});
+        const result = Observable.of({});
         (<any>result).set = setSpy;
         return result;
       }).and.callThrough()
     }
   };
 
-  let mockRouter = {
+  const mockRouter = {
     url: '',
     navigate: jasmine.createSpy('navigate')
   };
@@ -281,7 +281,7 @@ describe('Component: EditSchedule', () => {
       component.save();
       tick();
       expect(setSpy).toHaveBeenCalled();
-      let entries = setSpy.calls.mostRecent().args[0];
+      const entries = setSpy.calls.mostRecent().args[0];
       expect(_.keys(entries.daily).length).toBe(90);
       expect(entries.daily['2016-12-27']).toEqual({
         BOFM90: { order: 0, points: 1, finished: false }
@@ -306,7 +306,7 @@ describe('Component: EditSchedule', () => {
       component.save();
       tick();
       expect(setSpy).toHaveBeenCalled();
-      let entries = setSpy.calls.mostRecent().args[0];
+      const entries = setSpy.calls.mostRecent().args[0];
       expect(_.keys(entries.daily).length).toBe(90);
       expect(entries.daily['2016-12-27']).toEqual({
         BOFM90: { order: 0, points: 1, finished: false }

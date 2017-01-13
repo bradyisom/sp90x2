@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@angular/material';
 import { AngularFire } from 'angularfire2';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { FitTestComponent } from './fit-test.component';
 
 describe('Component: FitTest', () => {
@@ -29,7 +29,7 @@ describe('Component: FitTest', () => {
         return Observable.of(fitTest);
       }).and.callThrough(),
       object: jasmine.createSpy('object', () => {
-        let result = Observable.of(entries);
+        const result = Observable.of(entries);
         (<any>result).set = setSpy;
         return result;
       }).and.callThrough()
@@ -80,7 +80,7 @@ describe('Component: FitTest', () => {
     entries = {};
 
     router = TestBed.get(Router);
-    let route = TestBed.get(ActivatedRoute);
+    const route = TestBed.get(ActivatedRoute);
     route.snapshot.data = {
       user: {
         uid: 'U1'

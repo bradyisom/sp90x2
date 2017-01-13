@@ -8,7 +8,7 @@ describe('ErrorService', () => {
 
   let cmp: any;
 
-  let mockDialog = {
+  const mockDialog = {
     open: jasmine.createSpy('open', () => {
       return {
         componentInstance: cmp
