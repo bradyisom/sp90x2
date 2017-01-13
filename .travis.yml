@@ -4,6 +4,10 @@ language: node_js
 node_js:
   - '5.7'
 
+branches:
+  only:
+  - master
+
 addons:
 apt:
   sources:
