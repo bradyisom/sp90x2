@@ -28,6 +28,11 @@ md-list-item {
   margin-bottom: 8px;
 }
 
+md-radio-button {
+  display: block;
+  margin: 6px;
+}
+
 @media (max-width:640px) {
   md-list-item {
     height: 100px;

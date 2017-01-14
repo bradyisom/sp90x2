@@ -274,6 +274,11 @@ describe('Component: EditSchedule', () => {
         endDate: '2017-03-27T05:59:59.999Z',
         points: 0,
         pointsPossible: 195,
+        tasks: {
+          BOFM90: 'daily',
+          FASTING: 'monthly',
+          GC: 'Mo,Th'
+        }
       });
     }));
 

@@ -7,15 +7,24 @@ import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angu
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from './auth.service';
+import { GroupService } from './models/group.service';
 
 describe('Service: Auth', () => {
 
   let authData: any = null;
   let authSubject: BehaviorSubject<FirebaseAuthState>;
 
-  const userSet = jasmine.createSpy('user set');
+  let rejectAuthDelete = false;
+  let rejectUserDelete = false;
+
+  const userUpdate = jasmine.createSpy('user update');
   const userRemove = jasmine.createSpy('user remove',
-    () => Promise.resolve(true)
+    () => {
+      if (rejectUserDelete) {
+        return Promise.reject('User delete error');
+      }
+      return Promise.resolve(true);
+    }
   ).and.callThrough();
   const entriesRemove = jasmine.createSpy('entries remove',
     () => Promise.resolve(true)
@@ -24,7 +33,12 @@ describe('Service: Auth', () => {
     () => Promise.resolve(true)
   ).and.callThrough();
   const authDelete = jasmine.createSpy('auth delete',
-    () => Promise.resolve(true)
+    () => {
+      if (rejectAuthDelete) {
+        return Promise.reject('Auth delete error');
+      }
+      return Promise.resolve(true);
+    }
   ).and.callThrough();
 
   const mockAngularFire = {
@@ -46,7 +60,7 @@ describe('Service: Auth', () => {
           result = Observable.of({
             uid: 'U1'
           });
-          (<any>result).set = userSet;
+          (<any>result).update = userUpdate;
           (<any>result).remove = userRemove;
         }
         return result;
@@ -60,13 +74,34 @@ describe('Service: Auth', () => {
     navigate: jasmine.createSpy('navigate')
   };
 
+  let ownedGroups: any[];
+  let rejectGroupDelete = false;
+  const mockGroup = {
+    delete: jasmine.createSpy('delete group', () => {
+      if (rejectGroupDelete) {
+        return Promise.reject('Group delete error');
+      }
+      return Promise.resolve({});
+    }).and.callThrough(),
+    list: jasmine.createSpy('list groups', () => {
+      return Observable.of(ownedGroups);
+    }).and.callThrough(),
+  };
+
   beforeEach(() => {
     mockAngularFire.database.object.calls.reset();
-    userSet.calls.reset();
+    mockGroup.delete.calls.reset();
+    mockGroup.list.calls.reset();
+    userUpdate.calls.reset();
     userRemove.calls.reset();
     entriesRemove.calls.reset();
     schedulesRemove.calls.reset();
     authDelete.calls.reset();
+
+    ownedGroups = [];
+    rejectGroupDelete = false;
+    rejectAuthDelete = false;
+    rejectUserDelete = false;
 
     TestBed.configureTestingModule({
       // imports: [
@@ -75,7 +110,8 @@ describe('Service: Auth', () => {
       providers: [
         AuthService,
         { provide: AngularFire, useValue: mockAngularFire },
-        { provide: Router, useValue: mockRouter }
+        { provide: Router, useValue: mockRouter },
+        { provide: GroupService, useValue: mockGroup },
       ]
     });
 
@@ -148,7 +184,7 @@ describe('Service: Auth', () => {
 
       it('should set user details', inject([AuthService], (service: AuthService) => {
         service.user.subscribe((user) => {
-          expect(userSet).toHaveBeenCalledWith({
+          expect(userUpdate).toHaveBeenCalledWith({
             uid: 'U1',
             email: 'bradyisom@gmail.com',
             displayName: 'Brady Isom',
@@ -174,7 +210,7 @@ describe('Service: Auth', () => {
 
       it('should set user details', inject([AuthService], (service: AuthService) => {
         service.user.subscribe((user) => {
-          expect(userSet).toHaveBeenCalledWith({
+          expect(userUpdate).toHaveBeenCalledWith({
             uid: 'U1',
             email: 'bradyisom@gmail.com',
             displayName: 'Brady Isom',
@@ -194,7 +230,7 @@ describe('Service: Auth', () => {
         password: 'password'
       });
       tick();
-      expect(userSet).toHaveBeenCalledWith({
+      expect(userUpdate).toHaveBeenCalledWith({
         uid: 'U1',
         email: 'bradyisom@gmail.com',
         displayName: 'Brady Isom',
@@ -213,8 +249,10 @@ describe('Service: Auth', () => {
       });
 
       it('should noop', fakeAsync(inject([AuthService], (service: AuthService) => {
-        service.delete();
+        let rejected = false;
+        service.delete().catch((err) => rejected = true);
         tick();
+        expect(rejected).toBe(true);
         expect(authDelete).not.toHaveBeenCalled();
       })));
     });
@@ -240,13 +278,70 @@ describe('Service: Auth', () => {
         expect(mockAngularFire.database.object).toHaveBeenCalledWith('/entries/SCHED1');
         expect(mockAngularFire.database.object).toHaveBeenCalledWith('/entries/SCHED2');
         expect(entriesRemove).toHaveBeenCalledTimes(2);
+        expect(mockGroup.list).toHaveBeenCalledWith({
+          query: {
+            orderByChild: 'owner',
+            equalTo: 'U1',
+          }
+        });
+        expect(mockGroup.delete).not.toHaveBeenCalled();
         expect(schedulesRemove).toHaveBeenCalled();
         expect(userRemove).toHaveBeenCalled();
         expect(authDelete).toHaveBeenCalled();
         expect(service.logout).toHaveBeenCalled();
       })));
-    });
 
+      it('should delete the users data with owned groups', fakeAsync(inject([AuthService], (service: AuthService) => {
+        ownedGroups = [{
+          $key: 'G1'
+        }];
+        spyOn(service, 'logout').and.callFake(() => {});
+        service.delete();
+        tick();
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/schedules/U1');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/entries/SCHED1');
+        expect(mockAngularFire.database.object).toHaveBeenCalledWith('/entries/SCHED2');
+        expect(entriesRemove).toHaveBeenCalledTimes(2);
+        expect(mockGroup.list).toHaveBeenCalledWith({
+          query: {
+            orderByChild: 'owner',
+            equalTo: 'U1',
+          }
+        });
+        expect(mockGroup.delete).toHaveBeenCalledWith('G1');
+        expect(schedulesRemove).toHaveBeenCalled();
+        expect(userRemove).toHaveBeenCalled();
+        expect(authDelete).toHaveBeenCalled();
+        expect(service.logout).toHaveBeenCalled();
+      })));
+
+      it('should reject on delete group error', fakeAsync(inject([AuthService], (service: AuthService) => {
+          ownedGroups = [{
+            $key: 'G1'
+          }];
+          rejectGroupDelete = true;
+          let rejectedErr = '';
+          service.delete().catch((err) => rejectedErr = err);
+          tick();
+          expect(rejectedErr).toBe('Group delete error');
+      })));
+
+      it('should reject on delete user error', fakeAsync(inject([AuthService], (service: AuthService) => {
+          rejectUserDelete = true;
+          let rejectedErr = '';
+          service.delete().catch((err) => rejectedErr = err);
+          tick();
+          expect(rejectedErr).toBe('User delete error');
+      })));
+
+      it('should reject on delete auth error', fakeAsync(inject([AuthService], (service: AuthService) => {
+          rejectAuthDelete = true;
+          let rejectedErr = '';
+          service.delete().catch((err) => rejectedErr = err);
+          tick();
+          expect(rejectedErr).toBe('Auth delete error');
+      })));
+    });
 
   });
 

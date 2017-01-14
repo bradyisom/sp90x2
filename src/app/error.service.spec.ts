@@ -45,6 +45,13 @@ describe('ErrorService', () => {
       expect(cmp.title).toBeFalsy();
     }));
 
+    it('should show an error dialog with unknown error', inject([ErrorService, MdDialog], (service: ErrorService, dialog: MdDialog) => {
+      service.show(new Error(''));
+      expect(dialog.open).toHaveBeenCalled();
+      expect(cmp.error.message).toBe('Unknown error');
+      expect(cmp.title).toBeFalsy();
+    }));
+
     it('should show an error dialog with a title', inject([ErrorService, MdDialog], (service: ErrorService, dialog: MdDialog) => {
       service.show(new Error('Test message'), 'My title');
       expect(dialog.open).toHaveBeenCalled();

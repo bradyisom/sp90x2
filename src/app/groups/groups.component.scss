@@ -6,11 +6,7 @@ a {
     }
 }
 
-.schedule-points {
-    opacity: 0.5;
-}
-
-.schedule-cards {
+.group-cards {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -19,12 +15,12 @@ a {
     display: inline-block;
     margin-right: 20px;
     margin-bottom: 20px;
-    width: 325px;
+    width: 300px;
 
-    md-card-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
+    // md-card-actions {
+    //   display: flex;
+    //   justify-content: flex-end;
+    // }
   }
 }
 
@@ -39,8 +35,14 @@ a {
   }
 }
 
-[md-list-item] {
-    button {
-        flex: 0 0 auto;
-    }
+.group-tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
 }
+

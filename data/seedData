@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+if [ $# -eq 0 ]
+  then
+    echo 'Seeding without token'
+    echo 'Seeding sub tasks...'
+    firebase database:set --non-interactive -y /subTasks ./data/subTasks.json
+    echo 'Seeding tasks...'
+    firebase database:set --non-interactive -y /tasks ./data/tasks.json
+    echo 'Seeding programs...'
+    firebase database:set --non-interactive -y /programs ./data/programs.json
+    echo 'Seeding fit test...'
+    firebase database:set --non-interactive -y /fitTest ./data/fitTest.json
+  else
+    echo 'Seeding with token'
+    echo 'Seeding sub tasks...'
+    firebase database:set --non-interactive -y --token $1 /subTasks ./data/subTasks.json
+    echo 'Seeding tasks...'
+    firebase database:set --non-interactive -y --token $1 /tasks ./data/tasks.json
+    echo 'Seeding programs...'
+    firebase database:set --non-interactive -y --token $1 /programs ./data/programs.json
+    echo 'Seeding fit test...'
+    firebase database:set --non-interactive -y --token $1 /fitTest ./data/fitTest.json
+fi

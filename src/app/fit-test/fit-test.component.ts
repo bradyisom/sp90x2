@@ -1,7 +1,8 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/zip';
 
 import * as _ from 'lodash';
@@ -12,8 +13,9 @@ import * as moment from 'moment';
   templateUrl: './fit-test.component.html',
   styleUrls: ['./fit-test.component.scss']
 })
-export class FitTestComponent implements OnInit {
+export class FitTestComponent implements OnInit, OnDestroy {
   public fitTest: FirebaseListObservable<any>;
+  private fitTestSubscription: Subscription;
   public questionLists: any;
   private entry: FirebaseObjectObservable<any>;
 
@@ -42,6 +44,7 @@ export class FitTestComponent implements OnInit {
         orderByChild: 'order'
       }
     });
+    this.fitTestSubscription = this.fitTest.subscribe(() => {});
 
     this.entry = this.af.database.object(`/entries/${this.scheduleId}/fitTest/${this.date}`);
 
@@ -84,6 +87,10 @@ export class FitTestComponent implements OnInit {
         }
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.fitTestSubscription.unsubscribe();
   }
 
   public entryKey(entry) {

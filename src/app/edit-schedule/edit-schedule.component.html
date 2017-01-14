@@ -1,19 +1,25 @@
 <form [formGroup]="editForm">
-  <div class="form-group instructions">
+  <!--<div class="form-group instructions">
     <label>Instructions:</label>
     <ul>
       <li>Choose a program from the list.</li>
       <li>Name it and choose a day to start.</li>
       <li>Modify the program to fit your needs by unchecking the tasks you will not do.</li>
     </ul>
-  </div>
+  </div>-->
   <div class="form-group">
     <label>Program:</label>
-    <md-select formControlName="program">
+    <md-radio-group formControlName="program">
+      <md-radio-button *ngFor="let program of (programs | async)"
+        [value]="program.$key">
+        {{ program.title }}
+      </md-radio-button>
+    </md-radio-group>
+    <!--<md-select formControlName="program">
       <md-option *ngFor="let program of (programs | async)" [value]="program.$key">
         {{ program.title }}
       </md-option>
-    </md-select>
+    </md-select>-->
   </div>
   <div class="form-group">
     <label>Title:</label>

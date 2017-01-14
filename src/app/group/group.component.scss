@@ -1,0 +1,17 @@
+.group-tile-ct {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.group-tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-position: center center;
+  background-size: cover;
+  cursor: pointer;
+}
+

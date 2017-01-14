@@ -40,9 +40,10 @@
     },
     "groups": {
       ".read": true,
+      ".indexOn": "owner",
       "$group_id": {
-        ".write": "newData.exists() && auth != null && ((data.exists() && data.child('owner').val() == auth.uid) || (!data.exists() && newData.child('owner').val() == auth.uid))",
-        ".validate": "newData.hasChildren(['name', 'owner', 'startDate', 'endDate', 'program'])",
+        ".write": "auth != null && ((data.exists() && data.child('owner').val() == auth.uid) || (!data.exists() && newData.child('owner').val() == auth.uid))",
+        ".validate": "newData.hasChildren(['name', 'description', 'owner', 'public', 'imageUrl'])",
         "name": {
           ".validate": "newData.isString()"
         },
@@ -52,8 +53,8 @@
         "owner": {
           ".validate": "newData.isString()"
         },
-        "program": {
-          ".validate": "root.child('programs/' + newData.val()).exists()"
+        "public": {
+          ".validate": "newData.isBoolean()"
         },
         "startDate": {
           ".validate": "newData.isString()"
@@ -61,21 +62,47 @@
         "endDate": {
           ".validate": "newData.isString()"
         },
-        "users": {
-          "$user_id": {
-            ".write": "auth != null && $user_id == auth.uid",
-            ".validate": "newData.hasChildren(['firstName', 'lastName', 'email', 'schedule'])",
-            "firstName": {
-              ".validate": "newData.isString()"
-            },
-            "lastName": {
-              ".validate": "newData.isString()"
-            },
-            "email": {
-              ".validate": "newData.isString()"
-            },
-            "points": {
-              ".validate": "newData.isNumber()"
+        "imageUrl": {
+          ".validate": "newData.isString()"
+        },
+        "schedule": {
+          ".validate": "newData.isString()"
+        },
+        "program": {
+          ".validate": "root.child('programs').hasChild(newData.val())"
+        },
+        "tasks": {
+          "$task_id": {
+            ".validate": "root.child('tasks').hasChild($task_id) && newData.val().matches(/^(daily|weekly|monthly|((Mo|Tu|We|Th|Fr|Sa|Su)(,(Mo|Tu|We|Th|Fr|Sa|Su))*))$/)"
+          }
+        }
+      }
+    },
+    "groupUsers": {
+      "$group_id": {
+        ".read": "auth != null && root.child('groups').hasChild($group_id) && (root.child('groups').child($group_id).child('owner').val() === auth.uid || root.child('groups').child($group_id).child('public').val() === true)",
+        ".write": "auth != null && root.child('groups').hasChild($group_id) && root.child('groups').child($group_id).child('owner').val() === auth.uid",
+        "$user_id": {
+          ".write": "auth != null && (($user_id == auth.uid && root.child('groups').child($group_id).child('public').val() === true) || root.child('groups').child($group_id).child('owner').val() === auth.uid)",
+          ".validate": "newData.hasChildren(['displayName', 'email', 'avatar'])",
+          "displayName": {
+            ".validate": "newData.isString()"
+          },
+          "email": {
+            ".validate": "newData.isString()"
+          },
+          "avatar": {
+            ".validate": "newData.isString()"
+          },
+          "schedules": {
+            "$schedule_id": {
+              ".validate": "root.child('schedules/' + $user_id).hasChild($schedule_id)",
+              "points": {
+                ".validate": "newData.isNumber()"
+              },
+              "pointsPossible": {
+                ".validate": "newData.isNumber()"
+              }
             }
           }
         }
@@ -137,9 +164,17 @@
         ".read": "auth != null && $user_id == auth.uid",
         ".write": "auth != null && $user_id == auth.uid",
         "$schedule_id": {
-          ".validate": "newData.hasChildren(['programTitle', 'startDate', 'endDate'])",
+          ".validate": "newData.hasChildren(['programTitle', 'program', 'tasks', 'startDate', 'endDate'])",
           "programTitle": {
             ".validate": "newData.isString()"
+          },
+          "program": {
+            ".validate": "root.child('programs').hasChild(newData.val())"
+          },
+          "tasks": {
+            "$task_id": {
+              ".validate": "root.child('tasks').hasChild($task_id) && newData.val().matches(/^(daily|weekly|monthly|((Mo|Tu|We|Th|Fr|Sa|Su)(,(Mo|Tu|We|Th|Fr|Sa|Su))*))$/)"
+            }
           },
           "startDate": {
             ".validate": "newData.isString()"
