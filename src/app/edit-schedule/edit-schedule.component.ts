@@ -137,9 +137,10 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     // Calculate all of the tasks
     const orders = {};
     let pointsPossible = 0;
+    let scheduleTasks;
     this.filteredTasks
     .map((taskList: any[]) => {
-      return _.filter(taskList, task => task.include);
+      return scheduleTasks = _.filter(taskList, task => task.include);
     }).reduce((tasks: any, taskList: any) => {
       moment.range(startDate, endDate).by('days', (day) => {
         for (const task of taskList) {
@@ -203,6 +204,10 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
         endDate: endDate.toISOString(),
         points: 0,
         pointsPossible: pointsPossible,
+        tasks: _.reduce(scheduleTasks, (result, task: any) => {
+          result[task.$key] = task.defaultInterval;
+          return result;
+        }, {})
       });
 
       // const promise;

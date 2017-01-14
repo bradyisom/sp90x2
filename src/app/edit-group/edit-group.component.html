@@ -1,0 +1,47 @@
+<form [formGroup]="editForm">
+  <button class="delete-group" md-icon-button type="button"
+    *ngIf="groupId"
+    mdTooltip="Delete group"
+    mdTooltipPosition="before"
+    (click)="delete()">
+    <md-icon>delete</md-icon>
+  </button>
+  <div class="form-group">
+    <label>Name:</label>
+    <md-input-container>
+      <input md-input type="text" formControlName="name">
+    </md-input-container>
+  </div>
+  <div class="form-group">
+    <label>Description:</label>
+    <md-input-container>
+      <input md-input type="text" formControlName="description">
+    </md-input-container>
+  </div>
+  <div class="form-group">
+    <!--<md-checkbox formControlName="public"
+      labelPosition="after">Public</md-checkbox>-->
+    <!--<md-checkbox #hasSchedule formControlName="hasSchedule"
+      labelPosition="after">Attach a schedule</md-checkbox>-->
+    <label>Schedule template:</label>
+    <div class="schedule-template" *ngIf="(schedules | async)">
+      <p *ngIf="!(schedules | async)?.length">
+        You don&quot;t have any schedules.
+        <a href="" routerLink="/newschedule">Click here</a> to create one.
+      </p>
+      <md-radio-group *ngIf="(schedules | async)?.length" formControlName="schedule">
+        <md-radio-button *ngFor="let s of (schedules | async)"
+          [value]="s.$key">
+          {{ s.programTitle }}
+          <span class="schedule-date">
+            ({{s.startDate | date:'shortDate'}} - {{s.endDate | date:'shortDate'}})
+          </span>
+        </md-radio-button>
+      </md-radio-group>
+    </div>
+  </div>
+  <button md-raised-button color="accent" type="button"
+    [disabled]="editForm.invalid" (click)="save()">Save</button>
+  <button md-raised-button color="primary" type="button"
+    (click)="cancel()">Cancel</button>
+</form>

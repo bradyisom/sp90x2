@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { MdDialog, MdDialogRef } from '@angular/material';
 import { Router, NavigationEnd } from '@angular/router';
 import { AuthService } from './auth.service';
-import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
+import { ConfirmService } from './confirm.service';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +13,10 @@ export class AppComponent {
   public title = '';
   public showTitle = false;
 
-  private confirmDialogRef: MdDialogRef<ConfirmDeleteAccountComponent>;
-
   constructor(
     public auth: AuthService,
     private router: Router,
-    private dialog: MdDialog
+    private confirm: ConfirmService,
   ) {
     this.router.events.filter(event => event instanceof NavigationEnd)
       .subscribe(event => {
@@ -44,11 +41,13 @@ export class AppComponent {
   }
 
   public deleteAccount() {
-    this.confirmDialogRef = this.dialog.open(ConfirmDeleteAccountComponent, {});
-    this.confirmDialogRef.afterClosed().first().subscribe(result => {
-      // console.log('result: ' + result);
-      this.confirmDialogRef = null;
-      if (result === 'delete') {
+    const dialogRef = this.confirm.show(
+      `Are you sure you want to permanently delete your account and all of your data?`,
+      'Delete My Account',
+      'warn'
+    );
+    dialogRef.afterClosed().first().subscribe(result => {
+      if (result === 'confirm') {
         this.auth.delete();
       }
     });

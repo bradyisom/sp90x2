@@ -31,6 +31,8 @@
 - [ ] Group reports
 - [ ] Add following / friends
 - [ ] Friend chat / sharing / discussion
+- [ ] Switch to adorable avatars (avatars.adorable.io) or robots (robohash.org)
+- [ ] Choose stock photos for group images (lorempixel.com, pixabay.com, pexels.com, unsplash.com)
 - [ ] Allow for choosing days for off-day tasks (visualize schedule?)
 - [ ] UI/template tests
 - [ ] e2e tests

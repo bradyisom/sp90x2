@@ -35,6 +35,9 @@ export class ErrorService {
 
   show(error: Error, title?: string) {
     const dialogRef: MdDialogRef<ErrorComponent> = this.dialog.open(ErrorComponent);
+    if (!error.message) {
+      error = new Error('Unknown error');
+    }
     dialogRef.componentInstance.error = error;
     dialogRef.componentInstance.title = title;
   }

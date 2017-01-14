@@ -5,9 +5,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule, MdDialog } from '@angular/material';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
-import { ConfirmDeleteScheduleComponent } from '../confirm-delete-schedule/confirm-delete-schedule.component';
 import { HomeComponent } from './home.component';
 import { AuthService } from '../auth.service';
+import { ConfirmService } from '../confirm.service';
 
 describe('Component: Home', () => {
   let component: HomeComponent;
@@ -32,9 +32,9 @@ describe('Component: Home', () => {
     }
   };
 
-  let dialogResult = 'delete';
-  const mockDialog = {
-    open: jasmine.createSpy('open', () => {
+  let dialogResult = 'confirm';
+  const mockConfirm = {
+    show: jasmine.createSpy('show', () => {
       return { afterClosed: () => Observable.of(dialogResult) };
     }).and.callThrough()
   };
@@ -54,7 +54,7 @@ describe('Component: Home', () => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
     scheduleRemove.calls.reset();
-    mockDialog.open.calls.reset();
+    mockConfirm.show.calls.reset();
   });
 
   describe('init logged in', () => {
@@ -73,9 +73,9 @@ describe('Component: Home', () => {
         providers: [
           { provide: AuthService, useValue: mockAuthService },
           { provide: AngularFire, useValue: mockAngularFire },
-          { provide: MdDialog, useValue: mockDialog },
+          { provide: ConfirmService, useValue: mockConfirm },
         ],
-        declarations: [ HomeComponent, ConfirmDeleteScheduleComponent ]
+        declarations: [ HomeComponent ]
       })
       .compileComponents();
     }));
@@ -122,7 +122,11 @@ describe('Component: Home', () => {
 
       it('should confirm', () => {
         component.removeSchedule(schedules[0]);
-        expect(mockDialog.open).toHaveBeenCalledWith(ConfirmDeleteScheduleComponent, {});
+        expect(mockConfirm.show).toHaveBeenCalledWith(
+          `Are you sure you want to delete this schedule?`,
+          'Delete',
+          'warn'
+        );
       });
 
       it('should remove the entry', () => {
@@ -154,7 +158,8 @@ describe('Component: Home', () => {
         ],
         providers: [
           { provide: AuthService, useValue: mockAuthService },
-          { provide: AngularFire, useValue: mockAngularFire }
+          { provide: AngularFire, useValue: mockAngularFire },
+          { provide: ConfirmService, useValue: mockConfirm },
         ],
         declarations: [ HomeComponent ]
       })

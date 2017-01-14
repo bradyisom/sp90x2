@@ -1,0 +1,55 @@
+<div class="group-tile-ct">
+  <div class="group-tile"
+    [style.backgroundImage]="'url(' + (group | async)?.imageUrl + ')'">
+    <div class="grid-tile-title-ct">
+      <div class="grid-tile-title">{{(group | async)?.name}}</div>
+      <div class="grid-tile-subtitle">
+        {{(group | async)?.description}}
+      </div>
+      <!--<button md-icon-button class="grid-tile-action"
+        *ngIf="(group | async)?.isOwner"
+        routerLink="/editgroup/{{group.$key}}"
+        md-tooltip="Edit">
+        <md-icon>edit</md-icon>
+      </button>-->
+    </div>
+  </div>
+</div>
+
+<!--<h1>{{(group | async)?.name}}</h1>
+<img [src]="(group | async)?.imageUrl" alt="Group image"
+  class="group-image">
+<h3>
+  {{(group | async)?.description}}
+</h3>-->
+<h4 *ngIf="(group | async)?.schedule">
+  {{(group | async)?.startDate | date}} - {{(group | async)?.endDate | date}}
+</h4>
+
+<button md-raised-button color="accent"
+  *ngIf="!isMember"
+  (click)="join()">
+  Join
+</button>
+<button md-raised-button color="primary"
+  *ngIf="isMember && !isOwner"
+  (click)="leave()">
+  Leave
+</button>
+<!--<button md-raised-button color="primary"
+  *ngIf="isMember"
+  (click)="createSchedule()">
+  Create Schedule
+</button>-->
+
+<md-tab-group>
+  <md-tab *ngIf="(members | async)" label="Members">
+    <md-list>
+      <md-list-item *ngFor="let member of (members | async)">
+        <img md-list-avatar src="{{member.avatar}}" alt="avatar">
+        <h3 md-line>{{member.displayName}}</h3>
+      </md-list-item>
+    </md-list>
+  </md-tab>
+</md-tab-group>
+

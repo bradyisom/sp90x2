@@ -7,7 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule, MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
-import { ConfirmDeleteAccountComponent } from './confirm-delete-account/confirm-delete-account.component';
+import { ConfirmService } from './confirm.service';
 
 import { AppComponent } from './app.component';
 
@@ -37,9 +37,9 @@ describe('AppComponent', () => {
     delete: jasmine.createSpy('delete account', () => {}).and.callThrough()
   };
 
-  let dialogResult = 'delete';
-  const mockDialog = {
-    open: jasmine.createSpy('open', () => {
+  let dialogResult = 'confirm';
+  const mockConfirm = {
+    show: jasmine.createSpy('show', () => {
       return { afterClosed: () => Observable.of(dialogResult) };
     }).and.callThrough()
   };
@@ -87,13 +87,12 @@ describe('AppComponent', () => {
       ],
       providers: [
         { provide: AuthService, useValue: mockAuthService },
-        { provide: MdDialog, useValue: mockDialog },
+        { provide: ConfirmService, useValue: mockConfirm },
       ],
       declarations: [
         AppComponent,
         DummyComponent,
         ParentComponent,
-        ConfirmDeleteAccountComponent,
       ],
     });
     TestBed.compileComponents();
@@ -176,7 +175,11 @@ describe('AppComponent', () => {
 
     it('should confirm', () => {
       component.deleteAccount();
-      expect(mockDialog.open).toHaveBeenCalledWith(ConfirmDeleteAccountComponent, {});
+      expect(mockConfirm.show).toHaveBeenCalledWith(
+        `Are you sure you want to permanently delete your account and all of your data?`,
+        'Delete My Account',
+        'warn'
+      );
     });
 
     it('should remove the account', () => {

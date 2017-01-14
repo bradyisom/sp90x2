@@ -1,0 +1,59 @@
+<h1>Your Groups</h1>
+<div *ngIf="(list | async)?.length == 0">
+  Click the plus button to create a new group.
+</div>
+
+<md-grid-list cols="3" gutterSize="10">
+  <md-grid-tile
+      *ngFor="let group of list | async"
+      colspan="1"
+      rowspan="1">
+    <div class="group-tile"
+      routerLink="/group/{{(group.details | async)?.$key}}"
+      tabindex="0"
+      [style.backgroundImage]="'url(' + (group.details | async)?.imageUrl + ')'">
+      <div class="grid-tile-title-ct"
+        [ngClass]="{'grid-tile-with-action': (group.details | async)?.isOwner}">
+        <div class="grid-tile-title">{{(group.details | async)?.name}}</div>
+        <div class="grid-tile-subtitle">
+          {{(group.details | async)?.description}}
+        </div>
+        <button md-icon-button class="grid-tile-action"
+          *ngIf="(group.details | async)?.isOwner"
+          routerLink="/editgroup/{{group.$key}}"
+          md-tooltip="Edit">
+          <md-icon>edit</md-icon>
+        </button>
+      </div>
+    </div>
+  </md-grid-tile>
+</md-grid-list>
+
+<div>
+  <h1>Join a Group</h1>
+  <!-- TODO: add filter? -->
+
+  <md-grid-list cols="3" gutterSize="10">
+    <md-grid-tile
+        *ngFor="let g of groups | async"
+        colspan="1"
+        rowspan="1">
+      <div class="group-tile"
+        routerLink="/group/{{g.$key}}"
+        tabindex="0"
+        [style.backgroundImage]="'url(' + g.imageUrl + ')'">
+        <div class="grid-tile-title-ct">
+          <div class="grid-tile-title">{{g.name}}</div>
+          <div class="grid-tile-subtitle">
+            {{g.description}}
+          </div>
+        </div>
+      </div>
+    </md-grid-tile>
+  </md-grid-list>
+
+</div>
+
+<button md-fab routerLink="/newgroup">
+    <md-icon class="md-24">add</md-icon>
+</button>

@@ -8,6 +8,7 @@ import {
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { GroupService } from './models/group.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,11 @@ export class AuthService {
   public user: ReplaySubject<any> = new ReplaySubject<any>(1);
   private _user: FirebaseObjectObservable<any>;
 
-  constructor(private af: AngularFire, private router: Router) {
+  constructor(
+    private af: AngularFire,
+    private router: Router,
+    private groups: GroupService,
+  ) {
     this.af.auth.subscribe(auth => {
       // console.log('auth', auth);
       if (auth) {
@@ -78,6 +83,14 @@ export class AuthService {
           promises.push(this.af.database.object(`/entries/${schedule}`).remove());
         });
 
+        // Delete groups
+        // if (user.groups) {
+        //   for (const groupId of user.groups) {
+        //     // TODO: only delete if owner
+        //     promises.push(this.groups.delete(groupId));
+        //   }
+        // }
+
         // Delete schedules
         Promise.all(promises).then(() => {
           schedulesRef.remove().then(() => {
@@ -94,11 +107,12 @@ export class AuthService {
           });
         });
       });
+
     });
   }
 
   updateUser (uid: string, displayName: string, email: string, avatarUrl: string): firebase.Promise<void> {
-    return this.af.database.object(`/users/${uid}`).set({
+    return this.af.database.object(`/users/${uid}`).update({
       uid: uid,
       email: email,
       displayName: displayName,

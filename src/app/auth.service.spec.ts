@@ -7,13 +7,14 @@ import { AngularFire, AuthProviders, AuthMethods, FirebaseAuthState } from 'angu
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from './auth.service';
+import { GroupService } from './models/group.service';
 
 describe('Service: Auth', () => {
 
   let authData: any = null;
   let authSubject: BehaviorSubject<FirebaseAuthState>;
 
-  const userSet = jasmine.createSpy('user set');
+  const userUpdate = jasmine.createSpy('user update');
   const userRemove = jasmine.createSpy('user remove',
     () => Promise.resolve(true)
   ).and.callThrough();
@@ -46,7 +47,7 @@ describe('Service: Auth', () => {
           result = Observable.of({
             uid: 'U1'
           });
-          (<any>result).set = userSet;
+          (<any>result).update = userUpdate;
           (<any>result).remove = userRemove;
         }
         return result;
@@ -60,9 +61,14 @@ describe('Service: Auth', () => {
     navigate: jasmine.createSpy('navigate')
   };
 
+  const mockGroup = {
+    delete: jasmine.createSpy('delete group')
+  };
+
   beforeEach(() => {
     mockAngularFire.database.object.calls.reset();
-    userSet.calls.reset();
+    mockGroup.delete.calls.reset();
+    userUpdate.calls.reset();
     userRemove.calls.reset();
     entriesRemove.calls.reset();
     schedulesRemove.calls.reset();
@@ -75,7 +81,8 @@ describe('Service: Auth', () => {
       providers: [
         AuthService,
         { provide: AngularFire, useValue: mockAngularFire },
-        { provide: Router, useValue: mockRouter }
+        { provide: Router, useValue: mockRouter },
+        { provide: GroupService, useValue: mockGroup },
       ]
     });
 
@@ -148,7 +155,7 @@ describe('Service: Auth', () => {
 
       it('should set user details', inject([AuthService], (service: AuthService) => {
         service.user.subscribe((user) => {
-          expect(userSet).toHaveBeenCalledWith({
+          expect(userUpdate).toHaveBeenCalledWith({
             uid: 'U1',
             email: 'bradyisom@gmail.com',
             displayName: 'Brady Isom',
@@ -174,7 +181,7 @@ describe('Service: Auth', () => {
 
       it('should set user details', inject([AuthService], (service: AuthService) => {
         service.user.subscribe((user) => {
-          expect(userSet).toHaveBeenCalledWith({
+          expect(userUpdate).toHaveBeenCalledWith({
             uid: 'U1',
             email: 'bradyisom@gmail.com',
             displayName: 'Brady Isom',
@@ -194,7 +201,7 @@ describe('Service: Auth', () => {
         password: 'password'
       });
       tick();
-      expect(userSet).toHaveBeenCalledWith({
+      expect(userUpdate).toHaveBeenCalledWith({
         uid: 'U1',
         email: 'bradyisom@gmail.com',
         displayName: 'Brady Isom',

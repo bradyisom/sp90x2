@@ -1,0 +1,7 @@
+service firebase.storage {
+  match /b/project-8976456987898776126.appspot.com/o {
+    match /{allPaths=**} {
+      allow read: if request.auth != null;
+    }
+  }
+}

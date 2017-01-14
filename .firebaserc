@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "project-8976456987898776126"
+    "default": "project-8976456987898776126",
+    "dev": "sp90x-dev"
   }
 }
