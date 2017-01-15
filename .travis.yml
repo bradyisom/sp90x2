@@ -33,5 +33,6 @@ script:
 
 after_success:
 - ./node_modules/.bin/codecov
+- firebase use default
 - firebase deploy --token ${FIREBASE_TOKEN}
 - ./data/seedData ${FIREBASE_TOKEN}
