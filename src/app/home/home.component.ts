@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmService } from '../confirm.service';
 import { ScheduleService } from '../models/schedule.service';
+import { WindowSizeService } from '../window-size.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,17 @@ export class HomeComponent implements OnInit {
   public user: any;
   public list: Observable<any>;
 
+  public columnCount: Observable<number>;
+
   private userSubscription: Subscription;
 
   constructor(
     private confirm: ConfirmService,
     private schedules: ScheduleService,
     private route: ActivatedRoute,
+    private windowSize: WindowSizeService,
   ) {
+    this.columnCount = this.windowSize.gridColumnCount;
   }
 
   ngOnInit() {

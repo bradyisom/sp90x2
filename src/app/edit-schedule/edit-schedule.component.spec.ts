@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '@angular/material';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
 import { ScheduleService } from '../models/schedule.service';
@@ -73,6 +73,27 @@ describe('Component: EditSchedule', () => {
     }
   };
 
+  const storageChildSpy = jasmine.createSpy('storage ref', () => {
+    return {
+      getDownloadURL: () => {
+        return Promise.resolve('assets/logo-noback.png');
+      }
+    };
+  }).and.callThrough();
+
+  const mockFirebase = {
+    storage: () => {
+      return {
+        ref: () => {
+          return {
+            child: storageChildSpy
+          };
+        }
+      };
+    }
+  };
+
+
   const mockRouter = {
     url: '',
     navigate: jasmine.createSpy('navigate')
@@ -91,6 +112,7 @@ describe('Component: EditSchedule', () => {
         { provide: AngularFire, useValue: mockAngularFire },
         { provide: Router, useValue: mockRouter },
         { provide: ScheduleService, useValue: mockSchedule },
+        { provide: FirebaseApp, useValue: mockFirebase },
       ],
       declarations: [ EditScheduleComponent ]
     })
@@ -101,6 +123,7 @@ describe('Component: EditSchedule', () => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
     mockSchedule.create.calls.reset();
+    storageChildSpy.calls.reset();
 
     programs = [{
       $key: 'CLASSIC-M',
@@ -279,6 +302,7 @@ describe('Component: EditSchedule', () => {
         program: 'PROG1',
         programTitle: 'My Schedule',
         startDate: '2016-12-27T07:00:00.000Z',
+        imageUrl: undefined,
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',
@@ -297,6 +321,7 @@ describe('Component: EditSchedule', () => {
         program: 'PROG1',
         programTitle: 'My Schedule',
         startDate: '2016-12-27T07:00:00.000Z',
+        imageUrl: undefined,
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',

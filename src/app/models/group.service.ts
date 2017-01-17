@@ -60,6 +60,7 @@ export class GroupService {
 
   delete(groupId: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
+      let groupRef: FirebaseObjectObservable<Group>;
       const users = this.af.database.list(`/groupUsers/${groupId}`);
       return users.map((groupUsers) => {
         const promises = [];
@@ -69,7 +70,16 @@ export class GroupService {
         return Promise.all(promises).then(() => {
           return users.remove();
         }).then(() => {
-          return this.af.database.object(`/groups/${groupId}`).remove();
+          groupRef = this.af.database.object(`/groups/${groupId}`);
+          return groupRef.first().toPromise();
+        }).then((group: Group) => {
+          if (group.schedule) {
+            return this.af.database.object(`/schedules/${group.owner}/${group.schedule}/group`).remove();
+          } else {
+            return Promise.resolve();
+          }
+        }).then(() => {
+          return groupRef.remove();
         }).then(() => {
           resolve();
         }).catch((err) => {

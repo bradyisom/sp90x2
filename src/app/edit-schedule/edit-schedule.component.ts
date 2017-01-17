@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Inject, Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+import { FirebaseApp, AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/withLatestFrom';
@@ -35,11 +35,14 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   programsSubscription: Subscription;
   public currentProgram: any = null;
 
+  private imageUrl: string;
+
   constructor(
     private router: Router,
     private auth: AuthService,
     private af: AngularFire,
     private schedules: ScheduleService,
+    @Inject(FirebaseApp) private firebase: any,
   ) { }
 
   ngOnInit() {
@@ -77,6 +80,9 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     this.auth.user.first().subscribe(user => {
       this.userId = user.uid;
     });
+
+    const storageRef = this.firebase.storage().ref().child(`app-images/nature${Math.floor(Math.random() * 9) + 1}.jpg`);
+    storageRef.getDownloadURL().then(url => this.imageUrl = url);
 
   }
 
@@ -117,6 +123,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     this.filteredTasks.map((taskList: any[]) => {
       const scheduleTasks = _.filter(taskList, task => task.include);
       this.schedules.create(this.userId, {
+        imageUrl: this.imageUrl,
         program: this.editForm.get('program').value,
         programTitle: this.editForm.get('programTitle').value,
         startDate: moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day').toISOString(),

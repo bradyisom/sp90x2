@@ -205,6 +205,7 @@ describe('GroupComponent', () => {
           programTitle: 'Group One',
           program: 'CLASSIC-M',
           startDate: '2017-01-16T07:00:00Z',
+          imageUrl: 'assets/logo-noback.png',
           group: 'G1',
           tasks: {
             BOFM: 'daily',

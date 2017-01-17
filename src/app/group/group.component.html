@@ -6,22 +6,10 @@
       <div class="grid-tile-subtitle">
         {{(group | async)?.description}}
       </div>
-      <!--<button md-icon-button class="grid-tile-action"
-        *ngIf="(group | async)?.isOwner"
-        routerLink="/editgroup/{{group.$key}}"
-        md-tooltip="Edit">
-        <md-icon>edit</md-icon>
-      </button>-->
     </div>
   </div>
 </div>
 
-<!--<h1>{{(group | async)?.name}}</h1>
-<img [src]="(group | async)?.imageUrl" alt="Group image"
-  class="group-image">
-<h3>
-  {{(group | async)?.description}}
-</h3>-->
 <h4 *ngIf="(group | async)?.schedule">
   {{(group | async)?.startDate | date}} - {{(group | async)?.endDate | date}}
 </h4>

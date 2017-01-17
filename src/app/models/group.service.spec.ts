@@ -13,6 +13,8 @@ describe('GroupService', () => {
   let group: Group;
   let user: any;
 
+  let testGroup: any;
+
   let rejectRemoveGroup: boolean;
 
   const pushGroupSpy = jasmine.createSpy('push group', () => {
@@ -33,6 +35,12 @@ describe('GroupService', () => {
     return Promise.resolve({});
   }).and.callThrough();
   const removeUserGroupsSpy = jasmine.createSpy('remove user groups', () => {
+    return Promise.resolve({});
+  }).and.callThrough();
+  const updateScheduleGroupSpy = jasmine.createSpy('update schedule group', () => {
+    return Promise.resolve({});
+  }).and.callThrough();
+  const removeScheduleGroupSpy = jasmine.createSpy('remove schedule group', () => {
     return Promise.resolve({});
   }).and.callThrough();
   const updateGroupUsersSpy = jasmine.createSpy('update group users', () => {
@@ -74,12 +82,19 @@ describe('GroupService', () => {
           result.update = updateGroupUsersSpy;
           return result;
         }
-        const result: any = Observable.of({
-          name: 'Group One'
-        });
-        result.remove = removeGroupSpy;
-        result.update = updateGroupSpy;
-        return result;
+        if (path.startsWith('/schedules/')) {
+          const result: any = Observable.of({});
+          result.remove = removeScheduleGroupSpy;
+          result.update = updateScheduleGroupSpy;
+          return result;
+        }
+        if (path.startsWith('/groups/')) {
+          const result: any = Observable.of(testGroup);
+          result.remove = removeGroupSpy;
+          result.update = updateGroupSpy;
+          return result;
+        }
+        return Observable.of({});
       }).and.callThrough(),
     }
   };
@@ -94,8 +109,14 @@ describe('GroupService', () => {
     removeUserGroupsSpy.calls.reset();
     updateGroupUsersSpy.calls.reset();
     removeGroupUsersSpy.calls.reset();
+    updateScheduleGroupSpy.calls.reset();
+    removeScheduleGroupSpy.calls.reset();
 
     rejectRemoveGroup = false;
+
+    testGroup = {
+      name: 'Group One'
+    };
 
     TestBed.configureTestingModule({
       providers: [GroupService,
@@ -115,6 +136,7 @@ describe('GroupService', () => {
       schedule: 'SCHED1',
       startDate: '2017-01-14T00:00:00Z',
       endDate: '2017-04-14T00:00:00Z',
+      programTitle: 'Schedule One',
       program: 'PROG1',
       tasks: {},
     };
@@ -221,6 +243,15 @@ describe('GroupService', () => {
       service.delete('G1').catch((_message) => message = _message);
       tick();
       expect(message).toBe('Remove group error');
+    }));
+
+    it('should remove the group reference from a schedule', fakeAsync(() => {
+      testGroup.schedule = 'SCHED1';
+      testGroup.owner = 'U1';
+      service.delete('G1');
+      tick();
+      expect(mockAngularFire.database.object).toHaveBeenCalledWith('/schedules/U1/SCHED1/group');
+      expect(removeScheduleGroupSpy).toHaveBeenCalled();
     }));
 
   });

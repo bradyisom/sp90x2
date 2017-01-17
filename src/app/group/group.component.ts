@@ -70,6 +70,7 @@ export class GroupComponent implements OnInit {
       programTitle: this.groupSnapshot.name,
       program: this.groupSnapshot.program,
       startDate: this.groupSnapshot.startDate,
+      imageUrl: this.groupSnapshot.imageUrl,
       group: this.groupId,
       tasks: this.groupSnapshot.tasks,
     }).then((scheduleId) => {

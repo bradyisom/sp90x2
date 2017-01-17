@@ -5,9 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule, MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HomeComponent } from './home.component';
 import { AuthService } from '../auth.service';
 import { ConfirmService } from '../confirm.service';
+import { WindowSizeService } from '../window-size.service';
 import { ScheduleService } from '../models/schedule.service';
 
 describe('Component: Home', () => {
@@ -33,6 +35,10 @@ describe('Component: Home', () => {
     show: jasmine.createSpy('show', () => {
       return { afterClosed: () => Observable.of(dialogResult) };
     }).and.callThrough()
+  };
+
+  const mockWindowSize = {
+    gridColumnCount: new BehaviorSubject<number>(3)
   };
 
   beforeEach(() => {
@@ -61,6 +67,7 @@ describe('Component: Home', () => {
       providers: [
         { provide: ScheduleService, useValue: mockSchedule },
         { provide: ConfirmService, useValue: mockConfirm },
+        { provide: WindowSizeService, useValue: mockWindowSize },
       ],
       declarations: [ HomeComponent ]
     })

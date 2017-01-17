@@ -8,6 +8,7 @@ import * as moment from 'moment';
 export interface Schedule {
   programTitle: string;
   program: string;
+  imageUrl: string;
   startDate: string;
   endDate?: string;
   group?: string;

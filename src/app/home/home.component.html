@@ -4,31 +4,29 @@
   Click the plus button to get started.
 </div>
 
-<div class="schedule-cards">
-  <md-card *ngFor="let item of list | async">
-    <md-card-title>
-      {{ item.programTitle }}
-    </md-card-title>
-    <md-card-subtitle class="schedule-dates">
-      {{item.startDate | date}} - {{item.endDate | date}}
-    </md-card-subtitle>
-    <md-card-content>
-      <p md-line class="schedule-points">
-        Points: {{item.points}} / {{item.pointsPossible}}
-      </p>
-    </md-card-content>
-    <md-card-actions>
-      <button md-button
-        (click)="removeSchedule(item)">
-        DELETE
-      </button>
-      <button md-raised-button color="accent"
-        routerLink="/track/{{item.$key}}">
-        TRACK
-      </button>
-    </md-card-actions>
-  </md-card>
-</div>
+<md-grid-list [cols]="(columnCount | async)" gutterSize="10">
+  <md-grid-tile
+      *ngFor="let item of list | async"
+      colspan="1"
+      rowspan="1">
+    <div class="schedule-tile"
+      routerLink="/track/{{item.$key}}"
+      tabindex="0"
+      [style.backgroundImage]="'url(' + item.imageUrl + ')'">
+      <div class="grid-tile-title-ct grid-tile-with-action">
+        <div class="grid-tile-title">{{item.programTitle}}</div>
+        <div class="grid-tile-subtitle">
+          {{item.startDate | date}} - {{item.endDate | date}}
+        </div>
+        <button md-icon-button class="grid-tile-action"
+          (click)="$event.preventDefault(); $event.stopImmediatePropagation(); removeSchedule(item);"
+          md-tooltip="Delete">
+          <md-icon>delete</md-icon>
+        </button>
+      </div>
+    </div>
+  </md-grid-tile>
+</md-grid-list>
 
 <button md-fab routerLink="/newschedule">
     <md-icon class="md-24">add</md-icon>
