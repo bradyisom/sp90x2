@@ -21,6 +21,8 @@ describe('GroupComponent', () => {
 
   let rejectMethod: boolean;
 
+  let messages: any[];
+
   const mockSchedules = {
     create: jasmine.createSpy('create schedule', () => {
       if (rejectMethod) {
@@ -74,6 +76,15 @@ describe('GroupComponent', () => {
     setSchedule: jasmine.createSpy('setSchedule', () => {
       return Promise.resolve();
     }).and.callThrough(),
+    listMessages: jasmine.createSpy('listMessages', (groupId: string, options?: any) => {
+      if (options && options.query.limitToLast) {
+        return Observable.of(_.takeRight(messages, options.query.limitToLast.value));
+      }
+      return Observable.of(messages);
+    }).and.callThrough(),
+    postMessage: jasmine.createSpy('postMessage', () => {
+      return Observable.of({result: 'NEWMESSAGE'});
+    }).and.callThrough(),
   };
 
   beforeEach(async(() => {
@@ -98,10 +109,20 @@ describe('GroupComponent', () => {
     mockGroups.join.calls.reset();
     mockGroups.leave.calls.reset();
     mockGroups.setSchedule.calls.reset();
+    mockGroups.listMessages.calls.reset();
     mockSchedules.create.calls.reset();
     mockError.show.calls.reset();
 
     rejectMethod = false;
+
+    messages = [{
+      $key: 'M1',
+      date: 1484628861904,
+      userId: 'U1',
+      displayName: 'John Doe',
+      avatar: 'assets/logo-noback.png',
+      message: 'Test message.'
+    }];
   });
 
 
@@ -178,6 +199,20 @@ describe('GroupComponent', () => {
       expect(component.isOwner.value).toBe(false);
     }));
 
+    it('should load messages', () => {
+      expect(mockGroups.listMessages).toHaveBeenCalledWith('G1', {
+        query: {
+          orderByKey: true,
+          limitToLast: jasmine.any(Object)
+        }
+      });
+      expect(mockGroups.listMessages.calls.mostRecent().args[1].query.limitToLast.value).toBe(10);
+    });
+
+    it('should set hasMoreMessages to false', fakeAsync(() => {
+      expect(component.hasMoreMessages.value).toBe(false);
+    }));
+
     describe('leave', () => {
 
       it('should leave the group', () => {
@@ -228,6 +263,116 @@ describe('GroupComponent', () => {
           'Error creating schedule', 'Unable to create schedule'
         );
       }));
+    });
+
+    describe('getKey', () => {
+
+      it('should get a key', () => {
+        expect(component.getKey({$key: 'K1'})).toBe('K1');
+      });
+
+    });
+
+    describe('postMessage', () => {
+
+      it('should post a message', () => {
+        component.postMessage('Test message');
+        expect(mockGroups.postMessage).toHaveBeenCalledWith({
+          uid: 'U2'
+        }, 'G1', 'Test message');
+      });
+    });
+
+  });
+
+  describe('member no messages', () => {
+    beforeEach(() => {
+      const route = TestBed.get(ActivatedRoute);
+      route.snapshot.data = {
+        user: {
+          uid: 'U2'
+        }
+      };
+      route.snapshot.params = {
+        id: 'G1',
+      };
+
+      messages = [];
+
+      fixture = TestBed.createComponent(GroupComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should load messages', () => {
+      expect(mockGroups.listMessages).toHaveBeenCalledWith('G1', {
+        query: {
+          orderByKey: true,
+          limitToLast: jasmine.any(Object)
+        }
+      });
+      expect(mockGroups.listMessages.calls.mostRecent().args[1].query.limitToLast.value).toBe(10);
+    });
+
+    it('should set hasMoreMessages to false', fakeAsync(() => {
+      expect(component.hasMoreMessages.value).toBe(false);
+    }));
+
+  });
+
+  describe('member many messages', () => {
+    beforeEach(() => {
+      const route = TestBed.get(ActivatedRoute);
+      route.snapshot.data = {
+        user: {
+          uid: 'U2'
+        }
+      };
+      route.snapshot.params = {
+        id: 'G1',
+      };
+
+      messages = [];
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].forEach(num => {
+        messages.push({
+          $key: `M${num}`,
+          date: 1484628861904,
+          userId: 'U1',
+          displayName: 'John Doe',
+          avatar: 'assets/logo-noback.png',
+          message: 'Test message.'
+        });
+      });
+
+      fixture = TestBed.createComponent(GroupComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should load messages', () => {
+      expect(mockGroups.listMessages).toHaveBeenCalledWith('G1', {
+        query: {
+          orderByKey: true,
+          limitToLast: jasmine.any(Object)
+        }
+      });
+      expect(mockGroups.listMessages.calls.mostRecent().args[1].query.limitToLast.value).toBe(10);
+    });
+
+    it('should set hasMoreMessages to true', fakeAsync(() => {
+      tick();
+      expect(component.hasMoreMessages.value).toBe(true);
+    }));
+
+
+    describe('loadMore', () => {
+
+      it('should load more messages', fakeAsync(() => {
+        component.loadMore();
+        tick();
+        expect(mockGroups.listMessages.calls.mostRecent().args[1].query.limitToLast.value).toBe(20);
+      }));
+
     });
 
 

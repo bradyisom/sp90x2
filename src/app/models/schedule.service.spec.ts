@@ -172,6 +172,7 @@ describe('ScheduleService', () => {
       program: 'PROG1',
       programTitle: 'Program One',
       startDate: '2016-12-27T07:00:00.000Z',
+      imageUrl: 'assets/logo-noback.png',
       tasks: {
         BOFM90: 'daily',
         FASTING: 'monthly',

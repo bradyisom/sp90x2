@@ -5,6 +5,7 @@ import { AngularFire } from 'angularfire2';
 import { GroupService, Group } from './group.service';
 import { Observable } from 'rxjs/Observable';
 
+import * as firebase from 'firebase';
 import * as _ from 'lodash';
 
 describe('GroupService', () => {
@@ -20,6 +21,11 @@ describe('GroupService', () => {
   const pushGroupSpy = jasmine.createSpy('push group', () => {
     return Promise.resolve({
       key: 'G1'
+    });
+  }).and.callThrough();
+  const pushMessageSpy = jasmine.createSpy('push message', () => {
+    return Promise.resolve({
+      key: 'M1'
     });
   }).and.callThrough();
   const updateGroupSpy = jasmine.createSpy('update group', () => {
@@ -60,6 +66,15 @@ describe('GroupService', () => {
             $key: 'U2'
           }]);
           result.remove = removeGroupUsersSpy;
+          return result;
+        }
+        if (path.startsWith('/groupMessages/')) {
+          const result: any = Observable.of([{
+            $key: 'M1'
+          }, {
+            $key: 'M2'
+          }]);
+          result.push = pushMessageSpy;
           return result;
         }
         return {
@@ -103,6 +118,7 @@ describe('GroupService', () => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
     pushGroupSpy.calls.reset();
+    pushMessageSpy.calls.reset();
     updateGroupSpy.calls.reset();
     removeGroupSpy.calls.reset();
     updateUserGroupsSpy.calls.reset();
@@ -351,5 +367,72 @@ describe('GroupService', () => {
     }));
 
   });
+
+
+  describe('postMessage', () => {
+
+    it('should post a message', () => {
+      service.postMessage(user, 'G1', 'This is my message.');
+      expect(mockAngularFire.database.list).toHaveBeenCalledWith('/groupMessages/G1');
+      expect(pushMessageSpy).toHaveBeenCalledWith({
+        userId: 'U1',
+        displayName: 'John Doe',
+        avatar: 'https://goog.le/avatar.png',
+        date: firebase.database.ServerValue.TIMESTAMP,
+        message: 'This is my message.',
+      });
+    });
+
+    it('should post a multiline message', () => {
+      service.postMessage(user, 'G1', 'This is my message.\nLine 2\n\nLine 3');
+      expect(mockAngularFire.database.list).toHaveBeenCalledWith('/groupMessages/G1');
+      expect(pushMessageSpy).toHaveBeenCalledWith({
+        userId: 'U1',
+        displayName: 'John Doe',
+        avatar: 'https://goog.le/avatar.png',
+        date: firebase.database.ServerValue.TIMESTAMP,
+        message: 'This is my message.<br>Line 2<br><br>Line 3',
+      });
+    });
+
+    it('should resolve with the new message id', () => {
+      service.postMessage(user, 'G1', 'This is my message.').then((result) => {
+        expect(result.key).toBe('M1');
+      });
+    });
+
+  });
+
+  describe('listMessages', () => {
+
+    it('should list messages', () => {
+      const result = service.listMessages('G1');
+      expect(mockAngularFire.database.list).toHaveBeenCalledWith('/groupMessages/G1', undefined);
+      result.first().subscribe((list) => {
+        expect(list).toEqual([{
+          $key: 'M1'
+        }, {
+          $key: 'M2'
+        }]);
+      });
+    });
+
+    it('should list messages with options', () => {
+      service.listMessages('G1', {
+        query: {
+          orderByKey: true,
+          limitToFirst: 10
+        }
+      });
+      expect(mockAngularFire.database.list).toHaveBeenCalledWith('/groupMessages/G1', {
+        query: {
+          orderByKey: true,
+          limitToFirst: 10
+        }
+      });
+    });
+
+  });
+
 
 });

@@ -20,10 +20,16 @@ export class GroupComponent implements OnInit {
   public isOwner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isMember: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public hasSchedule: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public hasMoreMessages: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public messages: Observable<any>;
 
   private groupSnapshot: Group;
   private groupId: string;
   private user: any;
+
+  private firstMessageKey: string;
+  private messagePageSize = 10;
+  private messageLimit: BehaviorSubject<number> = new BehaviorSubject<number>(this.messagePageSize);
 
   constructor(
     private route: ActivatedRoute,
@@ -49,8 +55,44 @@ export class GroupComponent implements OnInit {
       this.isMember.next(!!memberEntry);
       this.hasSchedule.next(!!(memberEntry && memberEntry.schedule));
       this.changeDetector.detectChanges();
+      if (this.isMember.value) {
+        this.loadMessages();
+      }
       return members;
     });
+  }
+
+  private loadMessages() {
+    this.groups.listMessages(this.groupId, {
+      query: {
+        orderByKey: true,
+        limitToFirst: 1
+      }
+    }).first().subscribe((list) => {
+      if (list.length) {
+        this.firstMessageKey = list[0].$key;
+      } else {
+        this.firstMessageKey = '';
+      }
+    });
+
+    this.messages = this.groups.listMessages(this.groupId, {
+      query: {
+        orderByKey: true,
+        limitToLast: this.messageLimit
+      }
+    }).map((messages: any[]) => {
+      this.hasMoreMessages.next(!!(messages.length && messages[0].$key !== this.firstMessageKey));
+      return messages.reverse();
+    });
+  }
+
+  loadMore() {
+    this.messageLimit.next(this.messageLimit.value + this.messagePageSize);
+  }
+
+  getKey(message: any) {
+    return message.$key;
   }
 
   join() {
@@ -78,6 +120,10 @@ export class GroupComponent implements OnInit {
     }).catch((err) => {
       this.error.show(err, 'Unable to create schedule');
     });
+  }
+
+  postMessage(message: string) {
+    this.groups.postMessage(this.user, this.groupId, message);
   }
 
 }

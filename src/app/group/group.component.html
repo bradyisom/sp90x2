@@ -1,4 +1,4 @@
-<div class="group-tile-ct">
+<div class="group-tile-ct" *ngIf="(group | async)">
   <div class="group-tile"
     [style.backgroundImage]="'url(' + (group | async)?.imageUrl + ')'">
     <div class="grid-tile-title-ct">
@@ -41,6 +41,30 @@
         </p>
       </md-list-item>
     </md-list>
+  </md-tab>
+  <md-tab *ngIf="(isMember | async)" label="Chat">
+    <form class="new-post-form">
+      <md-input-container class="new-post-message">
+        <textarea md-input md-autosize
+          placeholder="Post a new message" #message></textarea>
+      </md-input-container>
+      <button md-icon-button
+        (click)="postMessage(message.value); message.value = '';">
+        <md-icon>send</md-icon>
+      </button>
+    </form>
+    <md-card class="message-card" *ngFor="let message of (messages | async); trackBy: getKey">
+      <md-card-header>
+        <img md-card-avatar [src]="message.avatar" alt="avatar">
+        <md-card-title>{{message.displayName}}</md-card-title>
+        <md-card-subtitle>{{message.date | date:'short'}}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content [innerHtml]="message.message"></md-card-content>
+    </md-card>
+    <button md-button *ngIf="(hasMoreMessages | async)"
+      (click)="loadMore()">
+      Load More
+    </button>
   </md-tab>
 </md-tab-group>
 

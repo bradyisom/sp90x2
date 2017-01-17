@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import * as firebase from 'firebase';
 import * as _ from 'lodash';
 
 export interface Group {
@@ -24,7 +25,7 @@ export interface Group {
 export class GroupService {
 
   constructor(
-    private af: AngularFire
+    private af: AngularFire,
   ) { }
 
   create(group: Group, owner: any): firebase.Promise<any> {
@@ -146,6 +147,20 @@ export class GroupService {
         });
       });
     });
+  }
+
+  postMessage(user: any, groupId: string, message: string) {
+    return this.af.database.list(`/groupMessages/${groupId}`).push({
+      userId: user.uid,
+      avatar: user.avatar,
+      displayName: user.displayName,
+      date: firebase.database.ServerValue.TIMESTAMP,
+      message: message.replace(/\n/g, '<br>'),
+    });
+  }
+
+  listMessages(groupId: string, options?: any) {
+    return this.af.database.list(`/groupMessages/${groupId}`, options);
   }
 
 }

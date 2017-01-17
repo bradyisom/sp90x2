@@ -15,3 +15,27 @@
   cursor: pointer;
 }
 
+md-tab-group {
+  margin-top: 20px;
+}
+
+.new-post-form {
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+
+  .new-post-message {
+    flex: 1 1 auto;
+  }
+
+  button {
+    flex: 0 0 auto;
+  }
+}
+
+.message-card {
+  margin-bottom: 10px;
+  md-card-content {
+    margin-top: 16px;
+  }
+}

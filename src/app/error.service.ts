@@ -19,6 +19,9 @@ import { MdDialog, MdDialogRef } from '@angular/material';
         flex-direction: row;
         justify-content: flex-end;
     }
+    md-dialog-actions button {
+        margin-left: 6px;
+    }
   `]
 })
 export class ErrorComponent {
