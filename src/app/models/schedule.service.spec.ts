@@ -188,6 +188,7 @@ describe('ScheduleService', () => {
         startDate: '2016-12-27T07:00:00.000Z',
         program: 'PROG1',
         endDate: '2017-03-27T05:59:59.999Z',
+        imageUrl: 'assets/logo-noback.png',
         points: 0,
         pointsPossible: 195,
         tasks: {
