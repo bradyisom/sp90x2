@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { AuthService } from '../auth.service';
+import { ScheduleService } from '../models/schedule.service';
 
 import * as moment from 'moment';
 
@@ -15,9 +16,7 @@ export class TrackComponent implements OnInit {
   public schedule: FirebaseObjectObservable<any>;
   public date: any;
   public programDay: number;
-  rawDailyEntries: FirebaseListObservable<any[]>;
   public dailyEntries: Observable<any[]>;
-  rawMonthlyEntries: FirebaseListObservable<any[]>;
   public monthlyEntries: Observable<any[]>;
   public fitTest: FirebaseObjectObservable<any> | null;
   userId: string;
@@ -29,7 +28,9 @@ export class TrackComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private af: AngularFire,
-    private router: Router) {
+    private router: Router,
+    private schedules: ScheduleService,
+  ) {
   }
 
   ngOnInit() {
@@ -84,10 +85,9 @@ export class TrackComponent implements OnInit {
       this.fitTest = null;
     }
 
-    this.rawDailyEntries = this.af.database.list(
+    this.dailyEntries = this.af.database.list(
       `/entries/${this.scheduleId}/daily/${this.date.format('YYYY-MM-DD')}`
-    );
-    this.dailyEntries = this.rawDailyEntries.map((entries) => {
+    ).map((entries) => {
       entries.forEach(entry => {
         entry.details = this.af.database.object(`/tasks/${entry.$key}`);
         if (entry.order !== undefined) {
@@ -97,10 +97,9 @@ export class TrackComponent implements OnInit {
       return entries;
     });
 
-    this.rawMonthlyEntries = this.af.database.list(
+    this.monthlyEntries = this.af.database.list(
       `/entries/${this.scheduleId}/monthly/${this.date.format('YYYY-MM')}`
-    );
-    this.monthlyEntries = this.rawMonthlyEntries.map((entries) => {
+    ).map((entries) => {
       entries.forEach(entry => {
         entry.details = this.af.database.object(`/tasks/${entry.$key}`);
       });
@@ -126,21 +125,12 @@ export class TrackComponent implements OnInit {
     return this.date.format('YYYY-MM-DD');
   }
 
-  public checkEntry(type: string, task: any, value: boolean) {
-    switch (type) {
-      case 'daily':
-        this.rawDailyEntries.update(task.$key, {finished: value});
-        break;
-      case 'monthly':
-        this.rawMonthlyEntries.update(task.$key, {finished: value});
-        break;
-    }
-    if (value) {
-      this.points += task.points;
-    } else {
-      this.points -= task.points;
-    }
-    this.schedule.update({points: this.points});
+  public checkEntry(type: 'daily'|'monthly', task: any, value: boolean) {
+    this.schedules.updateEntry(
+      this.userId, this.scheduleId,
+      type, this.date.toISOString(),
+      task.$key, task.points, value
+    );
   }
 
 }

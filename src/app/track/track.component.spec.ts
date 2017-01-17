@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '@angular/material';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
+import { ScheduleService } from '../models/schedule.service';
 import { TrackComponent } from './track.component';
 
 import * as moment from 'moment';
@@ -49,6 +50,12 @@ describe('Component: TrackComponent', () => {
     }
   };
 
+  const mockSchedule = {
+    updateEntry: jasmine.createSpy('updateEntry', () => {
+      return Promise.resolve();
+    }).and.callThrough(),
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -60,6 +67,7 @@ describe('Component: TrackComponent', () => {
       ],
       providers: [
         { provide: AngularFire, useValue: mockAngularFire },
+        { provide: ScheduleService, useValue: mockSchedule },
       ],
       declarations: [ TrackComponent ]
     })
@@ -278,8 +286,9 @@ describe('Component: TrackComponent', () => {
           $key: 'BOFM90',
           points: 1
         }, true);
-        expect(updateSpy).toHaveBeenCalledWith('BOFM90', {finished: true});
-        expect(updateScheduleSpy).toHaveBeenCalledWith({points: 31});
+        expect(mockSchedule.updateEntry).toHaveBeenCalledWith(
+          'U1', 'SCHED1', 'daily', '2016-12-27T07:00:00.000Z', 'BOFM90', 1, true
+        );
       });
 
       it('should uncheck a daily entry', () => {
@@ -287,8 +296,9 @@ describe('Component: TrackComponent', () => {
           $key: 'BOFM90',
           points: 1
         }, false);
-        expect(updateSpy).toHaveBeenCalledWith('BOFM90', {finished: false});
-        expect(updateScheduleSpy).toHaveBeenCalledWith({points: 29});
+        expect(mockSchedule.updateEntry).toHaveBeenCalledWith(
+          'U1', 'SCHED1', 'daily', '2016-12-27T07:00:00.000Z', 'BOFM90', 1, false
+        );
       });
 
       it('should check a monthly entry', () => {
@@ -296,8 +306,9 @@ describe('Component: TrackComponent', () => {
           $key: 'FASTING',
           points: 20
         }, true);
-        expect(updateSpy).toHaveBeenCalledWith('FASTING', {finished: true});
-        expect(updateScheduleSpy).toHaveBeenCalledWith({points: 50});
+        expect(mockSchedule.updateEntry).toHaveBeenCalledWith(
+          'U1', 'SCHED1', 'monthly', '2016-12-27T07:00:00.000Z', 'FASTING', 20, true
+        );
       });
 
       it('should uncheck a monthly entry', () => {
@@ -305,8 +316,9 @@ describe('Component: TrackComponent', () => {
           $key: 'FASTING',
           points: 20
         }, false);
-        expect(updateSpy).toHaveBeenCalledWith('FASTING', {finished: false});
-        expect(updateScheduleSpy).toHaveBeenCalledWith({points: 10});
+        expect(mockSchedule.updateEntry).toHaveBeenCalledWith(
+          'U1', 'SCHED1', 'monthly', '2016-12-27T07:00:00.000Z', 'FASTING', 20, false
+        );
       });
     });
   });

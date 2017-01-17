@@ -101,6 +101,9 @@ export function _window(): any {
       children: [{
         path: 'home',
         component: HomeComponent,
+        resolve: {
+          user: AuthResolver
+        },
         data: {
           title: 'Home'
         }

@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GroupService, Group } from '../models/group.service';
 import { ScheduleService } from '../models/schedule.service';
+import { ErrorService } from '../error.service';
 
 import * as _ from 'lodash';
 
@@ -13,21 +14,23 @@ import * as _ from 'lodash';
   templateUrl: './group.component.html',
   styleUrls: ['./group.component.scss']
 })
-export class GroupComponent implements OnInit, OnDestroy {
+export class GroupComponent implements OnInit {
   public group: Observable<Group>;
-  public members: FirebaseListObservable<any>;
-  public isOwner: boolean;
-  public isMember: boolean;
+  public members: Observable<any>;
+  public isOwner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public isMember: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public hasSchedule: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-  private groupSubscription: Subscription;
-
+  private groupSnapshot: Group;
   private groupId: string;
   private user: any;
 
   constructor(
     private route: ActivatedRoute,
     private groups: GroupService,
-    // private schedules: ScheduleService,
+    private schedules: ScheduleService,
+    private error: ErrorService,
+    private changeDetector: ChangeDetectorRef,
   ) { }
 
   ngOnInit() {
@@ -35,31 +38,45 @@ export class GroupComponent implements OnInit, OnDestroy {
     this.user = this.route.snapshot.data['user'];
 
     this.group = this.groups.get(this.groupId).map((group) => {
-      this.isOwner = group.owner === this.user.uid;
+      this.groupSnapshot = group;
+      this.isOwner.next(group.owner === this.user.uid);
+      this.changeDetector.detectChanges();
       return group;
     });
 
-    this.members = this.groups.listGroupMembers(this.groupId);
-
-    this.groupSubscription = this.groups.listUserGroups(this.user.uid).subscribe((userGroupIds) => {
-      this.isMember = !!_.find(userGroupIds, k => k === this.groupId);
+    this.members = this.groups.listGroupMembers(this.groupId).map((members) => {
+      const memberEntry = _.find(members, (m: any) => m.$key === this.user.uid);
+      this.isMember.next(!!memberEntry);
+      this.hasSchedule.next(!!(memberEntry && memberEntry.schedule));
+      this.changeDetector.detectChanges();
+      return members;
     });
   }
 
-  ngOnDestroy() {
-    this.groupSubscription.unsubscribe();
-  }
-
   join() {
-    this.groups.join(this.user, this.groupId);
+    this.groups.join(this.user, this.groupId).then(() => {}).catch((err) => {
+      this.error.show(err, 'Unable to join group');
+    });
   }
 
   leave() {
-    this.groups.leave(this.user.uid, this.groupId);
+    this.groups.leave(this.user.uid, this.groupId).then(() => {}).catch((err) => {
+      this.error.show(err, 'Unable to leave group');
+    });
   }
 
-  // createSchedule() {
-  //   // this.schedules.create(this.user.uid, );
-  // }
+  createSchedule() {
+    this.schedules.create(this.user.uid, {
+      programTitle: this.groupSnapshot.name,
+      program: this.groupSnapshot.program,
+      startDate: this.groupSnapshot.startDate,
+      group: this.groupId,
+      tasks: this.groupSnapshot.tasks,
+    }).then((scheduleId) => {
+      return this.groups.setSchedule(this.user.uid, this.groupId, scheduleId);
+    }).catch((err) => {
+      this.error.show(err, 'Unable to create schedule');
+    });
+  }
 
 }

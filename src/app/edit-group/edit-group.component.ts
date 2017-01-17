@@ -114,6 +114,7 @@ export class EditGroupComponent implements OnInit, OnDestroy {
       schedule: this.schedule.$key,
       startDate: this.schedule.startDate,
       endDate: this.schedule.endDate,
+      programTitle: this.schedule.programTitle,
       program: this.schedule.program,
       tasks: this.schedule.tasks
     };

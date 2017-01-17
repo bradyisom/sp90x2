@@ -1,13 +1,15 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
 import { GroupService, Group } from '../models/group.service';
 import { ScheduleService } from '../models/schedule.service';
+import { ErrorService } from '../error.service';
 
 import { GroupComponent } from './group.component';
 
@@ -17,25 +19,60 @@ describe('GroupComponent', () => {
   let component: GroupComponent;
   let fixture: ComponentFixture<GroupComponent>;
 
-  const mockGroups = {
-    listUserGroups: jasmine.createSpy('listUserGroups', () => {
-      return Observable.of(['G1', 'G2']);
+  let rejectMethod: boolean;
+
+  const mockSchedules = {
+    create: jasmine.createSpy('create schedule', () => {
+      if (rejectMethod) {
+        return Promise.reject('Error creating schedule');
+      }
+      return Promise.resolve('NEWSCHEDULE');
     }).and.callThrough(),
-    join: jasmine.createSpy('join', () => {}).and.callThrough(),
-    leave: jasmine.createSpy('leave', () => {}).and.callThrough(),
+  };
+
+  const mockError = {
+    show: jasmine.createSpy('error', () => {}).and.callThrough(),
+  };
+
+  const mockGroups = {
+    join: jasmine.createSpy('join', () => {
+      if (rejectMethod) {
+        return Promise.reject('Error joining');
+      }
+      return Promise.resolve();
+    }).and.callThrough(),
+    leave: jasmine.createSpy('leave', () => {
+      if (rejectMethod) {
+        return Promise.reject('Error leaving');
+      }
+      return Promise.resolve();
+    }).and.callThrough(),
     get: jasmine.createSpy('get', () => {
       return Observable.of({
         name: 'Group One',
         owner: 'U1',
         imageUrl: 'assets/logo-noback.png',
+        startDate: '2017-01-16T07:00:00Z',
+        program: 'CLASSIC-M',
+        tasks: {
+          BOFM: 'daily',
+          FASTING: 'monthly',
+        }
       });
     }).and.callThrough(),
     listGroupMembers: jasmine.createSpy('listGroupMembers', () => {
       return Observable.of([{
-        displayName: 'John Doe'
+        $key: 'U1',
+        displayName: 'John Doe',
+        avatar: 'assets/logo-noback.png',
       }, {
-        displayName: 'Jane Dole'
+        $key: 'U2',
+        displayName: 'Jane Dole',
+        avatar: 'assets/logo-noback.png',
       }]);
+    }).and.callThrough(),
+    setSchedule: jasmine.createSpy('setSchedule', () => {
+      return Promise.resolve();
     }).and.callThrough(),
   };
 
@@ -47,6 +84,8 @@ describe('GroupComponent', () => {
       ],
       providers: [
         { provide: GroupService, useValue: mockGroups },
+        { provide: ScheduleService, useValue: mockSchedules },
+        { provide: ErrorService, useValue: mockError },
       ],
       declarations: [ GroupComponent]
     })
@@ -55,10 +94,14 @@ describe('GroupComponent', () => {
 
   beforeEach(() => {
     mockGroups.get.calls.reset();
-    mockGroups.listUserGroups.calls.reset();
     mockGroups.listGroupMembers.calls.reset();
     mockGroups.join.calls.reset();
     mockGroups.leave.calls.reset();
+    mockGroups.setSchedule.calls.reset();
+    mockSchedules.create.calls.reset();
+    mockError.show.calls.reset();
+
+    rejectMethod = false;
   });
 
 
@@ -100,13 +143,13 @@ describe('GroupComponent', () => {
       });
     });
 
-    it('should set isMember to true', () => {
-      expect(component.isMember).toBe(true);
-    });
+    it('should set isMember to true', fakeAsync(() => {
+      expect(component.isMember.value).toBe(true);
+    }));
 
-    it('should set isOwner to true', () => {
-      expect(component.isOwner).toBe(true);
-    });
+    it('should set isOwner to true', fakeAsync(() => {
+      expect(component.isOwner.value).toBe(true);
+    }));
 
   });
 
@@ -127,13 +170,13 @@ describe('GroupComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should set isMember to true', () => {
-      expect(component.isMember).toBe(true);
-    });
+    it('should set isMember to true', fakeAsync(() => {
+      expect(component.isMember.value).toBe(true);
+    }));
 
-    it('should set isOwner to false', () => {
-      expect(component.isOwner).toBe(false);
-    });
+    it('should set isOwner to false', fakeAsync(() => {
+      expect(component.isOwner.value).toBe(false);
+    }));
 
     describe('leave', () => {
 
@@ -142,7 +185,50 @@ describe('GroupComponent', () => {
         expect(mockGroups.leave).toHaveBeenCalledWith('U2', 'G1');
       });
 
+      it('should show an error', fakeAsync(() => {
+        rejectMethod = true;
+        component.leave();
+        tick();
+        expect(mockError.show).toHaveBeenCalledWith(
+          'Error leaving', 'Unable to leave group'
+        );
+      }));
+
     });
+
+
+    describe('createSchedule', () => {
+
+      it('should create the schedule', () => {
+        component.createSchedule();
+        expect(mockSchedules.create).toHaveBeenCalledWith('U2', {
+          programTitle: 'Group One',
+          program: 'CLASSIC-M',
+          startDate: '2017-01-16T07:00:00Z',
+          group: 'G1',
+          tasks: {
+            BOFM: 'daily',
+            FASTING: 'monthly'
+          },
+        });
+      });
+
+      it('should attach the schedule to the group', fakeAsync(() => {
+        component.createSchedule();
+        tick();
+        expect(mockGroups.setSchedule).toHaveBeenCalledWith('U2', 'G1', 'NEWSCHEDULE');
+      }));
+
+      it('should show an error', fakeAsync(() => {
+        rejectMethod = true;
+        component.createSchedule();
+        tick();
+        expect(mockError.show).toHaveBeenCalledWith(
+          'Error creating schedule', 'Unable to create schedule'
+        );
+      }));
+    });
+
 
   });
 
@@ -151,11 +237,11 @@ describe('GroupComponent', () => {
       const route = TestBed.get(ActivatedRoute);
       route.snapshot.data = {
         user: {
-          uid: 'U2'
+          uid: 'U3'
         }
       };
       route.snapshot.params = {
-        id: 'G3',
+        id: 'G1',
       };
 
       fixture = TestBed.createComponent(GroupComponent);
@@ -163,13 +249,13 @@ describe('GroupComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should set isMember to false', () => {
-      expect(component.isMember).toBe(false);
-    });
+    it('should set isMember to false', fakeAsync(() => {
+      expect(component.isMember.value).toBe(false);
+    }));
 
-    it('should set isOwner to false', () => {
-      expect(component.isOwner).toBe(false);
-    });
+    it('should set isOwner to false', fakeAsync(() => {
+      expect(component.isOwner.value).toBe(false);
+    }));
 
 
     describe('join', () => {
@@ -177,9 +263,18 @@ describe('GroupComponent', () => {
       it('should join the group', () => {
         component.join();
         expect(mockGroups.join).toHaveBeenCalledWith({
-          uid: 'U2'
-        }, 'G3');
+          uid: 'U3'
+        }, 'G1');
       });
+
+      it('should show an error', fakeAsync(() => {
+        rejectMethod = true;
+        component.join();
+        tick();
+        expect(mockError.show).toHaveBeenCalledWith(
+          'Error joining', 'Unable to join group'
+        );
+      }));
 
     });
 

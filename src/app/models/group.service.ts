@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 import * as _ from 'lodash';
 
@@ -14,6 +15,7 @@ export interface Group {
   schedule: string;
   startDate: string;
   endDate: string;
+  programTitle: string;
   program: string;
   tasks: any;
 };
@@ -41,6 +43,8 @@ export class GroupService {
           avatar: owner.avatar
         };
         return this.af.database.object(`/groupUsers/${groupId}`).update(userEntry);
+      }).then(() => {
+        return this.setSchedule(owner.uid, groupId, group.schedule);
       });
   }
 
@@ -49,7 +53,9 @@ export class GroupService {
   }
 
   update(groupId: string, group: Group): firebase.Promise<void> {
-    return this.af.database.object(`/groups/${groupId}`).update(group);
+    return this.af.database.object(`/groups/${groupId}`).update(group).then(() => {
+      return this.setSchedule(group.owner, groupId, group.schedule);
+    });
   }
 
   delete(groupId: string): Promise<void> {
@@ -114,6 +120,21 @@ export class GroupService {
     groupEntry[groupId] = true;
     return this.af.database.object(`/groupUsers/${groupId}/${userId}`).remove().then(() => {
       return this.af.database.object(`/users/${userId}/groups/${groupId}`).remove();
+    });
+  }
+
+  setSchedule(userId: string, groupId: string, scheduleId: string) {
+    const schedule = this.af.database.object(`/schedules/${userId}/${scheduleId}`);
+    return schedule.first().toPromise().then((s) => {
+      return this.af.database.object(`/groupUsers/${groupId}/${userId}`).update({
+        schedule: scheduleId,
+        points: s.points,
+        pointsPossible: s.pointsPossible,
+      }).then(() => {
+        return schedule.update({
+          group: groupId
+        });
+      });
     });
   }
 

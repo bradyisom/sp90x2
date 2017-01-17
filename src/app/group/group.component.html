@@ -27,27 +27,30 @@
 </h4>
 
 <button md-raised-button color="accent"
-  *ngIf="!isMember"
+  *ngIf="!(isMember | async)"
   (click)="join()">
   Join
 </button>
 <button md-raised-button color="primary"
-  *ngIf="isMember && !isOwner"
+  *ngIf="(isMember | async) && !(isOwner | async)"
   (click)="leave()">
   Leave
 </button>
-<!--<button md-raised-button color="primary"
-  *ngIf="isMember"
+<button md-raised-button color="accent"
+  *ngIf="(isMember | async) && !(hasSchedule | async)"
   (click)="createSchedule()">
   Create Schedule
-</button>-->
+</button>
 
 <md-tab-group>
   <md-tab *ngIf="(members | async)" label="Members">
     <md-list>
       <md-list-item *ngFor="let member of (members | async)">
-        <img md-list-avatar src="{{member.avatar}}" alt="avatar">
+        <img md-list-avatar [src]="member.avatar" alt="avatar">
         <h3 md-line>{{member.displayName}}</h3>
+        <p md-line *ngIf="member.schedule">
+          {{member.points}} / {{member.pointsPossible}}
+        </p>
       </md-list-item>
     </md-list>
   </md-tab>

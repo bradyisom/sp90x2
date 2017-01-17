@@ -7,11 +7,9 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/reduce';
 import 'rxjs/add/operator/publishReplay';
-import {
-  // ActivatedRoute, Params,
-  Router
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ScheduleService, Schedule } from '../models/schedule.service';
 
 import * as moment from 'moment';
 import 'moment-range';
@@ -38,17 +36,13 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   public currentProgram: any = null;
 
   constructor(
-    // private route: ActivatedRoute,
     private router: Router,
     private auth: AuthService,
-    private af: AngularFire
+    private af: AngularFire,
+    private schedules: ScheduleService,
   ) { }
 
   ngOnInit() {
-    // this.route.params.forEach((params: Params) => {
-    //   this.scheduleId = params['id'];
-    // });
-
     this.programControl = new FormControl('');
     this.programControl.valueChanges.subscribe((programId: string) => this.programChange(programId));
 
@@ -82,17 +76,6 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
 
     this.auth.user.first().subscribe(user => {
       this.userId = user.uid;
-      // if (this.scheduleId) {
-      //   this.schedule = this.af.database.object(`/schedules/${this.userId}/${this.scheduleId}`);
-      //   this.schedule.first().subscribe((schedule) => {
-      //     this.editForm.setValue({
-      //       programTitle: schedule.programTitle,
-      //       startDate: moment(schedule.startDate).format('YYYY-MM-DD'),
-      //       program: schedule.program || ''
-      //     });
-      //     return true;
-      //   });
-      // }
     });
 
   }
@@ -131,105 +114,20 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const startDate = moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day');
-    const endDate = moment(startDate).add(89, 'days').endOf('day');
-
-    // Calculate all of the tasks
-    const orders = {};
-    let pointsPossible = 0;
-    let scheduleTasks;
-    this.filteredTasks
-    .map((taskList: any[]) => {
-      return scheduleTasks = _.filter(taskList, task => task.include);
-    }).reduce((tasks: any, taskList: any) => {
-      moment.range(startDate, endDate).by('days', (day) => {
-        for (const task of taskList) {
-          if (task.defaultInterval === 'monthly') {
-            if (day.isSame(startDate, 'day') || day.date() === 1) {
-              const key = day.format('YYYY-MM');
-              tasks.monthly[key] = tasks.monthly[key] || {};
-              tasks.monthly[key][task.$key] = {
-                points: task.points,
-                finished: false
-              };
-              pointsPossible += task.points;
-              // if (task.subTasks) {
-              //   const order = orders[task.$key] = orders[task.$key] || 0;
-              //   const subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
-              //   if (subTasks[order]) {
-              //     tasks.monthly[key][task.$key].subTask = subTasks[order].title;
-              //     if (subTasks[order].link) {
-              //       tasks.monthly[key][task.$key].subTaskLink = subTasks[order].link;
-              //     }
-              //     orders[task.$key]++;
-              //   }
-              // }
-            }
-          } else {
-            const weekday = day.format('dd');
-            if (task.defaultInterval === 'daily' ||
-                task.defaultInterval.split(',').some((value: string) => value === weekday)) {
-              const key = day.format('YYYY-MM-DD');
-              tasks.daily[key] = tasks.daily[key] || {};
-              tasks.daily[key][task.$key] = {
-                points: task.points,
-                finished: false
-              };
-              pointsPossible += task.points;
-              if (task.subTasks) {
-                const order = orders[task.$key] = orders[task.$key] || 0;
-                tasks.daily[key][task.$key].order = order;
-                orders[task.$key]++;
-
-                // const subTasks: any[] = _.sortBy(_.values(this.subTasks[task.$key]), 'order');
-                // if (subTasks[order]) {
-                //   tasks.daily[key][task.$key].subTask = subTasks[order].title;
-                //   if (subTasks[order].link) {
-                //     tasks.daily[key][task.$key].subTaskLink = subTasks[order].link;
-                //   }
-                //   orders[task.$key]++;
-                // }
-              }
-            }
-          }
-        }
-      });
-      return tasks;
-    }, {
-      daily: {},
-      monthly: {}
-    }).first().subscribe((tasks) => {
-      const newValue = _.extend({}, this.editForm.value, {
-        startDate: startDate.toISOString(),
-        endDate: endDate.toISOString(),
-        points: 0,
-        pointsPossible: pointsPossible,
+    this.filteredTasks.map((taskList: any[]) => {
+      const scheduleTasks = _.filter(taskList, task => task.include);
+      this.schedules.create(this.userId, {
+        program: this.editForm.get('program').value,
+        programTitle: this.editForm.get('programTitle').value,
+        startDate: moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day').toISOString(),
         tasks: _.reduce(scheduleTasks, (result, task: any) => {
           result[task.$key] = task.defaultInterval;
           return result;
         }, {})
+      }).then((scheduleId) => {
+        this.router.navigate(['/home']);
       });
-
-      // const promise;
-      // if (this.schedule) {
-      //   promise = this.schedule.set(newValue);
-      // } else {
-      //   const schedules = this.af.database.list(`/schedules/${this.userId}`);
-      //   promise = schedules.push(newValue);
-      // }
-      // promise.then((result: any) => {
-      this.af.database.list(`/schedules/${this.userId}`).push(newValue)
-        .then((result: any) => {
-          this.scheduleId = this.scheduleId || result.key;
-
-          const entriesObj = this.af.database.object(`/entries/${this.scheduleId}`);
-          return entriesObj.set(tasks);
-        }).then(() => {
-          this.router.navigate(['/home']);
-        });
-    });
-
-
+    }).first().subscribe();
   }
 
   cancel() {

@@ -8,6 +8,7 @@ import { MaterialModule } from '@angular/material';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
+import { ScheduleService } from '../models/schedule.service';
 import { EditScheduleComponent } from './edit-schedule.component';
 
 import * as _ from 'lodash';
@@ -27,6 +28,12 @@ describe('Component: EditSchedule', () => {
     user: Observable.of({
       uid: 'U1'
     })
+  };
+
+  const mockSchedule = {
+    create: jasmine.createSpy('create', () => {
+      return Promise.resolve('SCHED1');
+    }).and.callThrough(),
   };
 
   const pushSpy = jasmine.createSpy('push', () => {
@@ -82,7 +89,8 @@ describe('Component: EditSchedule', () => {
       providers: [
         { provide: AuthService, useValue: mockAuthService },
         { provide: AngularFire, useValue: mockAngularFire },
-        { provide: Router, useValue: mockRouter }
+        { provide: Router, useValue: mockRouter },
+        { provide: ScheduleService, useValue: mockSchedule },
       ],
       declarations: [ EditScheduleComponent ]
     })
@@ -92,6 +100,7 @@ describe('Component: EditSchedule', () => {
   beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
+    mockSchedule.create.calls.reset();
 
     programs = [{
       $key: 'CLASSIC-M',
@@ -260,47 +269,21 @@ describe('Component: EditSchedule', () => {
       fixture.detectChanges();
       tick();
       tick();
-      expect(pushSpy).not.toHaveBeenCalled();
-      expect(setSpy).not.toHaveBeenCalled();
+      expect(mockSchedule.create).not.toHaveBeenCalled();
     }));
 
     it('should save a valid schedule', fakeAsync(() => {
       component.save();
       tick();
-      expect(pushSpy).toHaveBeenCalledWith({
+      expect(mockSchedule.create).toHaveBeenCalledWith('U1', {
+        program: 'PROG1',
         programTitle: 'My Schedule',
         startDate: '2016-12-27T07:00:00.000Z',
-        program: 'PROG1',
-        endDate: '2017-03-27T05:59:59.999Z',
-        points: 0,
-        pointsPossible: 195,
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',
           GC: 'Mo,Th'
         }
-      });
-    }));
-
-    it('should save valid schedule entries', fakeAsync(() => {
-      component.save();
-      tick();
-      expect(setSpy).toHaveBeenCalled();
-      const entries = setSpy.calls.mostRecent().args[0];
-      expect(_.keys(entries.daily).length).toBe(90);
-      expect(entries.daily['2016-12-27']).toEqual({
-        BOFM90: { order: 0, points: 1, finished: false }
-      });
-      expect(entries.daily['2016-12-28']).toEqual({
-        BOFM90: { order: 1, points: 1, finished: false }
-      });
-      expect(entries.daily['2016-12-29']).toEqual({
-        BOFM90: { order: 2, points: 1, finished: false },
-        GC: { points: 1, finished: false }
-      });
-      expect(_.keys(entries.monthly)).toEqual(['2016-12', '2017-01', '2017-02', '2017-03']);
-      expect(entries.monthly['2016-12']).toEqual({
-        FASTING: { points: 20, finished: false }
       });
     }));
 
@@ -310,21 +293,14 @@ describe('Component: EditSchedule', () => {
       });
       component.save();
       tick();
-      expect(setSpy).toHaveBeenCalled();
-      const entries = setSpy.calls.mostRecent().args[0];
-      expect(_.keys(entries.daily).length).toBe(90);
-      expect(entries.daily['2016-12-27']).toEqual({
-        BOFM90: { order: 0, points: 1, finished: false }
-      });
-      expect(entries.daily['2016-12-28']).toEqual({
-        BOFM90: { order: 1, points: 1, finished: false }
-      });
-      expect(entries.daily['2016-12-29']).toEqual({
-        BOFM90: { order: 2, points: 1, finished: false }
-      });
-      expect(_.keys(entries.monthly)).toEqual(['2016-12', '2017-01', '2017-02', '2017-03']);
-      expect(entries.monthly['2016-12']).toEqual({
-        FASTING: { points: 20, finished: false }
+      expect(mockSchedule.create).toHaveBeenCalledWith('U1', {
+        program: 'PROG1',
+        programTitle: 'My Schedule',
+        startDate: '2016-12-27T07:00:00.000Z',
+        tasks: {
+          BOFM90: 'daily',
+          FASTING: 'monthly',
+        }
       });
     }));
 

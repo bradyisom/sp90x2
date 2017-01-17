@@ -68,6 +68,9 @@
         "schedule": {
           ".validate": "newData.isString()"
         },
+        "programTitle": {
+          ".validate": "newData.isString()"
+        },
         "program": {
           ".validate": "root.child('programs').hasChild(newData.val())"
         },
@@ -94,16 +97,14 @@
           "avatar": {
             ".validate": "newData.isString()"
           },
-          "schedules": {
-            "$schedule_id": {
-              ".validate": "root.child('schedules/' + $user_id).hasChild($schedule_id)",
-              "points": {
-                ".validate": "newData.isNumber()"
-              },
-              "pointsPossible": {
-                ".validate": "newData.isNumber()"
-              }
-            }
+          "schedule": {
+            ".validate": "root.child('schedules/' + $user_id).hasChild(newData.val())"
+          },
+          "points": {
+            ".validate": "newData.isNumber()"
+          },
+          "pointsPossible": {
+            ".validate": "newData.isNumber()"
           }
         }
       }

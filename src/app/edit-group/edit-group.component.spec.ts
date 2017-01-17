@@ -208,6 +208,7 @@ describe('EditGroupComponent', () => {
           schedule: 'SCHED1',
           startDate: '2016-12-27T07:00:00.000Z',
           endDate: '2017-03-27T05:59:59.999Z',
+          programTitle: 'My Schedule',
           program: 'PROG1',
           tasks: {
             BOFM90: 'daily',
@@ -357,6 +358,7 @@ describe('EditGroupComponent', () => {
           schedule: 'SCHED1',
           startDate: '2016-12-27T07:00:00.000Z',
           endDate: '2017-03-27T05:59:59.999Z',
+          programTitle: 'My Schedule',
           program: 'PROG1',
           tasks: {
             BOFM90: 'daily',
