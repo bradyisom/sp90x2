@@ -29,7 +29,7 @@ install:
 
 script:
 - ng test -cc -l -sr
-- ng build --prod
+- ng build --prod --aot
 
 after_success:
 - ./node_modules/.bin/codecov
