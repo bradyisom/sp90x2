@@ -33,24 +33,6 @@ import { GroupsComponent } from './groups/groups.component';
 import { EditGroupComponent } from './edit-group/edit-group.component';
 import { GroupComponent } from './group/group.component';
 
-let config: any = {
-  apiKey: 'AIzaSyDcZ18iVjI89jkpRq0SDsF5OeWrACtyFrE',
-  authDomain: 'sp90x-dev.firebaseapp.com',
-  databaseURL: 'https://sp90x-dev.firebaseio.com',
-  storageBucket: 'sp90x-dev.appspot.com',
-  messagingSenderId: '15702666865'
-};
-if (environment.production) {
-  config = {
-    apiKey: 'AIzaSyDX5ot8wh4i9EXP4Tpx_3Y8SU3o6S1dIAo',
-    authDomain: 'sp90x.firebaseapp.com',
-    databaseURL: 'https://sp90x.firebaseio.com',
-    storageBucket: 'project-8976456987898776126.appspot.com',
-    messagingSenderId: '812558087097'
-  };
-}
-export const firebaseConfig = config;
-
 export const firebaseAuthConfig = {
   provider: AuthProviders.Password,
   method: AuthMethods.Password
@@ -84,7 +66,7 @@ export function _window(): any {
     HttpModule,
     MaterialModule.forRoot(),
     ChartsModule,
-    AngularFireModule.initializeApp(firebaseConfig, firebaseAuthConfig),
+    AngularFireModule.initializeApp(environment.firebaseConfig, firebaseAuthConfig),
     RouterModule.forRoot([{
       path: '',
       redirectTo: '/about',
