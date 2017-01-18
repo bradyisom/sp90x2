@@ -19,12 +19,12 @@ a {
 
 [md-fab] {
     position: fixed;
-    right: 42px;
-    top: 36px;
+    right: 20px;
+    top: 84px;
 }
 @media (max-width: 960px) and (orientation: landscape) {
   [md-fab] {
-      top: 20px;
+      top: 68px;
   }
 }
 
