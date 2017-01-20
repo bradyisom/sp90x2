@@ -10,6 +10,8 @@ import 'rxjs/add/observable/timer';
 import { GroupService, Group } from '../models/group.service';
 import { ScheduleService } from '../models/schedule.service';
 import { ErrorService } from '../error.service';
+import { ConfirmService } from '../confirm.service';
+import { EmojifyPipe } from '../emojify.pipe';
 
 import { GroupComponent } from './group.component';
 
@@ -34,6 +36,16 @@ describe('GroupComponent', () => {
 
   const mockError = {
     show: jasmine.createSpy('error', () => {}).and.callThrough(),
+  };
+
+  let rejectConfirm = false;
+  const mockConfirm = {
+    show: jasmine.createSpy('confirm', () => {
+      if (rejectConfirm) {
+        return { afterClosed: () => Observable.of('') };
+      }
+      return { afterClosed: () => Observable.of('confirm') };
+    }).and.callThrough(),
   };
 
   const mockGroups = {
@@ -85,6 +97,9 @@ describe('GroupComponent', () => {
     postMessage: jasmine.createSpy('postMessage', () => {
       return Observable.of({result: 'NEWMESSAGE'});
     }).and.callThrough(),
+    deleteMessage: jasmine.createSpy('deleteMessage', () => {
+      return Observable.of({});
+    }).and.callThrough(),
   };
 
   beforeEach(async(() => {
@@ -97,8 +112,9 @@ describe('GroupComponent', () => {
         { provide: GroupService, useValue: mockGroups },
         { provide: ScheduleService, useValue: mockSchedules },
         { provide: ErrorService, useValue: mockError },
+        { provide: ConfirmService, useValue: mockConfirm },
       ],
-      declarations: [ GroupComponent]
+      declarations: [ GroupComponent, EmojifyPipe ]
     })
     .compileComponents();
   }));
@@ -110,10 +126,13 @@ describe('GroupComponent', () => {
     mockGroups.leave.calls.reset();
     mockGroups.setSchedule.calls.reset();
     mockGroups.listMessages.calls.reset();
+    mockGroups.postMessage.calls.reset();
+    mockGroups.deleteMessage.calls.reset();
     mockSchedules.create.calls.reset();
     mockError.show.calls.reset();
 
     rejectMethod = false;
+    rejectConfirm = false;
 
     messages = [{
       $key: 'M1',
@@ -281,7 +300,50 @@ describe('GroupComponent', () => {
           uid: 'U2'
         }, 'G1', 'Test message');
       });
+
+      it('should not post an empty message', () => {
+        component.postMessage('');
+        expect(mockGroups.postMessage).not.toHaveBeenCalled();
+      });
     });
+
+    describe('insertEmoji', () => {
+
+      it('should insert an emoji', () => {
+        component.insertEmoji(':smiley:');
+        expect(fixture.nativeElement.querySelector('#newMessageField').value).toBe(':smiley:');
+        component.insertEmoji(':hand:');
+        expect(fixture.nativeElement.querySelector('#newMessageField').value).toBe(':smiley::hand:');
+      });
+
+    });
+
+    describe('deleteMessage', () => {
+
+      it('should confirm', () => {
+        component.deleteMessage({$key: 'M1'});
+        expect(mockConfirm.show).toHaveBeenCalledWith(
+          'Are you sure you want to delete this message?',
+          'Delete Message',
+          'warn'
+        );
+      });
+
+      it('should delete the message', () => {
+        component.deleteMessage({$key: 'M1'});
+        expect(mockGroups.deleteMessage).toHaveBeenCalledWith('G1', 'M1');
+      });
+
+      it('should not delete the message', () => {
+        rejectConfirm = true;
+        component.deleteMessage({$key: 'M1'});
+        expect(mockGroups.deleteMessage).not.toHaveBeenCalled();
+      });
+
+
+    });
+
+
 
   });
 

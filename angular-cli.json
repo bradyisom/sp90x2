@@ -19,9 +19,14 @@
       "mobile": false,
       "styles": [
         "styles.scss",
-        "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css"
+        "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
+        "../node_modules/emojify.js/dist/css/basic/emojify.min.css",
+        "../node_modules/emojify.js/dist/css/data-uri/emojify.min.css",
+        "../node_modules/emojify.js/dist/css/data-uri/emojify-emoticons.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/emojify.js/dist/js/emojify.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

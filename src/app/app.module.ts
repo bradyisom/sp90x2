@@ -32,6 +32,7 @@ import { AboutComponent } from './about/about.component';
 import { GroupsComponent } from './groups/groups.component';
 import { EditGroupComponent } from './edit-group/edit-group.component';
 import { GroupComponent } from './group/group.component';
+import { EmojifyPipe } from './emojify.pipe';
 
 export const firebaseAuthConfig = {
   provider: AuthProviders.Password,
@@ -58,6 +59,7 @@ export function _window(): any {
     GroupsComponent,
     EditGroupComponent,
     GroupComponent,
+    EmojifyPipe,
   ],
   imports: [
     BrowserModule,

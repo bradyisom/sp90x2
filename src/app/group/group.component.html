@@ -45,9 +45,21 @@
   <md-tab *ngIf="(isMember | async)" label="Chat">
     <form class="new-post-form">
       <md-input-container class="new-post-message">
-        <textarea md-input md-autosize
+        <textarea md-input md-autosize id="newMessageField"
           placeholder="Post a new message" #message></textarea>
       </md-input-container>
+      <md-menu #emojiMenu="mdMenu">
+        <md-grid-list cols="8" gutterSize="6" class="emoji-list">
+          <md-grid-tile class="emoji-tile"
+              *ngFor="let emoji of emojis">
+            <button md-icon-button [innerHtml]="emoji | emojify"
+              (click)="insertEmoji(emoji)"></button>
+          </md-grid-tile>
+        </md-grid-list>
+      </md-menu>
+      <button md-icon-button [mdMenuTriggerFor]="emojiMenu">
+        <span [innerHtml]="':smiley:' | emojify"></span>
+      </button>
       <button md-icon-button
         (click)="postMessage(message.value); message.value = '';">
         <md-icon>send</md-icon>
@@ -58,8 +70,18 @@
         <img md-card-avatar [src]="message.avatar" alt="avatar">
         <md-card-title>{{message.displayName}}</md-card-title>
         <md-card-subtitle>{{message.date | date:'short'}}</md-card-subtitle>
+        <button md-icon-button
+          *ngIf="message.userId === user.uid || (isOwner | async)"
+          class="delete-message"
+          mdTooltip="Delete message"
+          mdTooltipPosition="before"
+          (click)="deleteMessage(message)">
+          <md-icon>delete</md-icon>
+        </button>
       </md-card-header>
-      <md-card-content [innerHtml]="message.message"></md-card-content>
+      <md-card-content>
+        <div class="message-content" [innerHtml]="message.message | emojify"></div>
+      </md-card-content>
     </md-card>
     <button md-button *ngIf="(hasMoreMessages | async)"
       (click)="loadMore()">

@@ -83,7 +83,7 @@ export class GroupService {
           return groupRef.remove();
         }).then(() => {
           resolve();
-        }).catch((err) => {
+        }).catch(/* istanbul ignore next */(err) => {
           reject(err);
         });
       }).first().subscribe();
@@ -147,6 +147,10 @@ export class GroupService {
         });
       });
     });
+  }
+
+  deleteMessage(groupId: string, messageId: string) {
+    return this.af.database.object(`/groupMessages/${groupId}/${messageId}`).remove();
   }
 
   postMessage(user: any, groupId: string, message: string) {
