@@ -49,7 +49,7 @@
           placeholder="Post a new message" #message></textarea>
       </md-input-container>
       <md-menu #emojiMenu="mdMenu">
-        <md-grid-list cols="8" gutterSize="6" class="emoji-list">
+        <md-grid-list cols="7" gutterSize="6" class="emoji-list">
           <md-grid-tile class="emoji-tile"
               *ngFor="let emoji of emojis">
             <button md-icon-button [innerHtml]="emoji | emojify"
