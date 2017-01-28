@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as _ from 'lodash';
 import * as moment from 'moment';
+import 'moment-range';
 
 export interface Schedule {
   programTitle: string;

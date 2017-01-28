@@ -12,7 +12,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ScheduleService, Schedule } from '../models/schedule.service';
 
 import * as moment from 'moment';
-import 'moment-range';
 import * as _ from 'lodash';
 
 @Component({
