@@ -95,7 +95,11 @@ export function _window(): any {
           path: 'newschedule',
           component: EditScheduleComponent,
           data: {
-            title: 'Create Schedule'
+            title: 'Create Schedule',
+            back: {
+              title: 'Home',
+              route: '/home'
+            }
           }
       }, {
           path: 'editschedule/:id',
@@ -116,14 +120,18 @@ export function _window(): any {
             user: AuthResolver
           },
           data: {
-            title: 'Track'
+            title: 'Track',
+            back: {
+              title: 'Home',
+              route: '/home'
+            }
           }
       }, {
           path: 'fittest/:scheduleId/:date',
           component: FitTestComponent,
           resolve: {
             user: AuthResolver
-          },
+          }
       }, {
           path: 'progress',
           component: ProgressComponent,
@@ -149,7 +157,11 @@ export function _window(): any {
             user: AuthResolver
           },
           data: {
-            title: 'Create Group'
+            title: 'Create Group',
+            back: {
+              title: 'Groups',
+              route: '/groups'
+            }
           }
       }, {
           path: 'editgroup/:id',
@@ -158,7 +170,11 @@ export function _window(): any {
             user: AuthResolver
           },
           data: {
-            title: 'Edit Group'
+            title: 'Edit Group',
+            back: {
+              title: 'Groups',
+              route: '/groups'
+            }
           }
       }, {
           path: 'group/:id',
@@ -167,20 +183,32 @@ export function _window(): any {
             user: AuthResolver
           },
           data: {
-            title: 'Group'
+            title: 'Group',
+            back: {
+              title: 'Groups',
+              route: '/groups'
+            }
           }
       }]
     }, {
       path: 'login',
       component: LoginComponent,
       data: {
-        title: 'Login'
+        title: 'Login',
+        back: {
+          title: 'What is SP90X?',
+          route: '/about'
+        }
       }
     }, {
       path: 'register',
       component: RegisterComponent,
       data: {
-        title: 'Create an Account'
+        title: 'Create an Account',
+        back: {
+          title: 'Login',
+          route: '/login'
+        }
       }
     }], {
       initialNavigation: true

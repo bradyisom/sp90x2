@@ -79,10 +79,12 @@ describe('GroupComponent', () => {
         $key: 'U1',
         displayName: 'John Doe',
         avatar: 'assets/logo-noback.png',
+        points: 5,
       }, {
         $key: 'U2',
         displayName: 'Jane Dole',
         avatar: 'assets/logo-noback.png',
+        points: 10,
       }]);
     }).and.callThrough(),
     setSchedule: jasmine.createSpy('setSchedule', () => {
@@ -177,8 +179,8 @@ describe('GroupComponent', () => {
       expect(mockGroups.listGroupMembers).toHaveBeenCalledWith('G1');
       component.members.first().subscribe((members) => {
         expect(_.map(members, (m: any) => m.displayName)).toEqual([
-          'John Doe',
           'Jane Dole',
+          'John Doe',
         ]);
       });
     });

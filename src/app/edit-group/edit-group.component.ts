@@ -45,13 +45,14 @@ export class EditGroupComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.groupId = this.route.snapshot.params['id'];
     this.user = this.route.snapshot.data['user'];
+    const initialSchedule = this.route.snapshot.queryParams['scheduleId'];
 
     this.editForm = new FormGroup({
       name: new FormControl('', Validators.required),
       description: new FormControl('', Validators.required),
       // public: new FormControl(true),
       // hasSchedule: new FormControl(false),
-      schedule: new FormControl(null, Validators.required),
+      schedule: new FormControl(initialSchedule || null, Validators.required),
     });
 
     // this.subscriptions.push(this.editForm.get('hasSchedule').valueChanges.subscribe(() => {

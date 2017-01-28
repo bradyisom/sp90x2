@@ -71,6 +71,28 @@ describe('AppComponent', () => {
               }
             }]
           }, {
+            path: 'back',
+            children: [{
+              path: '',
+              outlet: 'other',
+              component: DummyComponent,
+              data: {
+                back: {
+                  title: 'Other',
+                  route: '/other'
+                }
+              }
+            }, {
+              path: '',
+              component: DummyComponent,
+              data: {
+                back: {
+                  title: 'Home',
+                  route: '/home'
+                }
+              }
+            }]
+          }, {
             path: 'home',
             component: DummyComponent,
             data: {
@@ -144,6 +166,21 @@ describe('AppComponent', () => {
       tick();
       expect(component.showTitle).toBe(true);
       expect(component.title).toBe('Test Title');
+    }));
+
+    it('should handle no back info', fakeAsync(() => {
+      router.navigate(['/']);
+      tick();
+      expect(component.back).toEqual({});
+    }));
+
+    it('should handle back info', fakeAsync(() => {
+      router.navigate(['/back']);
+      tick();
+      expect(component.back).toEqual({
+        title: 'Home',
+        route: '/home'
+      });
     }));
 
     it('should hide home title', fakeAsync(() => {

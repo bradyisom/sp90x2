@@ -400,4 +400,36 @@ describe('EditGroupComponent', () => {
     });
 
   });
+
+  describe('new group with schedule', () => {
+
+    beforeEach(() => {
+      const route = TestBed.get(ActivatedRoute);
+      route.snapshot.data = {
+        user: {
+          uid: 'U1'
+        }
+      };
+      route.snapshot.params = {};
+      route.snapshot.queryParams = {
+        scheduleId: 'SCHED1'
+      };
+
+      fixture = TestBed.createComponent(EditGroupComponent);
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should create', () => {
+      expect(component).toBeTruthy();
+    });
+
+    it('should setup edit form', () => {
+      expect(component.editForm.getRawValue()).toEqual({
+        name: '',
+        description: '',
+        schedule: 'SCHED1',
+      });
+    });
+  });
 });

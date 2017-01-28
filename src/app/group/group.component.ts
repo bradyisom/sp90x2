@@ -21,7 +21,7 @@ export class GroupComponent implements OnInit {
   public members: Observable<any>;
   public isOwner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public isMember: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  public hasSchedule: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public scheduleId: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public hasMoreMessages: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public messages: Observable<any>;
 
@@ -62,12 +62,15 @@ export class GroupComponent implements OnInit {
     this.members = this.groups.listGroupMembers(this.groupId).map((members) => {
       const memberEntry = _.find(members, (m: any) => m.$key === this.user.uid);
       this.isMember.next(!!memberEntry);
-      this.hasSchedule.next(!!(memberEntry && memberEntry.schedule));
+      this.scheduleId.next((memberEntry && memberEntry.schedule) || '');
       this.changeDetector.detectChanges();
       if (this.isMember.value) {
         this.loadMessages();
       }
-      return members;
+      return _.sortBy(members, (m: any) => -m.points).map((m: any) => {
+        m.isOwner = this.groupSnapshot.owner === m.$key;
+        return m;
+      });
     });
   }
 

@@ -30,21 +30,17 @@
         <md-icon md-list-avatar>home</md-icon>
         <h4 md-line>Home</h4>
       </a>
-      <a md-list-item href="" routerLink="/newschedule"
+      <a md-list-item href="" routerLink="/groups"
         *ngIf="(auth.user | async)">
-        <md-icon md-list-avatar>create</md-icon>
-        <h4 md-line>Create Schedule</h4>
+        <md-icon md-list-avatar>group_work</md-icon>
+        <h4 md-line>Groups</h4>
       </a>
       <a md-list-item href="" routerLink="/progress"
         *ngIf="(auth.user | async)">
         <md-icon md-list-avatar>trending_up</md-icon>
         <h4 md-line>Progress</h4>
       </a>
-      <a md-list-item href="" routerLink="/groups"
-        *ngIf="(auth.user | async)">
-        <md-icon md-list-avatar>group_work</md-icon>
-        <h4 md-line>Groups</h4>
-      </a>
+      <md-divider *ngIf="(auth.user | async)"></md-divider>
       <a md-list-item href="" routerLink="/about">
         <md-icon md-list-avatar>info</md-icon>
         <h4 md-line>What is SP90X?</h4>
@@ -71,6 +67,12 @@
     <md-toolbar color="primary" class="md-elevation-z4">
       <button class="menu-button" md-icon-button (click)="sidenav.open()">
         <md-icon>menu</md-icon>
+      </button>
+      <button class="back-button" md-icon-button
+        *ngIf="back.route"
+        [routerLink]="[back.route]"
+        [mdTooltip]="back.title">
+        <md-icon>chevron_left</md-icon>
       </button>
       <h1 class="page-title" *ngIf="showTitle">
         {{title}}

@@ -20,7 +20,7 @@ export class TrackComponent implements OnInit {
   public monthlyEntries: Observable<any[]>;
   public fitTest: FirebaseObjectObservable<any> | null;
   userId: string;
-  scheduleId: string;
+  public scheduleId: string;
   startDate: any;
   endDate: any;
   points: number;

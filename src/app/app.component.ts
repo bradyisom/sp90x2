@@ -11,6 +11,7 @@ import { ConfirmService } from './confirm.service';
 export class AppComponent {
   public appName = 'SP90X';
   public title = '';
+  public back: any = {};
   public showTitle = false;
 
   constructor(
@@ -21,6 +22,7 @@ export class AppComponent {
     this.router.events.filter(event => event instanceof NavigationEnd)
       .subscribe(event => {
         this.title = '';
+        this.back = {};
         let currentRoute = this.router.routerState.root;
         do {
           const childRoutes = currentRoute.children;
@@ -28,8 +30,11 @@ export class AppComponent {
           childRoutes.forEach(route => {
             if (route.outlet === 'primary') {
               const routeSnapshot = route.snapshot;
-              if (routeSnapshot.data && routeSnapshot.data['title']) {
+              if (routeSnapshot.data['title']) {
                 this.title = routeSnapshot.data['title'];
+              }
+              if (routeSnapshot.data['back']) {
+                this.back = routeSnapshot.data['back'];
               }
               currentRoute = route;
             }

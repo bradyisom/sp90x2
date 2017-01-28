@@ -25,7 +25,12 @@
   Leave
 </button>
 <button md-raised-button color="accent"
-  *ngIf="(isMember | async) && !(hasSchedule | async)"
+  *ngIf="(isMember | async) && (scheduleId | async)"
+  [routerLink]="['/track', (scheduleId | async)]">
+  Track Progress
+</button>
+<button md-raised-button color="accent"
+  *ngIf="(isMember | async) && !(scheduleId | async)"
   (click)="createSchedule()">
   Create Schedule
 </button>
@@ -35,7 +40,10 @@
     <md-list>
       <md-list-item *ngFor="let member of (members | async)">
         <img md-list-avatar [src]="member.avatar" alt="avatar">
-        <h3 md-line>{{member.displayName}}</h3>
+        <h3 md-line>
+          {{member.displayName}}
+          <span *ngIf="member.isOwner">(owner)</span>
+        </h3>
         <p md-line *ngIf="member.schedule">
           {{member.points}} / {{member.pointsPossible}}
         </p>

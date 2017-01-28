@@ -1,4 +1,14 @@
 <h1>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h1>
+<button md-raised-button color="primary"
+  *ngIf="(schedule | async)?.group"
+  [routerLink]="['/group', (schedule | async).group]">
+  Go to Group
+</button>
+<button md-raised-button color="primary"
+  *ngIf="!(schedule | async)?.group"
+  [routerLink]="['/newgroup']" [queryParams]="{ scheduleId: scheduleId }">
+  Create Group
+</button>
 <h3>Points: {{(schedule | async)?.points}} / {{(schedule | async)?.pointsPossible}}</h3>
 <h4>
   <button md-icon-button (click)="moveDay(-1)"
