@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { ImageCropperComponent } from 'ng2-img-cropper';
+import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { environment } from '../environments/environment';
 
@@ -64,7 +64,6 @@ export function _window(): any {
     GroupComponent,
     EmojifyPipe,
     ChooseImageComponent,
-    ImageCropperComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +72,7 @@ export function _window(): any {
     HttpModule,
     MaterialModule.forRoot(),
     ChartsModule,
+    ImageCropperModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, firebaseAuthConfig),
     RouterModule.forRoot([{
       path: '',

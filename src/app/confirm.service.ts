@@ -28,8 +28,8 @@ import { MdDialog, MdDialogRef } from '@angular/material';
 })
 export class ConfirmComponent {
   @Input() public message: string;
-  @Input() public confirmLabel: string = 'OK';
-  @Input() public confirmColor: string = 'accent';
+  @Input() public confirmLabel = 'OK';
+  @Input() public confirmColor = 'accent';
   @Input() public title: string;
 
   constructor(public dialogRef: MdDialogRef<ConfirmComponent>) { }

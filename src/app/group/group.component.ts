@@ -27,7 +27,7 @@ export class GroupComponent implements OnInit {
 
   private groupSnapshot: Group;
   private groupId: string;
-  private user: any;
+  public user: any;
 
   private firstMessageKey: string;
   private messagePageSize = 10;

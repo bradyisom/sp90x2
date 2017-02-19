@@ -24,7 +24,7 @@ export class FitTestComponent implements OnInit, OnDestroy {
   private date = moment().startOf('day').format('YYYY-MM-DD');
 
   public answers: any;
-  public selectedTab: number = 0;
+  public selectedTab = 0;
 
   constructor(
     private af: AngularFire,

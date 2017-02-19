@@ -4,31 +4,31 @@
 
 @import '~@angular/material/core/theming/all-theme';
 
-@include md-core();
+@include mat-core();
 
 // LIGHT
-// $primary: md-palette($md-blue-grey);
-// $accent:  md-palette($md-deep-orange, A200, A100, A400);
+// $primary: mat-palette($mat-blue-grey);
+// $accent:  mat-palette($mat-deep-orange, A200, A100, A400);
 
-// $warn:    md-palette($md-red);
+// $warn:    mat-palette($mat-red);
 
-// $theme: md-light-theme($primary, $accent, $warn);
+// $theme: mat-light-theme($primary, $accent, $warn);
 
 // @include angular-material-theme($theme);
 
 // DARK
-$dark-primary: md-palette($md-grey);
-$dark-accent:  md-palette($md-deep-orange, A200, A100, A400);
-$dark-warn:    md-palette($md-red);
+$dark-primary: mat-palette($mat-grey);
+$dark-accent:  mat-palette($mat-deep-orange, A200, A100, A400);
+$dark-warn:    mat-palette($mat-red);
 
-$dark-theme: md-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
 @include angular-material-theme($dark-theme);
 
 // OTHER
 body, html {
     margin: 0;
-    background-color: map-get($md-dark-theme-background, background);
+    background-color: map-get($mat-dark-theme-background, background);
     color: white;
     font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
@@ -46,7 +46,7 @@ md-toolbar .title {
 }
 
 a {
-    color: md-color($dark-accent, A200);
+    color: mat-color($dark-accent, A200);
 }
 
 svg text {

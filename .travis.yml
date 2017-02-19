@@ -2,7 +2,7 @@ sudo: required
 dist: trusty
 language: node_js
 node_js:
-  - '5.7'
+  - '7'
 
 branches:
   only:
@@ -23,7 +23,7 @@ before_install:
   - sh -e /etc/init.d/xvfb start
 
 install:
-- npm install -g angular-cli
+- npm install -g @angular/cli
 - npm install -g firebase-tools
 - npm install
 
@@ -31,7 +31,8 @@ before_script:
 - cp src/environments/environment.prod.ts src/environments/environment.ts
 
 script:
-- ng test -cc -l -sr
+- ng lint
+- ng test -cc -sr
 - ng build -prod --environment prod --aot
 
 after_success:

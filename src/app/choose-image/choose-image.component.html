@@ -7,7 +7,7 @@
     </md-radio-group>
     <div class="form-group" *ngIf="imageType === 'search'">
       <md-input-container>
-        <input md-input placeholder="Search" autocomplete="off" [(ngModel)]="query"
+        <input mdInput placeholder="Search" autocomplete="off" [(ngModel)]="query"
           (keyup)="onSearchType($event.target.value)">
       </md-input-container>
       <a href="https://pixabay.com/" target="_blank" class="pixabay-logo">
