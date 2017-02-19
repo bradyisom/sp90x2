@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, fakeAsync, tick, inject } from '@angular/core/testing';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseApp } from 'angularfire2';
 import { GroupService, Group } from './group.service';
 import { Observable } from 'rxjs/Observable';
 
@@ -122,6 +122,28 @@ describe('GroupService', () => {
     }
   };
 
+  const deleteFileSpy = jasmine.createSpy('delete', () => {
+    return Promise.resolve({});
+  }).and.callThrough();
+
+  const storageChildSpy = jasmine.createSpy('storage ref', () => {
+    return {
+      delete: deleteFileSpy
+    };
+  }).and.callThrough();
+
+  const mockFirebase = {
+    storage: () => {
+      return {
+        ref: () => {
+          return {
+            child: storageChildSpy
+          };
+        }
+      };
+    }
+  };
+
   beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
@@ -136,6 +158,8 @@ describe('GroupService', () => {
     removeGroupUsersSpy.calls.reset();
     updateScheduleGroupSpy.calls.reset();
     removeScheduleGroupSpy.calls.reset();
+    storageChildSpy.calls.reset();
+    deleteFileSpy.calls.reset();
 
     rejectRemoveGroup = false;
 
@@ -146,6 +170,7 @@ describe('GroupService', () => {
     TestBed.configureTestingModule({
       providers: [GroupService,
         { provide: AngularFire, useValue: mockAngularFire },
+        { provide: FirebaseApp, useValue: mockFirebase },
       ]
     });
   });
@@ -206,6 +231,15 @@ describe('GroupService', () => {
         }
       });
     }));
+
+
+    it('should resolve with the new groupId', fakeAsync(() => {
+      service.create(group, user).then((groupId) => {
+        expect(groupId).toBe('G1');
+      });
+      tick();
+    }));
+
   });
 
 
@@ -278,6 +312,17 @@ describe('GroupService', () => {
       expect(mockAngularFire.database.object).toHaveBeenCalledWith('/schedules/U1/SCHED1/group');
       expect(removeScheduleGroupSpy).toHaveBeenCalled();
     }));
+
+
+    it('should delete the group image', fakeAsync(() => {
+      testGroup.schedule = 'SCHED1';
+      testGroup.owner = 'U1';
+      service.delete('G1');
+      tick();
+      expect(storageChildSpy).toHaveBeenCalledWith('user/U1/G1/thumbnail.png');
+      expect(deleteFileSpy).toHaveBeenCalled();
+    }));
+
 
   });
 

@@ -1,0 +1,59 @@
+<h2 md-dialog-title>Choose Image</h2>
+<div md-dialog-content>
+  <div *ngIf="!data.image && !loading">
+    <md-radio-group class="image-type-radios" [(ngModel)]="imageType">
+      <md-radio-button value="search">Search</md-radio-button>
+      <md-radio-button value="upload">Upload</md-radio-button>
+    </md-radio-group>
+    <div class="form-group" *ngIf="imageType === 'search'">
+      <md-input-container>
+        <input md-input placeholder="Search" autocomplete="off" [(ngModel)]="query"
+          (keyup)="onSearchType($event.target.value)">
+      </md-input-container>
+      <a href="https://pixabay.com/" target="_blank" class="pixabay-logo">
+        powered by
+        <i><img src="/assets/pixabaylogo.svg"></i>
+      </a>
+      <md-grid-list [cols]="(columnCount | async)" gutterSize="3">
+        <md-grid-tile
+          *ngFor="let image of (imageResults | async)?.hits"
+          colspan="1" rowspan="1">
+          <div class="image-tile"
+            (click)="selectImage(image)"
+            [style.backgroundImage]="'url(' + image.previewURL + ')'">
+          </div>
+        </md-grid-tile>
+      </md-grid-list>
+      <div class="pager" *ngIf="(imageResults | async)?.totalHits">
+        <span class="page-status">
+          {{firstIndex}} - {{lastIndex}} of {{(imageResults | async)?.totalHits}}
+        </span>
+        <button md-icon-button
+          (click)="prevPage()"
+          [disabled]="page <= 1">
+          <md-icon>chevron_left</md-icon>
+        </button>
+        <button md-icon-button
+          (click)="nextPage()"
+          [disabled]="(imageResults|async)?.totalHits <= pageSize*page">
+          <md-icon>chevron_right</md-icon>
+        </button>
+      </div>
+    </div>
+    <div class="form-group file-chooser" *ngIf="imageType === 'upload'">
+      <input type="file" (change)="fileChangeListener($event)">
+    </div>
+  </div>
+  <div class="cropper" [hidden]="!data.image && !loading">
+    <label>Crop:</label>
+    <md-progress-spinner *ngIf="loading" mode="indeterminate" color="accent"></md-progress-spinner>
+    <img-cropper #cropper [image]="data"
+        [settings]="cropperSettings"></img-cropper>
+  </div>
+</div>
+<md-dialog-actions>
+  <button color="primary" md-button md-dialog-close>Cancel</button>
+  <button class="confirm-btn" color="accent" md-button
+    [disabled]="!data.image"
+    (click)="dialogRef.close(data.image)">Use Image</button>
+</md-dialog-actions>

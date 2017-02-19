@@ -18,11 +18,13 @@
       <input md-input type="text" formControlName="description">
     </md-input-container>
   </div>
+  <div class="form-group group-image">
+    <label>Picture:</label>
+    <img *ngIf="(imageUrl | async)" [src]="(imageUrl | async)">
+    <button md-raised-button color="primary"
+      (click)="chooseImage()">Change</button>
+  </div>
   <div class="form-group">
-    <!--<md-checkbox formControlName="public"
-      labelPosition="after">Public</md-checkbox>-->
-    <!--<md-checkbox #hasSchedule formControlName="hasSchedule"
-      labelPosition="after">Attach a schedule</md-checkbox>-->
     <label>Schedule template:</label>
     <div class="schedule-template" *ngIf="(schedules | async)">
       <p *ngIf="!(schedules | async)?.length">

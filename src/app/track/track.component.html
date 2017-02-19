@@ -1,7 +1,7 @@
 <h1>{{(schedule | async)?.programTitle}} - Day {{programDay}}</h1>
 <button md-raised-button color="primary"
   *ngIf="(schedule | async)?.group"
-  [routerLink]="['/group', (schedule | async).group]">
+  [routerLink]="['/group', (schedule | async)?.group]">
   Go to Group
 </button>
 <button md-raised-button color="primary"

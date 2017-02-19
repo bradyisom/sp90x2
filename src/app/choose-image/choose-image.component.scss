@@ -1,0 +1,84 @@
+md-grid-list {
+  width: 70vw;
+}
+
+.image-tile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  background-position: center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.image-type-radios {
+  md-radio-button {
+    margin: 6px;
+  }
+}
+
+.file-chooser {
+  input {
+    margin: 8px 0;
+  }
+}
+
+.pixabay-logo {
+  margin: 5px 15px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #777;
+  display: inline-block;
+  padding: 8px 12px 10px;
+  background: #fff;
+  text-decoration: none;
+
+  i {
+    display: block;
+    width: 68px;
+    height: 18px;
+    overflow: hidden;
+  }
+
+  img {
+    width: 92px;
+  }
+}
+
+.cropper {
+  position: relative;
+
+  img-cropper {
+    display: block;
+  }
+
+  md-progress-spinner {
+    height: 75px;
+    width: 75px;
+    position: absolute;
+    left: 113px;
+    top: 113px;
+  }
+}
+
+md-dialog-actions,
+.pager {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+md-dialog-actions button,
+.pager > * {
+  margin-left: 6px;
+}
+
+.pager {
+  margin: 6px 0;
+}
+

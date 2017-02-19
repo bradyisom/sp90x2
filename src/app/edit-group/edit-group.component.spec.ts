@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { DebugElement, Component } from '@angular/core';
+import { MaterialModule, MdSnackBar, MdDialog } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseApp } from 'angularfire2';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,6 +17,21 @@ import { EditGroupComponent } from './edit-group.component';
 
 import * as _ from 'lodash';
 
+@Component({
+  template: `
+    <router-outlet></router-outlet>
+    <router-outlet name="other"></router-outlet>
+  `
+})
+class ParentComponent {
+}
+
+@Component({
+  template: ''
+})
+class DummyComponent {
+}
+
 describe('EditGroupComponent', () => {
   let component: EditGroupComponent;
   let fixture: ComponentFixture<EditGroupComponent>;
@@ -24,6 +39,9 @@ describe('EditGroupComponent', () => {
   let router: Router;
 
   let rejectGroup: boolean;
+
+  const testImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=';
+  const testImageData = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=';
 
   const mockGroups = {
     update: jasmine.createSpy('update', () => {
@@ -36,7 +54,7 @@ describe('EditGroupComponent', () => {
       if (rejectGroup) {
         return Promise.reject('Save group error');
       }
-      return Promise.resolve({});
+      return Promise.resolve('G1');
     }).and.callThrough(),
     delete: jasmine.createSpy('delete', () => {
       if (rejectGroup) {
@@ -90,11 +108,29 @@ describe('EditGroupComponent', () => {
     }).and.callThrough(),
   };
 
+  let chosenImage: string;
+  const mockDialog = {
+    open: jasmine.createSpy('open', () => {
+      return {
+        afterClosed: () => {
+          return Observable.of(chosenImage);
+        }
+      };
+    }).and.callThrough(),
+  };
+
+  const putStringSpy = jasmine.createSpy('putString', () => {
+    return Promise.resolve({
+      downloadURL: 'assets/logo-noback.png'
+    });
+  }).and.callThrough();
+
   const storageChildSpy = jasmine.createSpy('storage ref', () => {
     return {
       getDownloadURL: () => {
         return Promise.resolve('assets/logo-noback.png');
-      }
+      },
+      putString: putStringSpy
     };
   }).and.callThrough();
 
@@ -110,27 +146,42 @@ describe('EditGroupComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  const snackBarDismissSpy = jasmine.createSpy('dismiss', () => {}).and.callThrough();
+  const mockSnackbar = {
+    open: jasmine.createSpy('open', () => {
+      return {
+        dismiss: snackBarDismissSpy
+      };
+    }).and.callThrough(),
+  };
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule.withRoutes([]),
+        RouterTestingModule.withRoutes([{
+          path: '',
+          component: ParentComponent,
+          children: [{
+            path: 'groups',
+            component: DummyComponent
+          }]
+        }]),
         MaterialModule.forRoot(),
         FormsModule,
         ReactiveFormsModule,
       ],
       providers: [
+        { provide: MdSnackBar, useValue: mockSnackbar },
         { provide: GroupService, useValue: mockGroups },
         { provide: ScheduleService, useValue: mockSchedules },
         { provide: ErrorService, useValue: mockError },
         { provide: ConfirmService, useValue: mockConfirm },
         { provide: FirebaseApp, useValue: mockFirebase },
+        { provide: MdDialog, useValue: mockDialog },
       ],
-      declarations: [ EditGroupComponent ]
-    })
-    .compileComponents();
-  }));
+      declarations: [ EditGroupComponent, DummyComponent, ParentComponent ]
+    });
 
-  beforeEach(() => {
     mockSchedules.listSchedules.calls.reset();
     mockGroups.create.calls.reset();
     mockGroups.get.calls.reset();
@@ -139,9 +190,14 @@ describe('EditGroupComponent', () => {
     mockError.show.calls.reset();
     mockConfirm.show.calls.reset();
     storageChildSpy.calls.reset();
+    putStringSpy.calls.reset();
+    mockSnackbar.open.calls.reset();
+    snackBarDismissSpy.calls.reset();
+    mockDialog.open.calls.reset();
 
     rejectGroup = false;
     confirmResult = 'confirm';
+    chosenImage = null;
 
     router = TestBed.get(Router);
     spyOn(router, 'navigate').and.callFake(() => {});
@@ -196,7 +252,7 @@ describe('EditGroupComponent', () => {
 
     describe('save', () => {
 
-      it('should update the group', () => {
+      it('should update the group', fakeAsync(() => {
         component.save();
         expect(mockGroups.create).not.toHaveBeenCalled();
         expect(mockGroups.update).toHaveBeenCalledWith('G1', {
@@ -216,7 +272,8 @@ describe('EditGroupComponent', () => {
             GC: 'Mo,Th'
           }
         });
-      });
+        tick();
+      }));
 
       it('should navigate back to groups', fakeAsync(() => {
         component.save();
@@ -232,6 +289,42 @@ describe('EditGroupComponent', () => {
           'Save group error',
           'Unable to save group'
         );
+      }));
+
+      it('should show saving status', fakeAsync(() => {
+        component.save();
+        expect(mockSnackbar.open).toHaveBeenCalledWith('Saving...');
+        tick();
+        expect(mockSnackbar.open).toHaveBeenCalledWith('Saved Group!', undefined, {duration: 2000});
+      }));
+
+      it('should save a new image', fakeAsync(() => {
+        component.imageUrl.next(testImage);
+        component.save();
+        expect(mockGroups.update).toHaveBeenCalledWith('G1', {
+          name: 'Group One',
+          description: 'First group',
+          public: true,
+          owner: 'U1',
+          imageUrl: 'about:blank',
+          schedule: 'SCHED1',
+          startDate: '2016-12-27T07:00:00.000Z',
+          endDate: '2017-03-27T05:59:59.999Z',
+          programTitle: 'My Schedule',
+          program: 'PROG1',
+          tasks: {
+            BOFM90: 'daily',
+            FASTING: 'monthly',
+            GC: 'Mo,Th'
+          }
+        });
+        tick();
+        expect(putStringSpy).toHaveBeenCalledWith(testImageData, 'base64', {
+          contentType: 'image/png'
+        });
+        expect(mockGroups.update).toHaveBeenCalledWith('G1', jasmine.objectContaining({
+          imageUrl: 'assets/logo-noback.png',
+        }));
       }));
 
 
@@ -331,6 +424,24 @@ describe('EditGroupComponent', () => {
     });
 
 
+    describe('chooseImage', () => {
+
+      it('should choose a new image', () => {
+        chosenImage = testImage;
+        component.chooseImage();
+        expect(mockDialog.open).toHaveBeenCalled();
+        expect(component.imageUrl.value).toBe(testImage);
+      });
+
+      it('should not set the image on cancel', () => {
+        component.chooseImage();
+        expect(mockDialog.open).toHaveBeenCalled();
+        expect(component.imageUrl.value).toBe('');
+      });
+
+    });
+
+
     describe('save', () => {
 
       it('should noop with invalid form', () => {
@@ -354,7 +465,7 @@ describe('EditGroupComponent', () => {
           description: 'Another group',
           public: true,
           owner: 'U1',
-          imageUrl: undefined, // 'assets/logo-noback.png',
+          imageUrl: '', // 'assets/logo-noback.png',
           schedule: 'SCHED1',
           startDate: '2016-12-27T07:00:00.000Z',
           endDate: '2017-03-27T05:59:59.999Z',
@@ -395,6 +506,44 @@ describe('EditGroupComponent', () => {
           'Save group error',
           'Unable to save group'
         );
+      }));
+
+      it('should save a chosen image', fakeAsync(() => {
+        component.editForm.setValue({
+          name: 'New Group',
+          description: 'Another group',
+          schedule: 'SCHED1',
+        });
+        tick();
+        component.imageUrl.next(testImage);
+        fixture.detectChanges();
+        component.save();
+        expect(mockGroups.create).toHaveBeenCalledWith({
+          name: 'New Group',
+          description: 'Another group',
+          public: true,
+          owner: 'U1',
+          imageUrl: 'about:blank', // 'assets/logo-noback.png',
+          schedule: 'SCHED1',
+          startDate: '2016-12-27T07:00:00.000Z',
+          endDate: '2017-03-27T05:59:59.999Z',
+          programTitle: 'My Schedule',
+          program: 'PROG1',
+          tasks: {
+            BOFM90: 'daily',
+            FASTING: 'monthly',
+            GC: 'Mo,Th'
+          }
+        }, {
+          uid: 'U1'
+        });
+        tick();
+        expect(putStringSpy).toHaveBeenCalledWith(testImageData, 'base64', {
+          contentType: 'image/png'
+        });
+        expect(mockGroups.update).toHaveBeenCalledWith('G1', jasmine.objectContaining({
+          imageUrl: 'assets/logo-noback.png',
+        }));
       }));
 
     });

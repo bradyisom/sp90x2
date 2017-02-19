@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
+import { Injectable, Inject } from '@angular/core';
+import { AngularFire, FirebaseApp, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -26,6 +26,7 @@ export class GroupService {
 
   constructor(
     private af: AngularFire,
+    @Inject(FirebaseApp) private firebase: any,
   ) { }
 
   create(group: Group, owner: any): firebase.Promise<any> {
@@ -46,6 +47,8 @@ export class GroupService {
         return this.af.database.object(`/groupUsers/${groupId}`).update(userEntry);
       }).then(() => {
         return this.setSchedule(owner.uid, groupId, group.schedule);
+      }).then(() => {
+        return groupId;
       });
   }
 
@@ -63,6 +66,7 @@ export class GroupService {
     return new Promise<void>((resolve, reject) => {
       let groupRef: FirebaseObjectObservable<Group>;
       const users = this.af.database.list(`/groupUsers/${groupId}`);
+      let ownerId = '';
       return users.map((groupUsers) => {
         const promises = [];
         for (const userId of _.map(groupUsers, (user: any) => user.$key)) {
@@ -74,11 +78,15 @@ export class GroupService {
           groupRef = this.af.database.object(`/groups/${groupId}`);
           return groupRef.first().toPromise();
         }).then((group: Group) => {
+          ownerId = group.owner;
           if (group.schedule) {
             return this.af.database.object(`/schedules/${group.owner}/${group.schedule}/group`).remove();
           } else {
             return Promise.resolve();
           }
+        }).then(() => {
+          const storageRef = this.firebase.storage().ref().child(`user/${ownerId}/${groupId}/thumbnail.png`);
+          return storageRef.delete().catch(/* istanbul ignore next */(err) => {});
         }).then(() => {
           return groupRef.remove();
         }).then(() => {

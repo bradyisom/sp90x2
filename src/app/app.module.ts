@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '@angular/material';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { ImageCropperComponent } from 'ng2-img-cropper';
 
 import { environment } from '../environments/environment';
 
@@ -17,6 +18,7 @@ import { ConfirmService, ConfirmComponent } from './confirm.service';
 import { WindowSizeService } from './window-size.service';
 import { ScheduleService } from './models/schedule.service';
 import { GroupService } from './models/group.service';
+import { ImageService } from './image.service';
 
 import 'hammerjs';
 
@@ -33,6 +35,7 @@ import { GroupsComponent } from './groups/groups.component';
 import { EditGroupComponent } from './edit-group/edit-group.component';
 import { GroupComponent } from './group/group.component';
 import { EmojifyPipe } from './emojify.pipe';
+import { ChooseImageComponent } from './choose-image/choose-image.component';
 
 export const firebaseAuthConfig = {
   provider: AuthProviders.Password,
@@ -60,6 +63,8 @@ export function _window(): any {
     EditGroupComponent,
     GroupComponent,
     EmojifyPipe,
+    ChooseImageComponent,
+    ImageCropperComponent,
   ],
   imports: [
     BrowserModule,
@@ -224,11 +229,13 @@ export function _window(): any {
     ScheduleService,
     GroupService,
     WindowSizeService,
+    ImageService,
   ],
   bootstrap: [AppComponent],
   entryComponents: [
     ErrorComponent,
     ConfirmComponent,
+    ChooseImageComponent,
   ]
 })
 export class AppModule { }
