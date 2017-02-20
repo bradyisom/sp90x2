@@ -35,7 +35,7 @@ describe('LoginComponent', () => {
     show: jasmine.createSpy('error')
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -46,11 +46,8 @@ describe('LoginComponent', () => {
         { provide: ErrorService, useValue: mockErrorService }
       ],
       declarations: [ LoginComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     success = true;
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

@@ -73,7 +73,7 @@ describe('ConfirmComponent', () => {
   const mockMdDialogRef = {
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot()
@@ -82,11 +82,7 @@ describe('ConfirmComponent', () => {
         { provide: MdDialogRef, useValue: mockMdDialogRef }
       ],
       declarations: [ ConfirmComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(ConfirmComponent);
     component = fixture.componentInstance;
   });

@@ -43,7 +43,7 @@ describe('ProgressComponent', () => {
     })
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -54,10 +54,8 @@ describe('ProgressComponent', () => {
         { provide: AuthService, useValue: mockAuthService },
       ],
       declarations: [ProgressComponent]
-    }).compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
 
     fitTest = [{

@@ -21,7 +21,7 @@ describe('AboutComponent', () => {
     })
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -31,11 +31,8 @@ describe('AboutComponent', () => {
         provide: AuthService, useValue: mockAuthService
       }],
       declarations: [ AboutComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(AboutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

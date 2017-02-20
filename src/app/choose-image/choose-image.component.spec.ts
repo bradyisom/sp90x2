@@ -135,7 +135,7 @@ describe('ChooseImageComponent', () => {
       component.onSearchType(component.query);
       expect(mockImageService.search).not.toHaveBeenCalled();
       tick(300);
-      expect(mockImageService.search).toHaveBeenCalledWith('superman', 9, 1);
+      expect(mockImageService.search).toHaveBeenCalledWith('superman', 6, 1);
       expect(component.imageResults.value).toEqual({
         totalHits: 1,
         hits: [{
@@ -149,7 +149,7 @@ describe('ChooseImageComponent', () => {
       component.query = 'superman';
       component.onSearchType(component.query);
       tick(300);
-      expect(mockImageService.search).toHaveBeenCalledWith('superman', 9, 1);
+      expect(mockImageService.search).toHaveBeenCalledWith('superman', 6, 1);
       expect(component.page).toBe(1);
     }));
 
@@ -175,7 +175,7 @@ describe('ChooseImageComponent', () => {
       component.page = 3;
       component.prevPage();
       expect(component.page).toBe(2);
-      expect(mockImageService.search).toHaveBeenCalledWith('supergirl', 9, 2);
+      expect(mockImageService.search).toHaveBeenCalledWith('supergirl', 6, 2);
     });
 
   });
@@ -191,7 +191,7 @@ describe('ChooseImageComponent', () => {
       component.page = 3;
       component.nextPage();
       expect(component.page).toBe(4);
-      expect(mockImageService.search).toHaveBeenCalledWith('supergirl', 9, 4);
+      expect(mockImageService.search).toHaveBeenCalledWith('supergirl', 6, 4);
     });
 
   });

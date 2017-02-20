@@ -33,7 +33,7 @@ describe('RegisterComponent', () => {
     show: jasmine.createSpy('show')
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -47,11 +47,8 @@ describe('RegisterComponent', () => {
         { provide: ErrorService, useValue: mockErrorService },
       ],
       declarations: [ RegisterComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     success = true;
 
     mockErrorService.show.calls.reset();

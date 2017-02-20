@@ -1,7 +1,7 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, fakeAsync, tick, inject } from '@angular/core/testing';
-import { AngularFire } from 'angularfire2';
+import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleService } from './schedule.service';
 
@@ -110,6 +110,28 @@ describe('ScheduleService', () => {
     }
   };
 
+  const deleteFileSpy = jasmine.createSpy('delete', () => {
+    return Promise.resolve({});
+  }).and.callThrough();
+
+  const storageChildSpy = jasmine.createSpy('storage ref', () => {
+    return {
+      delete: deleteFileSpy
+    };
+  }).and.callThrough();
+
+  const mockFirebase = {
+    storage: () => {
+      return {
+        ref: () => {
+          return {
+            child: storageChildSpy
+          };
+        }
+      };
+    }
+  };
+
   beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
@@ -121,6 +143,8 @@ describe('ScheduleService', () => {
     updateEntrySpy.calls.reset();
     removeScheduleSpy.calls.reset();
     updateScheduleSpy.calls.reset();
+    storageChildSpy.calls.reset();
+    deleteFileSpy.calls.reset();
 
     schedule = {
       programTitle: 'My Schedule',
@@ -134,6 +158,7 @@ describe('ScheduleService', () => {
     TestBed.configureTestingModule({
       providers: [ScheduleService,
         { provide: AngularFire, useValue: mockAngularFire },
+        { provide: FirebaseApp, useValue: mockFirebase },
       ]
     });
   });
@@ -254,8 +279,28 @@ describe('ScheduleService', () => {
         displayName: 'John Doe'
       });
     }));
+
+    it('should delete the schedule image', fakeAsync(() => {
+      service.delete('U1', 'S1');
+      tick();
+      expect(storageChildSpy).toHaveBeenCalledWith('user/U1/S1/thumbnail.png');
+      expect(deleteFileSpy).toHaveBeenCalled();
+    }));
   });
 
+  describe('update', () => {
+
+    it('should update the schedule', () => {
+      service.update('U1', 'S1', {
+        imageUrl: 'assets/logo-noback.png'
+      });
+      expect(mockAngularFire.database.object).toHaveBeenCalledWith('/schedules/U1/S1');
+      expect(updateScheduleSpy).toHaveBeenCalledWith({
+        imageUrl: 'assets/logo-noback.png'
+      });
+    });
+
+  });
 
   describe('updateEntry', () => {
 

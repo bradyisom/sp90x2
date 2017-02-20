@@ -36,7 +36,7 @@ describe('Component: FitTest', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -47,11 +47,8 @@ describe('Component: FitTest', () => {
         { provide: AngularFire, useValue: mockAngularFire }
       ],
       declarations: [ FitTestComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     fitTest = [{
       $key: 'FAITH',
       order: 1,

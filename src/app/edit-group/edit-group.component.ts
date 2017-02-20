@@ -97,6 +97,9 @@ export class EditGroupComponent implements OnInit, OnDestroy {
     this.schedule = _.find(this.schedulesSnapshot, (s) => {
       return s.$key === scheduleKey;
     });
+    if (this.schedule && !this.imageUrl.value.startsWith('data:image/png;base64,')) {
+      this.imageUrl.next(this.schedule.imageUrl);
+    }
   }
 
   chooseImage() {

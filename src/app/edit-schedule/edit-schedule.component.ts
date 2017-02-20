@@ -3,13 +3,16 @@ import { AuthService } from '../auth.service';
 import { FirebaseApp, AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/reduce';
 import 'rxjs/add/operator/publishReplay';
 import { Router } from '@angular/router';
+import { MdDialog, MdSnackBar } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ScheduleService, Schedule } from '../models/schedule.service';
+import { ChooseImageComponent } from '../choose-image/choose-image.component';
 
 import * as moment from 'moment';
 import * as _ from 'lodash';
@@ -34,15 +37,21 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
   programsSubscription: Subscription;
   public currentProgram: any = null;
 
-  private imageUrl: string;
+  public imageUrl: BehaviorSubject<string> = new BehaviorSubject<string>('');
+
+  private storageRef: any;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private af: AngularFire,
     private schedules: ScheduleService,
+    private snackbar: MdSnackBar,
+    private dialog: MdDialog,
     @Inject(FirebaseApp) private firebase: any,
-  ) { }
+  ) {
+    this.storageRef = this.firebase.storage().ref();
+  }
 
   ngOnInit() {
     this.programControl = new FormControl('');
@@ -80,8 +89,8 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
       this.userId = user.uid;
     });
 
-    const storageRef = this.firebase.storage().ref().child(`app-images/nature${Math.floor(Math.random() * 9) + 1}.jpg`);
-    storageRef.getDownloadURL().then(url => this.imageUrl = url);
+    const storageRef = this.storageRef.child(`app-images/nature${Math.floor(Math.random() * 9) + 1}.jpg`);
+    storageRef.getDownloadURL().then(url => this.imageUrl.next(url));
 
   }
 
@@ -113,16 +122,31 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     });
   }
 
+  chooseImage() {
+    this.dialog.open(ChooseImageComponent)
+    .afterClosed().first().subscribe((imageUrl) => {
+      if (imageUrl) {
+        this.imageUrl.next(imageUrl);
+      }
+    });
+  }
+
   save() {
     // console.log('save', this.editForm.value);
     if (this.editForm.invalid) {
       return;
     }
 
+    const saveImage = this.imageUrl.value.startsWith('data:image/png;base64,');
+
+    let scheduleId: string;
+    let storageRef: any;
+
+    const snackbarRef = this.snackbar.open('Saving...');
     this.filteredTasks.map((taskList: any[]) => {
       const scheduleTasks = _.filter(taskList, task => task.include);
       this.schedules.create(this.userId, {
-        imageUrl: this.imageUrl,
+        imageUrl: saveImage ? 'about:blank' : this.imageUrl.value,
         program: this.editForm.get('program').value,
         programTitle: this.editForm.get('programTitle').value,
         startDate: moment(this.editForm.value.startDate, 'YYYY-MM-DD').startOf('day').toISOString(),
@@ -130,7 +154,28 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
           result[task.$key] = task.defaultInterval;
           return result;
         }, {})
-      }).then((scheduleId) => {
+      }).then((newId) => {
+        scheduleId = newId;
+        // Save the image to the user's schedule folder
+        storageRef = this.storageRef.child(`user/${this.userId}/${scheduleId}/thumbnail.png`);
+        if (saveImage) {
+          const imageUrl = this.imageUrl.value.substr('data:image/png;base64,'.length);
+          return storageRef.putString(imageUrl, 'base64', {
+            contentType: 'image/png'
+          });
+        }
+      }).then((snapshot) => {
+        if (saveImage) {
+          return this.schedules.update(this.userId, scheduleId, {
+            imageUrl: snapshot.downloadURL
+          });
+        }
+      }).then(() => {
+        snackbarRef.dismiss();
+        this.snackbar.open('Saved Schedule!', undefined, {
+          duration: 2000
+        });
+      }).then(() => {
         this.router.navigate(['/home']);
       });
     }).first().subscribe();

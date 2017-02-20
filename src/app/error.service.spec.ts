@@ -68,7 +68,7 @@ describe('ErrorComponent', () => {
   const mockMdDialogRef = {
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot()
@@ -77,11 +77,7 @@ describe('ErrorComponent', () => {
         { provide: MdDialogRef, useValue: mockMdDialogRef }
       ],
       declarations: [ ErrorComponent ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
+    });
     fixture = TestBed.createComponent(ErrorComponent);
     component = fixture.componentInstance;
   });

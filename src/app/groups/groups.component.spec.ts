@@ -55,7 +55,7 @@ describe('GroupsComponent', () => {
     gridColumnCount: new BehaviorSubject<number>(3)
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
@@ -66,11 +66,8 @@ describe('GroupsComponent', () => {
         { provide: WindowSizeService, useValue: mockWindowSize },
       ],
       declarations: [ GroupsComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     mockGroups.get.calls.reset();
     mockGroups.list.calls.reset();
     mockGroups.listUserGroups.calls.reset();

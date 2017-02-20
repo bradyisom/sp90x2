@@ -92,7 +92,7 @@ export class ChooseImageComponent implements OnInit, OnDestroy {
   }
 
   private search() {
-    this.pageSize = this.columnCount.value * 3;
+    this.pageSize = this.columnCount.value * 2;
     this.imageSearch.search(this.query, this.pageSize, this.page)
     .first().subscribe((results) => {
       this.firstIndex = this.pageSize * (this.page - 1) + 1;

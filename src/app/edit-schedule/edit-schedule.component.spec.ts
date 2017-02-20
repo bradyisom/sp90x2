@@ -4,7 +4,7 @@ import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdDialog, MdSnackBar } from '@angular/material';
 import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
@@ -24,6 +24,9 @@ describe('Component: EditSchedule', () => {
   let programTasks: any[];
   let subTasks: any;
 
+  const testImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=';
+  const testImageData = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQYV2NgAAIAAAUAAarVyFEAAAAASUVORK5CYII=';
+
   const mockAuthService = {
     user: Observable.of({
       uid: 'U1'
@@ -33,6 +36,9 @@ describe('Component: EditSchedule', () => {
   const mockSchedule = {
     create: jasmine.createSpy('create', () => {
       return Promise.resolve('SCHED1');
+    }).and.callThrough(),
+    update: jasmine.createSpy('update', () => {
+      return Promise.resolve({});
     }).and.callThrough(),
   };
 
@@ -73,11 +79,18 @@ describe('Component: EditSchedule', () => {
     }
   };
 
+  const putStringSpy = jasmine.createSpy('putString', () => {
+    return Promise.resolve({
+      downloadURL: 'assets/logo-noback.png'
+    });
+  }).and.callThrough();
+
   const storageChildSpy = jasmine.createSpy('storage ref', () => {
     return {
       getDownloadURL: () => {
         return Promise.resolve('assets/logo-noback.png');
-      }
+      },
+      putString: putStringSpy
     };
   }).and.callThrough();
 
@@ -99,7 +112,27 @@ describe('Component: EditSchedule', () => {
     navigate: jasmine.createSpy('navigate')
   };
 
-  beforeEach(async(() => {
+  let chosenImage: string;
+  const mockDialog = {
+    open: jasmine.createSpy('open', () => {
+      return {
+        afterClosed: () => {
+          return Observable.of(chosenImage);
+        }
+      };
+    }).and.callThrough(),
+  };
+
+  const snackBarDismissSpy = jasmine.createSpy('dismiss', () => {}).and.callThrough();
+  const mockSnackbar = {
+    open: jasmine.createSpy('open', () => {
+      return {
+        dismiss: snackBarDismissSpy
+      };
+    }).and.callThrough(),
+  };
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -113,17 +146,23 @@ describe('Component: EditSchedule', () => {
         { provide: Router, useValue: mockRouter },
         { provide: ScheduleService, useValue: mockSchedule },
         { provide: FirebaseApp, useValue: mockFirebase },
+        { provide: MdDialog, useValue: mockDialog },
+        { provide: MdSnackBar, useValue: mockSnackbar },
       ],
       declarations: [ EditScheduleComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
     mockSchedule.create.calls.reset();
+    mockSchedule.update.calls.reset();
     storageChildSpy.calls.reset();
+    putStringSpy.calls.reset();
+    mockSnackbar.open.calls.reset();
+    snackBarDismissSpy.calls.reset();
+    mockDialog.open.calls.reset();
+
+    chosenImage = null;
 
     programs = [{
       $key: 'CLASSIC-M',
@@ -270,6 +309,23 @@ describe('Component: EditSchedule', () => {
 
   });
 
+  describe('chooseImage', () => {
+
+    it('should choose a new image', () => {
+      chosenImage = testImage;
+      component.chooseImage();
+      expect(mockDialog.open).toHaveBeenCalled();
+      expect(component.imageUrl.value).toBe(testImage);
+    });
+
+    it('should not set the image on cancel', () => {
+      component.chooseImage();
+      expect(mockDialog.open).toHaveBeenCalled();
+      expect(component.imageUrl.value).toBe('');
+    });
+
+  });
+
   describe('save', () => {
     beforeEach(() => {
       component.programControl.setValue('PROG1');
@@ -302,7 +358,7 @@ describe('Component: EditSchedule', () => {
         program: 'PROG1',
         programTitle: 'My Schedule',
         startDate: '2016-12-27T07:00:00.000Z',
-        imageUrl: undefined,
+        imageUrl: '',
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',
@@ -321,7 +377,7 @@ describe('Component: EditSchedule', () => {
         program: 'PROG1',
         programTitle: 'My Schedule',
         startDate: '2016-12-27T07:00:00.000Z',
-        imageUrl: undefined,
+        imageUrl: '',
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',
@@ -333,6 +389,36 @@ describe('Component: EditSchedule', () => {
       component.save();
       tick();
       expect(mockRouter.navigate).toHaveBeenCalledWith(['/home']);
+    }));
+
+    it('should show saving status', fakeAsync(() => {
+      component.save();
+      expect(mockSnackbar.open).toHaveBeenCalledWith('Saving...');
+      tick();
+      expect(mockSnackbar.open).toHaveBeenCalledWith('Saved Schedule!', undefined, {duration: 2000});
+    }));
+
+    it('should save a new image', fakeAsync(() => {
+      component.imageUrl.next(testImage);
+      component.save();
+      expect(mockSchedule.create).toHaveBeenCalledWith('U1', {
+        program: 'PROG1',
+        programTitle: 'My Schedule',
+        startDate: '2016-12-27T07:00:00.000Z',
+        imageUrl: 'about:blank',
+        tasks: {
+          BOFM90: 'daily',
+          FASTING: 'monthly',
+          GC: 'Mo,Th'
+        }
+      });
+      tick();
+      expect(putStringSpy).toHaveBeenCalledWith(testImageData, 'base64', {
+        contentType: 'image/png'
+      });
+      expect(mockSchedule.update).toHaveBeenCalledWith('U1', 'SCHED1', {
+        imageUrl: 'assets/logo-noback.png',
+      });
     }));
 
   });

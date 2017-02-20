@@ -83,6 +83,7 @@ describe('EditGroupComponent', () => {
         endDate: '2017-03-27T05:59:59.999Z',
         points: 0,
         pointsPossible: 195,
+        imageUrl: 'assets/logo-noback.png',
         tasks: {
           BOFM90: 'daily',
           FASTING: 'monthly',
@@ -249,6 +250,23 @@ describe('EditGroupComponent', () => {
       expect(storageChildSpy).not.toHaveBeenCalled();
     });
 
+    describe('updateSchedule', () => {
+
+      it('should update the image to the schedule image', () => {
+        component.imageUrl.next('');
+        component.editForm.get('schedule').setValue('SCHED1');
+        fixture.detectChanges();
+        expect(component.imageUrl.value).toBe('assets/logo-noback.png');
+      });
+
+      it('should not update the image to the schedule image if already picked', () => {
+        component.imageUrl.next(testImage);
+        component.editForm.get('schedule').setValue('SCHED1');
+        fixture.detectChanges();
+        expect(component.imageUrl.value).toBe(testImage);
+      });
+
+    });
 
     describe('save', () => {
 
@@ -465,7 +483,7 @@ describe('EditGroupComponent', () => {
           description: 'Another group',
           public: true,
           owner: 'U1',
-          imageUrl: '', // 'assets/logo-noback.png',
+          imageUrl: 'assets/logo-noback.png',
           schedule: 'SCHED1',
           startDate: '2016-12-27T07:00:00.000Z',
           endDate: '2017-03-27T05:59:59.999Z',

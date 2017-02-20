@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
+import { Injectable, Inject } from '@angular/core';
+import { AngularFire, FirebaseListObservable, FirebaseApp } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 
 import * as _ from 'lodash';
@@ -23,7 +23,8 @@ export class ScheduleService {
   private tasks: any[];
 
   constructor(
-    private af: AngularFire
+    private af: AngularFire,
+    @Inject(FirebaseApp) private firebase: any,
   ) {
     this.af.database.object('/tasks').subscribe((tasks) => this.tasks = tasks);
   }
@@ -100,6 +101,10 @@ export class ScheduleService {
       });
   }
 
+  update(userId: string, scheduleId: string, data: any) {
+    return this.af.database.object(`/schedules/${userId}/${scheduleId}`).update(data);
+  }
+
   delete(userId: string, scheduleId: string) {
     const schedule = this.af.database.object(`/schedules/${userId}/${scheduleId}`);
     return schedule.first().toPromise().then((s) => {
@@ -114,6 +119,9 @@ export class ScheduleService {
       } else {
         return Promise.resolve();
       }
+    }).then(() => {
+      const storageRef = this.firebase.storage().ref().child(`user/${userId}/${scheduleId}/thumbnail.png`);
+      return storageRef.delete().catch(/* istanbul ignore next */(err) => {});
     }).then(() => {
       return this.af.database.object(`/entries/${scheduleId}`).remove();
     }).then(() => {

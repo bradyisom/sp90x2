@@ -104,7 +104,7 @@ describe('GroupComponent', () => {
     }).and.callThrough(),
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
@@ -117,11 +117,8 @@ describe('GroupComponent', () => {
         { provide: ConfirmService, useValue: mockConfirm },
       ],
       declarations: [ GroupComponent, EmojifyPipe ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     mockGroups.get.calls.reset();
     mockGroups.listGroupMembers.calls.reset();
     mockGroups.join.calls.reset();

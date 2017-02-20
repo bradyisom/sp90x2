@@ -56,7 +56,7 @@ describe('Component: TrackComponent', () => {
     }).and.callThrough(),
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -70,11 +70,8 @@ describe('Component: TrackComponent', () => {
         { provide: ScheduleService, useValue: mockSchedule },
       ],
       declarations: [ TrackComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     mockAngularFire.database.list.calls.reset();
     mockAngularFire.database.object.calls.reset();
     updateScheduleSpy.calls.reset();

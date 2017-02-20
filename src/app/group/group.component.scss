@@ -41,6 +41,12 @@ md-tab-group {
     margin-top: 16px;
   }
 
+  [md-card-avatar] {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+
   .delete-message {
     position: absolute;
     top: 10px;

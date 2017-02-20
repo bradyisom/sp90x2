@@ -58,7 +58,7 @@ describe('Component: Home', () => {
     mockConfirm.show.calls.reset();
   });
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         MaterialModule.forRoot(),
@@ -70,11 +70,8 @@ describe('Component: Home', () => {
         { provide: WindowSizeService, useValue: mockWindowSize },
       ],
       declarations: [ HomeComponent ]
-    })
-    .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
     route = TestBed.get(ActivatedRoute);
     route.snapshot.data = {
       user: {

@@ -1,26 +1,4 @@
 <form [formGroup]="editForm">
-  <!--<div class="form-group instructions">
-    <label>Instructions:</label>
-    <ul>
-      <li>Choose a program from the list.</li>
-      <li>Name it and choose a day to start.</li>
-      <li>Modify the program to fit your needs by unchecking the tasks you will not do.</li>
-    </ul>
-  </div>-->
-  <div class="form-group">
-    <label>Program:</label>
-    <md-radio-group formControlName="program">
-      <md-radio-button *ngFor="let program of (programs | async)"
-        [value]="program.$key">
-        {{ program.title }}
-      </md-radio-button>
-    </md-radio-group>
-    <!--<md-select formControlName="program">
-      <md-option *ngFor="let program of (programs | async)" [value]="program.$key">
-        {{ program.title }}
-      </md-option>
-    </md-select>-->
-  </div>
   <div class="form-group">
     <label>Title:</label>
     <md-input-container>
@@ -32,6 +10,21 @@
     <md-input-container>
       <input mdInput type="date" formControlName="startDate">
     </md-input-container>
+  </div>
+  <div class="form-group schedule-image">
+    <label>Picture:</label>
+    <img *ngIf="(imageUrl | async)" [src]="(imageUrl | async)">
+    <button md-raised-button color="primary"
+      (click)="chooseImage()">Change</button>
+  </div>
+  <div class="form-group">
+    <label>Program:</label>
+    <md-radio-group formControlName="program">
+      <md-radio-button *ngFor="let program of (programs | async)"
+        [value]="program.$key">
+        {{ program.title }}
+      </md-radio-button>
+    </md-radio-group>
   </div>
   <fieldset class="form-group" *ngIf="(filteredTasks | async)?.length">
     <legend>Program Details</legend>
