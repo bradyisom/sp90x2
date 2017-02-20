@@ -22,3 +22,9 @@ img {
     border-radius: 50%;
     margin: 16px 0;
 }
+
+@media (max-width: 960px) and (orientation: portrait) {
+  md-input-container {
+    min-width: 250px;
+  }
+}

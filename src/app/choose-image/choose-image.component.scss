@@ -72,7 +72,6 @@ md-dialog-actions,
   justify-content: flex-end;
   align-items: center;
 }
-
 md-dialog-actions button,
 .pager > * {
   margin-left: 6px;
@@ -80,5 +79,14 @@ md-dialog-actions button,
 
 .pager {
   margin: 6px 0;
+}
+
+@media (max-width: 960px) and (orientation: portrait) {
+  .pixabay-logo {
+    margin: 0 0 20px;
+  }
+  md-grid-list {
+    width: 65vw;
+  }
 }
 

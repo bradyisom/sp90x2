@@ -1,4 +1,4 @@
-import { Inject, Component, OnInit, OnDestroy } from '@angular/core';
+import { Inject, Component, OnInit, OnDestroy, NgZone } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FirebaseApp, AngularFire, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
@@ -48,6 +48,7 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     private schedules: ScheduleService,
     private snackbar: MdSnackBar,
     private dialog: MdDialog,
+    private zone: NgZone,
     @Inject(FirebaseApp) private firebase: any,
   ) {
     this.storageRef = this.firebase.storage().ref();
@@ -90,7 +91,9 @@ export class EditScheduleComponent implements OnInit, OnDestroy {
     });
 
     const storageRef = this.storageRef.child(`app-images/nature${Math.floor(Math.random() * 9) + 1}.jpg`);
-    storageRef.getDownloadURL().then(url => this.imageUrl.next(url));
+    storageRef.getDownloadURL().then(url => {
+      this.zone.run(() => this.imageUrl.next(url));
+    });
 
   }
 

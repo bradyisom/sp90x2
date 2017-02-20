@@ -44,11 +44,11 @@ fieldset {
 }
 
 .task-title {
-  white-space: normal;
+  white-space: normal !important;
 }
 
 .task-description {
-    white-space: normal;
+    white-space: normal !important;
     opacity: 0.3;
 }
 

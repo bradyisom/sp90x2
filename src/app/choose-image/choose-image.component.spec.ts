@@ -84,8 +84,8 @@ describe('ChooseImageComponent', () => {
     expect(component.cropperSettings.height).toBe(200);
     expect(component.cropperSettings.croppedWidth).toBe(200);
     expect(component.cropperSettings.croppedHeight).toBe(200);
-    expect(component.cropperSettings.canvasWidth).toBe(300);
-    expect(component.cropperSettings.canvasHeight).toBe(300);
+    expect(component.cropperSettings.canvasWidth).toBe(200);
+    expect(component.cropperSettings.canvasHeight).toBe(200);
     expect(component.cropperSettings.noFileInput).toBe(true);
   });
 

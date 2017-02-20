@@ -6,3 +6,9 @@
 .welcome-back {
   margin-bottom: 8px;
 }
+
+@media (max-width: 960px) and (orientation: portrait) {
+  .slideshow-ct {
+    display: none;
+  }
+}

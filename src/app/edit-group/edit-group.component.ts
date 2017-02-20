@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MdSnackBar, MdDialog } from '@angular/material';
@@ -45,6 +45,7 @@ export class EditGroupComponent implements OnInit, OnDestroy {
     private confirm: ConfirmService,
     private snackbar: MdSnackBar,
     private dialog: MdDialog,
+    private zone: NgZone,
     @Inject(FirebaseApp) private firebase: any,
   ) {
     this.storageRef = this.firebase.storage().ref();
@@ -82,7 +83,11 @@ export class EditGroupComponent implements OnInit, OnDestroy {
       });
     } else {
       const storageRef = this.storageRef.child(`app-images/abstract${Math.floor(Math.random() * 10) + 1}.jpg`);
-      storageRef.getDownloadURL().then(url => this.imageUrl.next(url));
+      storageRef.getDownloadURL().then(url => {
+        this.zone.run(() => {
+          this.imageUrl.next(url);
+        });
+      });
     }
   }
 

@@ -53,8 +53,8 @@ export class ChooseImageComponent implements OnInit, OnDestroy {
     this.cropperSettings.height = 200;
     this.cropperSettings.croppedWidth = 200;
     this.cropperSettings.croppedHeight = 200;
-    this.cropperSettings.canvasWidth = 300;
-    this.cropperSettings.canvasHeight = 300;
+    this.cropperSettings.canvasWidth = 200;
+    this.cropperSettings.canvasHeight = 200;
     this.cropperSettings.noFileInput = true;
 
     this.data = {};
@@ -92,7 +92,7 @@ export class ChooseImageComponent implements OnInit, OnDestroy {
   }
 
   private search() {
-    this.pageSize = this.columnCount.value * 2;
+    this.pageSize = Math.max(4, this.columnCount.value * 2);
     this.imageSearch.search(this.query, this.pageSize, this.page)
     .first().subscribe((results) => {
       this.firstIndex = this.pageSize * (this.page - 1) + 1;

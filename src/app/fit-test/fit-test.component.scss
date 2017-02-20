@@ -42,3 +42,16 @@ md-tab-group {
 md-radio-button {
     margin-left: 16px;
 }
+
+.small-title {
+  display: none;
+}
+
+@media (max-width: 960px) and (orientation: portrait) {
+  .title {
+    display: none;
+  }
+  .small-title {
+    display: block;
+  }
+}
