@@ -153,7 +153,9 @@ export class GroupComponent implements OnInit {
       'warn'
     ).afterClosed().first().subscribe(result => {
       if (result === 'confirm') {
-        this.groups.deleteMessage(this.groupId, message.$key);
+        this.groups.deleteMessage(this.groupId, message.$key).then(() => {
+          this.loadMessages();
+        });
       }
     });
   }

@@ -100,7 +100,7 @@ describe('GroupComponent', () => {
       return Observable.of({result: 'NEWMESSAGE'});
     }).and.callThrough(),
     deleteMessage: jasmine.createSpy('deleteMessage', () => {
-      return Observable.of({});
+      return Promise.resolve({});
     }).and.callThrough(),
   };
 
