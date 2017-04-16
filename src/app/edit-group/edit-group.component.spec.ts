@@ -2,7 +2,8 @@
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement, Component } from '@angular/core';
-import { MaterialModule, MdSnackBar, MdDialog } from '@angular/material';
+import { MdSnackBar, MdDialog } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FirebaseApp } from 'angularfire2';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -167,7 +168,7 @@ describe('EditGroupComponent', () => {
             component: DummyComponent
           }]
         }]),
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         FormsModule,
         ReactiveFormsModule,
       ],

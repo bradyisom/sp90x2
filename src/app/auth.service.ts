@@ -85,7 +85,7 @@ export class AuthService {
           });
 
           // Delete owned groups
-          promises.push(new Promise((groupResolve, groupReject) => {
+          promises.push(new Promise<void>((groupResolve, groupReject) => {
             this.groups.list({
               query: {
                 orderByChild: 'owner',

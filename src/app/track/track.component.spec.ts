@@ -3,7 +3,7 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { ScheduleService } from '../models/schedule.service';
@@ -59,7 +59,7 @@ describe('Component: TrackComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([{
           path: 'track/:scheduleId/:date',
           component: TrackComponent

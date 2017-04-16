@@ -4,7 +4,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
-import { MaterialModule, MdDialogRef } from '@angular/material';
+import { MdDialogRef } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -46,7 +47,7 @@ describe('ChooseImageComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
-        MaterialModule.forRoot(),
+        AppMaterialModule,
       ],
       declarations: [
         ChooseImageComponent,
@@ -96,7 +97,7 @@ describe('ChooseImageComponent', () => {
   });
 
   it('should initialize with an existing image', () => {
-    spyOn(component.cropper, 'setImage').and.callThrough();
+    spyOn(component.cropper, 'setImage').and.callFake(() => {});
     component.imageUrl = testImage;
     fixture.detectChanges();
     expect(component.cropper.setImage).toHaveBeenCalled();
@@ -212,7 +213,7 @@ describe('ChooseImageComponent', () => {
         }).and.callThrough(),
       };
       spyOn(component.cropper, 'setImage').and.callThrough();
-      spyOn(window, 'FileReader').and.returnValue(fileReader);
+      spyOn(<any>window, 'FileReader').and.returnValue(fileReader);
     });
 
     it('should load a file', () => {

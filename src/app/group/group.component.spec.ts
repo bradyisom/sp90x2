@@ -2,7 +2,7 @@
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs/Observable';
@@ -108,7 +108,7 @@ describe('GroupComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        MaterialModule.forRoot(),
+        AppMaterialModule,
       ],
       providers: [
         { provide: GroupService, useValue: mockGroups },

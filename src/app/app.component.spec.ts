@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { Router, NavigationEnd } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule, MdDialog } from '@angular/material';
+import { MdDialog } from '@angular/material';
+import { AppMaterialModule } from './app.module';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
 import { ConfirmService } from './confirm.service';
@@ -47,7 +48,7 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([{
           path: '',
           component: ParentComponent,

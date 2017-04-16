@@ -21,7 +21,7 @@ export class FitTestComponent implements OnInit, OnDestroy {
 
   private userId: string;
   private scheduleId: string;
-  private date = moment().startOf('day').format('YYYY-MM-DD');
+  public date = moment().startOf('day').format('YYYY-MM-DD');
 
   public answers: any;
   public selectedTab = 0;

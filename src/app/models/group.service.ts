@@ -76,7 +76,7 @@ export class GroupService {
           return users.remove();
         }).then(() => {
           groupRef = this.af.database.object(`/groups/${groupId}`);
-          return groupRef.first().toPromise();
+          return (<Promise<Group>>groupRef.first().toPromise());
         }).then((group: Group) => {
           ownerId = group.owner;
           if (group.schedule) {

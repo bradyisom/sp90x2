@@ -14,7 +14,8 @@
       "index": "index.html",
       "main": "main.ts",
       "test": "test.ts",
-      "tsconfig": "tsconfig.json",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "mobile": false,
       "styles": [
@@ -25,7 +26,8 @@
         "../node_modules/emojify.js/dist/css/data-uri/emojify-emoticons.min.css"
       ],
       "scripts": [
-        "../node_modules/emojify.js/dist/js/emojify.min.js"
+        "../node_modules/emojify.js/dist/js/emojify.min.js",
+        "../node_modules/chart.js/dist/Chart.min.js"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

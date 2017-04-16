@@ -4,7 +4,8 @@ import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule, MdDialog, MdSnackBar } from '@angular/material';
+import { MdDialog, MdSnackBar } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { AngularFire, FirebaseApp } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
@@ -135,7 +136,7 @@ describe('Component: EditSchedule', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([]),
         FormsModule,
         ReactiveFormsModule

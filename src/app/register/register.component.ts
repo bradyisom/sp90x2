@@ -4,7 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ErrorService } from '../error.service';
 
-const md5 = require('md5');
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-register',
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
 
   public getGravatarUrl() {
     const email = this.editForm.get('email').value || '';
-    return `https://www.gravatar.com/avatar/${md5(email)}?s=80&d=retro`;
+    return `https://www.gravatar.com/avatar/${Md5.hashStr(email)}?s=80&d=retro`;
   }
 
   public create() {

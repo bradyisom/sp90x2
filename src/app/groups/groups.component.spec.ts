@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { GroupService, Group } from '../models/group.service';
@@ -59,7 +59,7 @@ describe('GroupsComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([]),
-        MaterialModule.forRoot(),
+        AppMaterialModule,
       ],
       providers: [
         { provide: GroupService, useValue: mockGroups },
@@ -130,11 +130,11 @@ describe('GroupsComponent', () => {
   it('should list other groups', () => {
     expect(mockGroups.list).toHaveBeenCalled();
     component.groups.first().subscribe((list) => {
-      expect(list).toEqual([{
+      expect(list).toEqual([(<any>{
         $key: 'G3',
         name: 'Group Three',
         imageUrl: 'assets/logo-noback.png',
-      }]);
+      })]);
     });
   });
 

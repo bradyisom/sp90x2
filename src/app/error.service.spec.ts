@@ -1,7 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
-import { MaterialModule, MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { AppMaterialModule } from './app.module';
 import { ErrorService, ErrorComponent } from './error.service';
 
 describe('ErrorService', () => {
@@ -19,7 +20,7 @@ describe('ErrorService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot()
+        AppMaterialModule
       ],
       providers: [
         ErrorService,
@@ -71,7 +72,7 @@ describe('ErrorComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot()
+        AppMaterialModule
       ],
       providers: [
         { provide: MdDialogRef, useValue: mockMdDialogRef }

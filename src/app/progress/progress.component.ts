@@ -7,8 +7,6 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/observable/merge';
 
-const chartJs = require('chart.js');
-
 import * as moment from 'moment';
 import * as _ from 'lodash';
 

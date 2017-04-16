@@ -1,9 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { MaterialModule } from '@angular/material';
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { ImageCropperModule } from 'ng2-img-cropper';
@@ -42,9 +42,58 @@ export const firebaseAuthConfig = {
   method: AuthMethods.Password
 };
 
+/* istanbul ignore next */
 export function _window(): any {
   return window;
 }
+
+import {
+  MdCardModule,
+  MdSidenavModule,
+  MdButtonModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdGridListModule,
+  MdTooltipModule,
+  MdRadioModule,
+  MdCheckboxModule,
+  MdTabsModule,
+  MdMenuModule,
+  MdProgressSpinnerModule,
+  MdDialogModule,
+  MdToolbarModule,
+  MdSnackBarModule,
+} from '@angular/material';
+
+const materialImports = [
+  MdCardModule,
+  MdSidenavModule,
+  MdButtonModule,
+  MdIconModule,
+  MdInputModule,
+  MdListModule,
+  MdGridListModule,
+  MdTooltipModule,
+  MdRadioModule,
+  MdCheckboxModule,
+  MdTabsModule,
+  MdMenuModule,
+  MdProgressSpinnerModule,
+  MdDialogModule,
+  MdToolbarModule,
+  MdSnackBarModule,
+];
+
+@NgModule({
+  imports: [
+    ...materialImports
+  ],
+  exports: [
+    ...materialImports
+  ]
+})
+export class AppMaterialModule {}
 
 @NgModule({
   declarations: [
@@ -67,10 +116,11 @@ export function _window(): any {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    AppMaterialModule,
     ChartsModule,
     ImageCropperModule,
     AngularFireModule.initializeApp(environment.firebaseConfig, firebaseAuthConfig),
@@ -238,4 +288,5 @@ export function _window(): any {
     ChooseImageComponent,
   ]
 })
+/* istanbul ignore next */
 export class AppModule { }

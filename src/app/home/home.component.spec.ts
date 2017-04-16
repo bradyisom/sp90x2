@@ -3,7 +3,8 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule, MdDialog } from '@angular/material';
+import { MdDialog } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HomeComponent } from './home.component';
@@ -61,7 +62,7 @@ describe('Component: Home', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [

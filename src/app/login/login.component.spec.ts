@@ -3,7 +3,7 @@ import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../auth.service';
 import { ErrorService } from '../error.service';
@@ -38,7 +38,7 @@ describe('LoginComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         FormsModule
       ],
       providers: [

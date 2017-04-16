@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { AuthService } from '../auth.service';
@@ -24,7 +24,7 @@ describe('AboutComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [{

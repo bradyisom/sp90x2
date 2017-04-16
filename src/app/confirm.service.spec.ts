@@ -1,7 +1,8 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject, ComponentFixture } from '@angular/core/testing';
-import { MaterialModule, MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
+import { AppMaterialModule } from './app.module';
 import { ConfirmService, ConfirmComponent } from './confirm.service';
 
 describe('ConfirmService', () => {
@@ -18,7 +19,7 @@ describe('ConfirmService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot()
+        AppMaterialModule
       ],
       providers: [
         ConfirmService,
@@ -76,7 +77,7 @@ describe('ConfirmComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot()
+        AppMaterialModule
       ],
       providers: [
         { provide: MdDialogRef, useValue: mockMdDialogRef }

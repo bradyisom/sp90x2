@@ -4,7 +4,7 @@ import { TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { AngularFire } from 'angularfire2';
 import { Observable } from 'rxjs/Observable';
 import { FitTestComponent } from './fit-test.component';
@@ -39,7 +39,7 @@ describe('Component: FitTest', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         RouterTestingModule.withRoutes([]),
         FormsModule
       ],

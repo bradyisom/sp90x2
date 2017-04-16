@@ -2,7 +2,7 @@
 import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app.module';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { Observable } from 'rxjs/Observable';
 import { AngularFire } from 'angularfire2';
@@ -46,7 +46,7 @@ describe('ProgressComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
-        MaterialModule.forRoot(),
+        AppMaterialModule,
         ChartsModule
       ],
       providers: [
