@@ -25,7 +25,8 @@ before_install:
 install:
 - npm install -g @angular/cli
 - npm install -g firebase-tools
-- npm install
+- npm install -g yarn
+- yarn
 
 before_script:
 - cp src/environments/environment.prod.ts src/environments/environment.ts
